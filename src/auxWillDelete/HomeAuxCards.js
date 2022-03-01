@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
-import JobOfferService from "../../services/JobOfferService";
+import JobOfferService from "../services/JobOfferService";
 import DataViewCss from "../../assets/css/DataView.css";
 
 import 'primeicons/primeicons.css';
-import 'primereact/resources/themes/luna-blue/theme.css';
-import 'primereact/resources/themes/saga-green/theme.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.css';
 import 'primeflex/primeflex.css';
 
 class Home extends Component {
@@ -66,12 +66,16 @@ class Home extends Component {
             <div className="col-12">
                 <div className="product-list-item">                    
                     <div className="product-list-detail">
-                        <div className="product-name">Title: {data.title}</div>
-                        <div className="product-description">Description: {data.description}</div>
-                        <div className="product-description">Area: {data.area}</div>
-                        <div className="product-description">Experience Required: {data.experience}</div>
+                        <div className="product-name">{data.title}</div>
+                        <div className="product-description">{data.description}</div>
+                        <div className="product-description">{data.area}</div>
+                        <div className="product-description">{data.experience}</div>
+                        <Rating value={data.rating} readOnly cancel={false}></Rating>
+                        <i className="pi pi-tag product-category-icon"></i><span className="product-category">{data.category}</span>
                     </div>
-                    <div className="product-list-action">                   
+                    <div className="product-list-action"> 
+                        <div className="product-description">{data.modality}</div>
+                        <div className="product-description">{data.position}</div>                       
                         <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>                        
                     </div>
                 </div>
@@ -84,19 +88,22 @@ class Home extends Component {
             <div className="col-12 md:col-4">
                 <div className="product-grid-item card">
                     <div className="product-grid-item-top">
-                        <div className="product-description">{data.category}</div>
-                        <div className="product-description">{data.modality}</div>
-                        <div className="product-description">{data.position}</div>
+                        <div>
+                            <i className="pi pi-tag product-category-icon"></i>
+                            <span className="product-category">{data.category}</span>
+                        </div>                        
                     </div>
                     <div className="product-grid-item-content">                        
-                    <div className="product-name">Title: {data.title}</div>
-                        <div className="product-description">Description: {data.description}</div>
-                        <div className="product-description">Area: {data.area}</div>
-                        <div className="product-description">Experience Required: {data.experience}</div>                        
+                        <div className="product-name">{data.title}</div>
+                        <div className="product-description">{data.description}</div>
+                        <div className="product-description">{data.area}</div>
+                        <div className="product-description">{data.experience}</div>
+                        <Rating value={data.rating} readOnly cancel={false}></Rating>
                     </div>
                     <div className="product-grid-item-bottom">
-                        <p>Press more information: </p>
-                        <Button icon="pi pi-list" label="More Info" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>
+                        <div className="product-description">{data.modality}</div>
+                        <div className="product-description">{data.position}</div>
+                        <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>
                     </div>
                 </div>
             </div>

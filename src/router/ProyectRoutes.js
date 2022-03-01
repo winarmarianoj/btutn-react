@@ -4,12 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/App.css";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../services/AuthService";
 
 import Header from "../components/fixed/Header";
 import Footer from "../components/fixed/Footer";
 import Login from "../components/pages/Login";
-import Register from "../components/pages/Register";
 import Home from "../components/pages/Home";
 import Profile from "../components/pages/Profile";
 import RegisterPerson from "../components/pages/RegisterPerson";
@@ -38,10 +37,10 @@ export default function ProyectRoutes() {
 
     if (user) {
       setCurrentUser(user);
-      setUtnBoard(user.roles.includes("UTN"));
-      setAdminBoard(user.roles.includes("ADMIN"));
-      setPublisherBoard(user.roles.includes("PUBLISHER"));
-      setApplicantBoard(user.roles.includes("APPLICANT"))
+      setUtnBoard(user.role);
+      setAdminBoard(user.role);
+      setPublisherBoard(user.role);
+      setApplicantBoard(user.role);
     }
 
     EventBus.on("logout", () => {
@@ -69,8 +68,9 @@ export default function ProyectRoutes() {
     return(
         <div className="">
                 <BrowserRouter>
-                    <nav className="navbar navbar-expand navbar-dark bg-dark">
-                        <Link to={"/"} className="navbar-brand">
+                    <nav className="navbar navbar-expand navbar-dark bg-dark">                        
+                        <img src="../assets/img/logo-utn.ba.png" width="50px" height="30px" />
+                        <Link to={"/"} className="navbar-brand marginLeft">
                         CUVL - UTN
                         </Link>
                         <div className="navbar-nav mr-auto">
@@ -136,7 +136,7 @@ export default function ProyectRoutes() {
                             </li>
                         </div>
                         ) : (
-                        <div className="navbar-nav ml-auto">
+                        <div className="navbar-nav ml-auto marginRight">
                             <li className="nav-item">
                             <Link to={"/login"} className="nav-link">
                                 Login

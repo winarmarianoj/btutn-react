@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8082/";
+const API_URL = "http://localhost:8082";
 
 const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
+  return axios.post(API_URL + "/signup", {
     username,
     email,
     password,
@@ -11,24 +11,21 @@ const register = (username, email, password) => {
 };
 
 const createPerson = (person) => {
-  return axios.post(API_URL + "person/", {person});
+  return axios.post(API_URL + "/person/", {person});
 }
 
 const createApplicant = (applicant) => {  
-  return axios.post(API_URL + "applicant/", {applicant});
+  return axios.post(API_URL + "/applicant/", {applicant});
 };
 
 const createPublisher = (publisher) => {
-  return axios.post(API_URL + "publisher/", {publisher});
+  return axios.post(API_URL + "/publisher/", {publisher});
 }
 
-const login = async (username, password) => {
-  const response = await axios
-    .post(API_URL + "auth/login", {
-      username,
-      password,
-    });
-  if (response.data.accessToken) {
+const login = async (user) => {
+  console.log(user)  
+  const response = await axios.post(API_URL + "/auth/login", user);
+  if (response.data.jwt) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
   return response.data;

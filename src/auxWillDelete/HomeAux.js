@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import UserService from "../../services/user.service";
-import JobOfferService from "../../services/JobOfferService";
+import JobOfferService from "../services/JobOfferService";
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';

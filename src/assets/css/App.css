@@ -3,6 +3,14 @@ label {
   margin-top: 10px;
 }
 
+.marginRight{
+  margin-right: 2%;
+}
+
+.marginLeft{
+  margin-left: 2%;
+}
+
 .card-container.card {
   max-width: 350px !important;
   padding: 40px 40px;

@@ -1,5 +1,5 @@
 import React from "react";
-import AuthService from "../../services/auth.service";
+import AuthService from "../../services/AuthService";
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -12,8 +12,8 @@ const Profile = () => {
         </h3>
       </header>
       <p>
-        <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-        {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+        <strong>Token:</strong> {currentUser.jwt.substring(0, 20)} ...{" "}
+        {currentUser.jwt.substr(currentUser.jwt.length - 20)}
       </p>
       <p>
         <strong>Id:</strong> {currentUser.id}

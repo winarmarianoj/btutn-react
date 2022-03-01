@@ -3,38 +3,22 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import AuthService from "../../services/auth.service";
+import AuthService from "../../services/AuthService";
+import LoginCss from '../../assets/css/StyleLogin.css';
+import Swal from 'sweetalert';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
-
 const Login = (props) => {
   const form = useRef();
   const checkBtn = useRef();
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
+  let user = {
+    username: null,
+    password: null
   };
 
   const handleLogin = (e) => {
@@ -46,7 +30,7 @@ const Login = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(username, password).then(
+      AuthService.login(user).then(
         () => {
           props.history.push("/profile");
           window.location.reload();
@@ -69,40 +53,25 @@ const Login = (props) => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <div className="form-icon" style={{fontSize:"3em", color:"blueviolet"}}>
+    <div className="loguer mt-5">
+      <div className="loguerin-dark p-3 shadow-lg rounded justify-content-center card card-container">
+        <div className="form-icon row" style={{fontSize:"3em", color:"blueviolet"}}>
+            <p></p>
             <FontAwesomeIcon icon={faUser} />
         </div> 
 
         <Form onSubmit={handleLogin} ref={form}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <Input
-              type="text"
-              className="form-control"
-              name="username"
-              placeholder="Email"
-              value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
-            />
+          <div className="form-group mt-4">            
+            <Input type="text" className="form-control item " value={user.username} style={{width : '100%'}} id="name" onChange={(e) => {
+                      user.username = e.target.value;}} placeholder="Email" required/>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
+          <div className="form-group mt-4">
+          <Input type="password" className="form-control item" value={user.password} style={{width : '100%'}} id="password" onChange={(e) => {
+                          user.password = e.target.value;}} placeholder="Password" required/>
           </div>
 
-          <div className="form-group">
+          <div className="form-group mt-5 ">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
@@ -110,7 +79,6 @@ const Login = (props) => {
               <span>Login</span>
             </button>
           </div>
-
           {message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
@@ -118,7 +86,8 @@ const Login = (props) => {
               </div>
             </div>
           )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          
+          <CheckButton className="btn btn-sm btn-light col" style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
     </div>

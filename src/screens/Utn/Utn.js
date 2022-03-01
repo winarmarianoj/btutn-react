@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import UserService from "../../services/user.service";
+import UserService from "../../services/UserService";
 import EventBus from "../../common/EventBus";
 
 const Utn = () => {

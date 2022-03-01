@@ -2,11 +2,8 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
 
-import AuthService from "../../services/auth.service";
-import Register from "./Register";
-import DataValidator from "../validator/DataValidator";
+import AuthService from "../../services/AuthService";
 import {InputText} from 'primereact/inputtext';
 import StyleRegister from "../../assets/css/styleRegister.css";
 import StyleWeb from "../../assets/css/StyleWeb.css";
@@ -14,9 +11,7 @@ import StyleWeb from "../../assets/css/StyleWeb.css";
 import { DatePicker } from "@material-ui/pickers";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
-import TextField from '@material-ui/core/TextField';
 import 'react-datepicker/dist/react-datepicker.css';
-
 import DatePickers from "../util/DatePickers";
 
 const RegisterPerson = () => { 
@@ -85,33 +80,33 @@ const RegisterPerson = () => {
                 <div className="title"><p>Admin or Utn Register</p></div>
 
                 <div className="form-group">
-                  <Input className="form-control item" value={person.name} style={{width : '100%'}} id="name" onChange={(e) => {
-                      person.name = e.target.value;}} placeholder="Name"/>
+                  <Input type="text" className="form-control item" value={person.name} style={{width : '100%'}} id="name" onChange={(e) => {
+                      person.name = e.target.value;}} placeholder="Name" required/>
                 </div>
 
                 <div className="form-group">
-                  <Input className="form-control item" value={person.surname} style={{width : '100%'}} id="surname" onChange={(e) => {
-                      person.surname = e.target.value;}} placeholder="Last Name"/>
+                  <Input type="text" className="form-control item" value={person.surname} style={{width : '100%'}} id="surname" onChange={(e) => {
+                      person.surname = e.target.value;}} placeholder="Last Name" required/>
                 </div>
 
                 <div className="form-group">
-                  <Input className="form-control item" value={person.dni} style={{width : '100%'}} id="identification" onChange={(e) => {
-                      person.dni = e.target.value;}} placeholder="Identification Number"/>
+                  <Input type="text" className="form-control item" value={person.dni} style={{width : '100%'}} id="identification" onChange={(e) => {
+                      person.dni = e.target.value;}} placeholder="Identification Number" required/>
                 </div>
 
                 <div className="form-group">
-                  <Input className="form-control item" value={person.email} style={{width : '100%'}} id="username" onChange={(e) => {
-                          person.email = e.target.value;}} placeholder="Email"/>
+                  <Input type="email" className="form-control item" value={person.email} style={{width : '100%'}} id="username" onChange={(e) => {
+                          person.email = e.target.value;}} placeholder="Email" required/>
                 </div>
 
                 <div className="form-group">
-                  <Input className="form-control item" value={person.password} style={{width : '100%'}} id="password" onChange={(e) => {
-                          person.password = e.target.value;}} placeholder="Password"/>
+                  <Input type="password" className="form-control item" value={person.password} style={{width : '100%'}} id="password" onChange={(e) => {
+                          person.password = e.target.value;}} placeholder="Password" required/>
                 </div>
 
                 <div className="form-group">
-                  <Input className="form-control item" value={person.phoneNumber} style={{width : '100%'}} id="phone" onChange={(e) => {
-                          person.phoneNumber = e.target.value;}} placeholder="Phone Number"/>
+                  <Input type="text" className="form-control item" value={person.phoneNumber} style={{width : '100%'}} id="phone" onChange={(e) => {
+                          person.phoneNumber = e.target.value;}} placeholder="Phone Number" required/>
                 </div>
 
                 <div className="form-group">

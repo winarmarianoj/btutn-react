@@ -61,24 +61,24 @@ const required = (value) => {
     }
   };
   
-  const vusername = (value) => {
-    if (value.length < 3 || value.length > 20) {
-      return (
-        Swal({
-          title: 'Data Format',
-          text: "The username must be between 3 and 20 characters.",
-          icon: 'warning',
-        })
-      );
-    }
-  };
-  
   const vpassword = (value) => {
     if (value.length < 6 || value.length > 40) {
       return (
         Swal({
           title: 'Data Format',
           text: "The password must be between 6 and 40 characters.",
+          icon: 'warning',
+        })
+      );
+    }
+  };
+
+  const vwebSite = (value) => {
+    if (value.length < 6 || value.length > 40) {
+      return (
+        Swal({
+          title: 'Data Format',
+          text: "The webSite must be between 6 and 40 characters.",
           icon: 'warning',
         })
       );
@@ -92,4 +92,5 @@ const required = (value) => {
     vphone,
     validEmail,
     vpassword,
+    vwebSite,
   };
