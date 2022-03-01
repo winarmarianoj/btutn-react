@@ -1,0 +1,120 @@
+.offset-fixed{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+.f-left{
+    margin-left: 0%;
+    left: 0
+}
+.f-right{
+    margin-right: 0%;
+    right: 0;
+}
+.side-left{
+    margin-top: 4rem;
+    margin-left: 8.07rem;            
+}
+.side-right{
+    margin-top: 4rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    justify-content: center;            
+    height: calc(50vh - 8rem);
+    width: calc(15vh - 8rem);            
+}
+.menu{
+    background: black;    
+}
+
+div.imagen{
+	margin: 2px 2px;
+    width: 24%;
+}
+div.imagen img{
+	transition: 0.6s;
+    max-width: 100%;    
+}
+div.imagen img:hover{
+	transform: scale(1.2);
+	overflow: hidden;
+}
+
+.columna2{
+    margin-left: 35%;
+}
+
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    opacity: 0.8;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.imgLogoUtn{
+    width: 150%;
+    height: 100%;    
+}
+
+.login-main-text{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.btn-black{
+    background-color: #000 !important;
+    color: #fff;
+}
+
+.botones{
+    margin-bottom: 50%;
+}
+
+.labels{
+    font-size: 30px;
+    color:darkblue;
+    font-weight: bold;
+}
+
+.inputs{
+    max-width: 45%;
+}
+
+body{
+    background-image: url('/img/cuvl.png');
+    opacity: 0.9;
+}
+
+/* MEDIAS QUERIES*/
+
+@media (min-width: 450px) {
+        .columna1, .columna2{
+          max-width: 380px;
+    }    
+}
+
+@media (min-width: 600px) {
+        .columna1, .columna2{
+          max-width: 540px;
+    }
+}
+  
+@media (min-width: 768px) {
+        .columna1, .columna2{
+          max-width: 720px;
+    }
+}  
+
+@media (min-width: 992px) {
+        .columna1, .columna2{
+          max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+        .columna1, .columna2{
+          max-width: 100%;
+    }
+}
