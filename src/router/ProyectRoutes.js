@@ -9,15 +9,19 @@ import AuthService from "../services/AuthService";
 import Header from "../components/fixed/Header";
 import Footer from "../components/fixed/Footer";
 import Login from "../components/pages/Login";
-import Home from "../components/pages/Home";
+import Home from "../screens/Home/Home";
 import Profile from "../components/pages/Profile";
 import RegisterPerson from "../components/pages/RegisterPerson";
 import RegisterApplicant from "../components/pages/RegisterApplicant";
 import RegisterPublisher from "../components/pages/RegisterPublisher";
 import Admin from "../screens/Admin/Admin";
+import AdminProfile from "../screens/Admin/AdminProfile";
 import Applicant from "../screens/Applicant/Applicant";
+import ApplicantProfile from "../screens/Applicant/ApplicantProfile";
 import Publisher from "../screens/Publisher/Publisher";
+import PublisherProfile from "../screens/Publisher/PublisherProfile";
 import Utn from "../screens/Utn/Utn";
+import UtnProfile from "../screens/Utn/UtnProfile";
 
 
 // import AuthVerify from "./common/AuthVerify";
@@ -36,11 +40,12 @@ export default function ProyectRoutes() {
     const user = AuthService.getCurrentUser();
 
     if (user) {
+        console.log(user)
       setCurrentUser(user);
-      setUtnBoard(user.role);
-      setAdminBoard(user.role);
-      setPublisherBoard(user.role);
-      setApplicantBoard(user.role);
+      setUtnBoard(user.role.role === "UTN" ? true : false);
+      setAdminBoard(user.role.role === "ADMIN" ? true : false);
+      setPublisherBoard(user.role.role === "PUBLISHER" ? true : false);
+      setApplicantBoard(user.role.role === "APPLICANT" ? true : false);
     }
 
     EventBus.on("logout", () => {
@@ -81,43 +86,39 @@ export default function ProyectRoutes() {
                         </li>
 
                         {utnBoard && (
-                            <li className="nav-item">
-                            <Link to={"/utn"} className="nav-link">
-                                UTN Board
-                            </Link>
-                            </li>
+                            <><Link to={"/utn"} className="nav-link">
+                                    UTN Board
+                                </Link>
+                                <Link to={"/utnProfile"} className="nav-link">
+                                    Profile
+                                </Link></>
                         )}
 
                         {adminBoard && (
-                            <li className="nav-item">
-                            <Link to={"/admin"} className="nav-link">
-                                Admin Board
-                            </Link>
-                            </li>
+                            <><Link to={"/admin"} className="nav-link">
+                                    Admin Board
+                                </Link>
+                                <Link to={"/adminProfile"} className="nav-link">
+                                    Profile
+                                </Link></>
                         )}
 
                         {publisherBoard && (
-                            <li className="nav-item">
-                            <Link to={"/publisher"} className="nav-link">
-                                Publisher Board
-                            </Link>
-                            </li>
+                            <><Link to={"/publisher"} className="nav-link">
+                                    Publisher Board
+                                </Link>
+                                <Link to={"/publisherProfile"} className="nav-link">
+                                    Profile
+                                </Link></>
                         )}
 
                         {applicantBoard && (
-                            <li className="nav-item">
-                            <Link to={"/applicant"} className="nav-link">
-                                Applicant Board
-                            </Link>
-                            </li>
-                        )}
-
-                        {currentUser && (
-                            <li className="nav-item">
-                            <Link to={"/user"} className="nav-link">
-                                User
-                            </Link>
-                            </li>
+                            <><Link to={"/applicant"} className="nav-link">
+                                    Applicant Board
+                                </Link>
+                                <Link to={"/applicantProfile"} className="nav-link">
+                                    Profile
+                                </Link></>
                         )}
 
                         </div>
@@ -125,14 +126,14 @@ export default function ProyectRoutes() {
                         {currentUser ? (
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
-                            <Link to={"/profile"} className="nav-link">
-                                {currentUser.username}
-                            </Link>
+                                <Link to={"/profile"} className="nav-link">
+                                    UserProfile
+                                </Link>
                             </li>
                             <li className="nav-item">
-                            <a href="/login" className="nav-link" onClick={logOut}>
-                                LogOut
-                            </a>
+                                <a href="/login" className="nav-link" onClick={logOut}>
+                                    LogOut
+                                </a>
                             </li>
                         </div>
                         ) : (
@@ -177,9 +178,13 @@ export default function ProyectRoutes() {
                         <Route exact path="/registerPublisher" component={RegisterPublisher} />
                         <Route exact path="/registerPerson" component={RegisterPerson} />
                         <Route path="/admin" component={Admin} />
+                        <Route path="/adminProfile" component={AdminProfile} />
                         <Route path="/applicant" component={Applicant} />
+                        <Route path="/applicantProfile" component={ApplicantProfile} />
                         <Route path="/publisher" component={Publisher} />
+                        <Route path="/publisherProfile" component={PublisherProfile} />
                         <Route path="/utn" component={Utn} />
+                        <Route path="/utnProfile" component={UtnProfile} />
                         </Switch>
                     </div>
 

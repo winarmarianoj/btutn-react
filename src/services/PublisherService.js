@@ -18,4 +18,9 @@ class PublisherService{
     delete(id){
         return axios.get(PUBLISHER_BASE_URL + id).then(res => res.data);
     }
+    getByUserId(id){
+        return axios.get(PUBLISHER_BASE_URL + "userId/" + id).then(res => res.data);
+    }
 }
+
+export default new PublisherService()

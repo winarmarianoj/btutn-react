@@ -7,21 +7,22 @@ const Profile = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>
-          <strong>{currentUser.username}</strong> Profile
+        <h1> Profile </h1>
+        <h3> <strong>Username : </strong>
+          <strong>{currentUser.username}</strong>
         </h3>
       </header>
-      <p>
-        <strong>Token:</strong> {currentUser.jwt.substring(0, 20)} ...{" "}
+      <p> 
+        <strong>Token : </strong> {currentUser.jwt.substring(0, 20)} ...{" "}
         {currentUser.jwt.substr(currentUser.jwt.length - 20)}
       </p>
       <p>
-        <strong>Id:</strong> {currentUser.id}
+        <strong>User Id: </strong> {currentUser.id}
       </p>
       <p>
-        <strong>Email:</strong> {currentUser.email}
+        <strong>Email: </strong> {currentUser.username}
       </p>
-      <strong>Authorities:</strong>
+      <strong>Authorities: </strong> {currentUser.role.role}
       <ul>
         {currentUser.roles &&
           currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}

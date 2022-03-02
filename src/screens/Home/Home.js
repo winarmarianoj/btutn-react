@@ -6,9 +6,17 @@ import JobOfferService from "../../services/JobOfferService";
 import DataViewCss from "../../assets/css/DataView.css";
 
 import 'primeicons/primeicons.css';
-import 'primereact/resources/themes/luna-blue/theme.css';
-import 'primereact/resources/themes/saga-green/theme.css';
+import "primereact/resources/primereact.min.css";                  //core css
+
+//import 'primereact/resources/themes/saga-orange/theme.css'
+import 'primereact/resources/themes/nova-accent/theme.css'
+import 'primereact/resources/themes/nova-alt/theme.css'
+//import 'primereact/resources/themes/nova/theme.css'
+//import 'primereact/resources/themes/rhea/theme.css'
+
+
 import 'primeflex/primeflex.css';
+import 'react-notifications/lib/notifications.css';
 
 class Home extends Component {
   constructor(props){
@@ -64,12 +72,12 @@ class Home extends Component {
     renderListItem(data) {
         return (
             <div className="col-12">
-                <div className="product-list-item">                    
+                <div className="product-list-item colorWordsRows">                    
                     <div className="product-list-detail">
                         <div className="product-name">Title: {data.title}</div>
                         <div className="product-description">Description: {data.description}</div>
                         <div className="product-description">Area: {data.area}</div>
-                        <div className="product-description">Experience Required: {data.experience}</div>
+                        <div className="product-description">Experience Required: {data.experience} años</div>
                     </div>
                     <div className="product-list-action">                   
                         <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>                        
@@ -82,7 +90,7 @@ class Home extends Component {
     renderGridItem(data) {
         return (
             <div className="col-12 md:col-4">
-                <div className="product-grid-item card">
+                <div className="product-grid-item card colorWordsCards">
                     <div className="product-grid-item-top">
                         <div className="product-description">{data.category}</div>
                         <div className="product-description">{data.modality}</div>
@@ -92,7 +100,7 @@ class Home extends Component {
                     <div className="product-name">Title: {data.title}</div>
                         <div className="product-description">Description: {data.description}</div>
                         <div className="product-description">Area: {data.area}</div>
-                        <div className="product-description">Experience Required: {data.experience}</div>                        
+                        <div className="product-description">Experience Required: {data.experience} años</div>                        
                     </div>
                     <div className="product-grid-item-bottom">
                         <p>Press more information: </p>

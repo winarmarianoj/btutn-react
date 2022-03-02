@@ -19,3 +19,5 @@ class ApplicantService{
         return axios.get(APPLICANT_BASE_URL + id).then(res => res.data);
     }
 }
+
+export default new ApplicantService();

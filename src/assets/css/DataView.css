@@ -1,6 +1,13 @@
 
 /* DataViewDemo.css */
 
+.colorWordsCards{
+    color: darkblue;
+}
+.colorWordsRows{
+    color: #805B36;
+}
+
 .dataview-demo .p-dropdown {
     width: 14rem;
     font-weight: normal;

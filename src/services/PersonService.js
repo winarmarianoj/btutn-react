@@ -19,3 +19,5 @@ class PersonService{
         return axios.get(PERSON_BASE_URL + id).then(res => res.data);
     }
 }
+
+export default new PersonService()
