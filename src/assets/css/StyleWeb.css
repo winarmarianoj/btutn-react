@@ -28,13 +28,9 @@
 .textFooter{
     margin-left: 10%;
 }
-.columna1{
-    margin-left: 8%;
-}
-
-.columna2{
-    margin-left: 75%;
-}
 .divPerson{
     width:'80%'; margin: '0 auto'; margin-top: '20px';
+}
+.joboffersPublisher{
+    margin-left: 0%;
 }

@@ -16,17 +16,16 @@ import RegisterApplicant from "../components/pages/RegisterApplicant";
 import RegisterPublisher from "../components/pages/RegisterPublisher";
 import Admin from "../screens/Admin/Admin";
 import AdminProfile from "../screens/Admin/AdminProfile";
-import Applicant from "../screens/Applicant/Applicant";
+import ApplicantYourApplicants from "../screens/Applicant/ApplicantYourApplicants";
 import ApplicantProfile from "../screens/Applicant/ApplicantProfile";
-import Publisher from "../screens/Publisher/Publisher";
+import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
 import PublisherProfile from "../screens/Publisher/PublisherProfile";
+import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
 import Utn from "../screens/Utn/Utn";
 import UtnProfile from "../screens/Utn/UtnProfile";
 
-
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
-import { form } from "react-validation/build/form";
 
 export default function ProyectRoutes() {
   const [utnBoard, setUtnBoard] = useState(false);
@@ -70,56 +69,59 @@ export default function ProyectRoutes() {
     setDropdown(!dropdown);
   }
 
-    return(
-        <div className="">
+    return(        
+        <div >
                 <BrowserRouter>
-                    <nav className="navbar navbar-expand navbar-dark bg-dark">                        
-                        <img src="../assets/img/logo-utn.ba.png" width="50px" height="30px" />
+                    <nav className="navbar navbar-expand navbar-dark bg-dark">                                                
                         <Link to={"/"} className="navbar-brand marginLeft">
                         CUVL - UTN
                         </Link>
                         <div className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to={"/home"} className="nav-link">
-                                Home
-                            </Link>
-                        </li>
-
-                        {utnBoard && (
-                            <><Link to={"/utn"} className="nav-link">
-                                    UTN Board
+                            <li className="nav-item">
+                                <Link to={"/home"} className="nav-link">
+                                    Home
                                 </Link>
-                                <Link to={"/utnProfile"} className="nav-link">
-                                    Profile
-                                </Link></>
-                        )}
+                            </li>
 
-                        {adminBoard && (
-                            <><Link to={"/admin"} className="nav-link">
-                                    Admin Board
-                                </Link>
-                                <Link to={"/adminProfile"} className="nav-link">
-                                    Profile
-                                </Link></>
-                        )}
+                            {utnBoard && (
+                                <><Link to={"/utn"} className="nav-link">
+                                        UTN Board
+                                    </Link>
+                                    <Link to={"/utnProfile"} className="nav-link">
+                                        Profile
+                                    </Link></>
+                            )}
 
-                        {publisherBoard && (
-                            <><Link to={"/publisher"} className="nav-link">
-                                    Publisher Board
-                                </Link>
-                                <Link to={"/publisherProfile"} className="nav-link">
-                                    Profile
-                                </Link></>
-                        )}
+                            {adminBoard && (
+                                <><Link to={"/admin"} className="nav-link">
+                                        Admin Board
+                                    </Link>
+                                    <Link to={"/adminProfile"} className="nav-link">
+                                        Profile
+                                    </Link></>
+                            )}
 
-                        {applicantBoard && (
-                            <><Link to={"/applicant"} className="nav-link">
-                                    Applicant Board
-                                </Link>
-                                <Link to={"/applicantProfile"} className="nav-link">
-                                    Profile
-                                </Link></>
-                        )}
+                            {publisherBoard && (
+                                <><Link to={"/publisherYourJobOffers"} className="nav-link">
+                                        YourJobOffers
+                                    </Link>
+                                    <Link to={"/publisherJobOfferByCategory"} className="nav-link">
+                                        ByCategory
+                                    </Link>
+                                    <Link to={"/publisherProfile"} className="nav-link">
+                                        Profile
+                                    </Link>
+                                    </>
+                            )}
+
+                            {applicantBoard && (
+                                <><Link to={"/applicantYourApplicants"} className="nav-link">
+                                        Your Applications
+                                    </Link>
+                                    <Link to={"/applicantProfile"} className="nav-link">
+                                        Profile
+                                    </Link></>
+                            )}
 
                         </div>
 
@@ -169,7 +171,7 @@ export default function ProyectRoutes() {
                         )}
                     </nav>
 
-                    <div className="container mt-3">
+                    <div className="">
                         <Switch>
                         <Route exact path={["/", "/home"]} component={Home} />
                         <Route exact path="/login" component={Login} />
@@ -179,10 +181,11 @@ export default function ProyectRoutes() {
                         <Route exact path="/registerPerson" component={RegisterPerson} />
                         <Route path="/admin" component={Admin} />
                         <Route path="/adminProfile" component={AdminProfile} />
-                        <Route path="/applicant" component={Applicant} />
+                        <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
                         <Route path="/applicantProfile" component={ApplicantProfile} />
-                        <Route path="/publisher" component={Publisher} />
+                        <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
                         <Route path="/publisherProfile" component={PublisherProfile} />
+                        <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
                         <Route path="/utn" component={Utn} />
                         <Route path="/utnProfile" component={UtnProfile} />
                         </Switch>
@@ -191,5 +194,6 @@ export default function ProyectRoutes() {
                 </BrowserRouter>            
              <Footer/>
         </div>
+        
     );
 }

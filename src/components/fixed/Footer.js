@@ -10,7 +10,6 @@ const Footer = () => {
                         <li className="list-inline-item"><a href="">Nosotros</a></li>
                         <li className="list-inline-item"><a href="">Términos</a></li>
                         <li className="list-inline-item"><a href="">Soporte</a></li>
-                        <li className="list-inline-item"><a href=""></a></li>
                         <span className="text-muted">All Rights Reserved 2022 @CUVL-UTN</span>
                     </ul>
                 </div>

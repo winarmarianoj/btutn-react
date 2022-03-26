@@ -1,0 +1,42 @@
+.home{
+    background-color: bisque;
+    background-image: url('../img/facu.jpg');
+    max-width: 100%;
+    max-height: 100%;
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-right: auto;
+    margin-left: auto;
+    background-attachment: fixed;
+    background-position: center 0;
+    background-size: cover;
+    background-repeat: repeat;
+}
+.offset-fixed{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+.f-left{
+    margin-left: 0%;
+    left: 0
+}
+.f-right{
+    margin-right: 0%;
+    right: 0;
+}
+.columna2{
+    margin-left: 24%;
+}
+.titleHomeJobOffer{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: darkblue;
+    justify-content: center;
+    margin-left: 25%;
+}
+.cardByCards{
+    background-color: blue;
+}
+.tableCardsJobOffers{
+    margin-top: 1px;
+}
