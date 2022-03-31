@@ -29,7 +29,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import '../../assets/css/DataCategoryFilter.css';
 import ReportListsService from '../../services/ReportListsService';
 import JobOfferService from '../../services/JobOfferService';
-import DialogTest from './DialogTest';
+import PublisherApplicantByJobOffer from './PublisherApplicantByJobOffer';
 
 const PublisherJobOfferByCategory = () => {
     let emptyJoboffer = { id: '', title: '', description: '', area: '', body: '', experience: '',
@@ -51,13 +51,9 @@ const PublisherJobOfferByCategory = () => {
     const [loading2, setLoading2] = useState(true);
     const [jobofferDialog, setJobofferDialog] = useState(false);
     const [job, setJob] = useState(emptyJoboffer);
-
-    const [getJob, setGetJob] = useState(emptyJoboffer);
-    const [dialog, setDialog] = useState(false);
     
     const categories = [
-        'FULLSTACK', 'BACKEND', 'FRONTEND', 'DEVELOPER', 'UI-UX', 'QA', 'BILLING',
-        'THIRD-PARTIES', 'CONTRACT'
+        'FULLSTACK', 'BACKEND', 'FRONTEND', 'DEVELOPER', 'UI-UX', 'QA', 'BILLING', 'THIRD-PARTIES', 'CONTRACT'
     ];
 
     useEffect(() => {        
@@ -107,12 +103,21 @@ const PublisherJobOfferByCategory = () => {
             console.log(error.message);
         })
         setJobofferDialog(true);
+    }    
+
+    const openApplicantByJoboffer = (rowData) => {
+        console.log(rowData)
+        console.log(rowData.rowData.id)
+        localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
+        window.location.href = './publisherApplicantByJobOffer';
+        //window.location.assign(link);
     }
 
     const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
                 <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editjoboffer({rowData}) } /> 
+                <Button icon="pi pi-list" className="p-button-rounded p-button-info mr-2" onClick={() => openApplicantByJoboffer({rowData}) } /> 
             </React.Fragment>
         );
     }
@@ -133,7 +138,6 @@ const PublisherJobOfferByCategory = () => {
                     <Column field="modality" header="Modality" filter filterPlaceholder="Search by modality" style={{ minWidth: '12rem' }} />
                     <Column field="position" header="Position" filter filterPlaceholder="Search by position" style={{ minWidth: '12rem' }} />                    
                     <Column field="category" header="Category" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={categoriesBodyTemplate} filter filterElement={categoriesRowFilterTemplate}/> 
-
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
                 </DataTable>
 

@@ -21,6 +21,7 @@ import ApplicantProfile from "../screens/Applicant/ApplicantProfile";
 import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
 import PublisherProfile from "../screens/Publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
+import PublisherApplicantByJobOffer from "../screens/Publisher/PublisherApplicantByJobOffer";
 import Utn from "../screens/Utn/Utn";
 import UtnProfile from "../screens/Utn/UtnProfile";
 
@@ -108,10 +109,13 @@ export default function ProyectRoutes() {
                                     <Link to={"/publisherJobOfferByCategory"} className="nav-link">
                                         ByCategory
                                     </Link>
+                                    <Link to={"/publisherApplicantByJobOffer"} className="nav-link">
+                                        ApplicantByJobOffer
+                                    </Link>
                                     <Link to={"/publisherProfile"} className="nav-link">
                                         Profile
                                     </Link>
-                                    </>
+                                </>
                             )}
 
                             {applicantBoard && (
@@ -186,6 +190,7 @@ export default function ProyectRoutes() {
                         <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
                         <Route path="/publisherProfile" component={PublisherProfile} />
                         <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
+                        <Route path="/publisherApplicantByJobOffer" component={PublisherApplicantByJobOffer} />
                         <Route path="/utn" component={Utn} />
                         <Route path="/utnProfile" component={UtnProfile} />
                         </Switch>

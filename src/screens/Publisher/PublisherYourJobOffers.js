@@ -67,7 +67,7 @@ class PublisherYourJobOffers extends Component {
     this.delete = this.delete.bind(this);
     this.footer = (
       <div>
-        <Button label="Send" icon="pi pi-check" onClick={this.save} />
+        <Button label="Send" icon="pi pi-send" onClick={this.save} />
       </div>
     );
 
