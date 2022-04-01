@@ -82,10 +82,7 @@ div.imagen img:hover{
     max-width: 45%;
 }
 
-body{
-    background-image: url('/img/cuvl.png');
-    opacity: 0.9;
-}
+
 
 /* MEDIAS QUERIES*/
 

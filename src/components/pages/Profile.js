@@ -1,11 +1,12 @@
 import React from "react";
 import AuthService from "../../services/AuthService";
+import ProfileStyle from '../../assets/css/ProfileCss.css';
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
 
   return (
-    <div className="container">
+    <div className="container profile">
       <header className="jumbotron">
         <h1> Profile </h1>
         <h3> <strong>Username : </strong>

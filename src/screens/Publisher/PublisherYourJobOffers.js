@@ -11,16 +11,12 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import Swal from 'sweetalert';
 
-import "primereact/resources/themes/arya-orange/theme.css";          //theme
-import "primereact/resources/primereact.min.css";                  //core css
-import "primeicons/primeicons.css";
-import 'react-notifications/lib/notifications.css';
-
 import { Toolbar } from 'primereact/toolbar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
 import { classNames } from 'primereact/utils';
+import '../../assets/css/DataCategoryFilter.css';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -245,8 +241,7 @@ onSelectionChange(e) {
 
   render(){
     return (
-        <div className="joboffersPublisher">
-            
+        <div className="datatable-filter joboffersPublisher">            
             <div className="formgrid grid">
                 <div className="field col">
                   <Menubar model={this.items}/>
@@ -256,7 +251,10 @@ onSelectionChange(e) {
                 </div>
             </div>
             <Panel>                
-                <DataTable ref={(el) => this.dt = el} value={this.state.joboffers} paginator={true} rows="2" selectionMode="single" selection={this.state.selectedJoboffer} onSelectionChange={e => this.setState({selectedJoboffer: e.value})}>
+                <DataTable ref={(el) => this.dt = el} value={this.state.joboffers} paginator={true} rows="2" selectionMode="single" selection={this.state.selectedJoboffer} onSelectionChange={e => this.setState({selectedJoboffer: e.value})}
+                className="p-datatable-customers"
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} joboffers">
                     <Column field="id" header="ID"></Column>
                     <Column field="title" header="Title"></Column>
                     <Column field="description" header="Description"></Column>
@@ -272,7 +270,7 @@ onSelectionChange(e) {
             </Panel>
             <Dialog header="JobOffer" visible={this.state.visible} style={{width: '600px'}} footer={this.footer} modal={true} onHide={() => this.setState({visible: false})}>
                 <div className="field">
-                    <div className="field col"><label htmlFor="id">JobOffer ID</label></div>
+                    <div className="field col titleLabelByCategory"><label htmlFor="id">JobOffer ID</label></div>
                     <InputText value={this.state.joboffer.id} readOnly style={{width : '25%'}} id="id" />                    
                 </div>
                 <div className="field">

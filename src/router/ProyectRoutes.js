@@ -24,6 +24,7 @@ import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferB
 import PublisherApplicantByJobOffer from "../screens/Publisher/PublisherApplicantByJobOffer";
 import Utn from "../screens/Utn/Utn";
 import UtnProfile from "../screens/Utn/UtnProfile";
+import StyleCentral from '../assets/css/stylesCentral.css';
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
@@ -109,9 +110,7 @@ export default function ProyectRoutes() {
                                     <Link to={"/publisherJobOfferByCategory"} className="nav-link">
                                         ByCategory
                                     </Link>
-                                    <Link to={"/publisherApplicantByJobOffer"} className="nav-link">
-                                        ApplicantByJobOffer
-                                    </Link>
+                                    
                                     <Link to={"/publisherProfile"} className="nav-link">
                                         Profile
                                     </Link>

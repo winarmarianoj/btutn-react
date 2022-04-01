@@ -12,7 +12,7 @@ import {Button} from 'primereact/button';
 import Styles from '../../assets/css/StyleWeb.css';
 import Swal from 'sweetalert';
 
-import "primereact/resources/themes/arya-orange/theme.css";          //theme
+//import "primereact/resources/themes/arya-orange/theme.css";          //theme
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";
 import 'react-notifications/lib/notifications.css';

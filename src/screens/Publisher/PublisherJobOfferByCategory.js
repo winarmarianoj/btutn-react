@@ -17,7 +17,7 @@ import { TriStateCheckbox } from 'primereact/tristatecheckbox';
 import {Dialog} from 'primereact/dialog';
 import Swal from 'sweetalert';
 
-import "primereact/resources/themes/arya-orange/theme.css";          //theme
+//import "primereact/resources/themes/arya-orange/theme.css";          //theme
 //import 'primereact/resources/themes/saga-orange/theme.css';
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";
@@ -69,17 +69,6 @@ const PublisherJobOfferByCategory = () => {
         setGlobalFilterValue2(value);
     }
 
-    const renderHeader2 = () => {
-        return (
-            <div className="flex justify-content-end">
-                <span className="p-input-icon-left">
-                    <i className="pi pi-search" />
-                    <InputText value={globalFilterValue2} onChange={onGlobalFilterChange2} placeholder="Search by Category" />
-                </span>
-            </div>
-        )
-    }
-
     const categoriesBodyTemplate = (rowData) => {
         return <span className={`customer-badge category-${rowData.category}`}>{rowData.category}</span>;
     }
@@ -110,107 +99,117 @@ const PublisherJobOfferByCategory = () => {
         console.log(rowData.rowData.id)
         localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
         window.location.href = './publisherApplicantByJobOffer';
-        //window.location.assign(link);
+        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
     }
 
     const actionBodyTemplate = (rowData) => {
         return (
-            <React.Fragment>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editjoboffer({rowData}) } /> 
-                <Button icon="pi pi-list" className="p-button-rounded p-button-info mr-2" onClick={() => openApplicantByJoboffer({rowData}) } /> 
+            <React.Fragment>               
+                <Button label="Edit" className="p-button-rounded p-button-success " onClick={() => editjoboffer({rowData}) } /> 
+                <Button label="Applied" className="p-button-rounded p-button-info " onClick={() => openApplicantByJoboffer({rowData}) } /> 
             </React.Fragment>
         );
     }
 
-    const header2 = renderHeader2();
+    const headerTable = () => {
+        return (
+            <h5 className="p-datatable-customers">Filter JobOffers by Categories</h5>
+        );
+    }
+    const headerDialog = () => {
+        return (
+            <h5 className="titleDialog">JobOffer Detail</h5>
+        );
+    }
 
     return (
-            <div className="card">
-                <h5>Filter JobOffers by Categories</h5>
+            <div className="datatable-filter">
                 <DataTable value={joboffers} paginator className="p-datatable-customers" rows={10} 
                     dataKey="id" filters={joboffer} filterDisplay="row" loading={loading2} responsiveLayout="scroll"
-                    globalFilterFields={['id','title','description','area','experience','modality','position','category']}  header={header2} emptyMessage="No customers found.">
-                    <Column field="id" header="Id" filter filterPlaceholder="Search by id" style={{ minWidth: '10rem' }} />
-                    <Column field="title" header="Title" filter filterPlaceholder="Search by title" style={{ minWidth: '12rem' }} />
-                    <Column field="description" header="Description" filter filterPlaceholder="Search by description" style={{ minWidth: '12rem' }} />
-                    <Column field="area" header="Area" filter filterPlaceholder="Search by Area" style={{ minWidth: '12rem' }} />
-                    <Column field="experience" header="Experience" filter filterPlaceholder="Search by experience" style={{ minWidth: '12rem' }} />
-                    <Column field="modality" header="Modality" filter filterPlaceholder="Search by modality" style={{ minWidth: '12rem' }} />
-                    <Column field="position" header="Position" filter filterPlaceholder="Search by position" style={{ minWidth: '12rem' }} />                    
+                    globalFilterFields={['id','title','description','area','experience','modality','position','category']}  header={headerTable} emptyMessage="No customers found."
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} joboffers">
+                    <Column field="id" header="Id" filter filterPlaceholder="Search" style={{ minWidth: '10rem' }} />
+                    <Column field="title" header="Title" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                    <Column field="description" header="Description" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                    <Column field="area" header="Area" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                    <Column field="experience" header="Experience" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                    <Column field="modality" header="Modality" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                    <Column field="position" header="Position" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />                    
                     <Column field="category" header="Category" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={categoriesBodyTemplate} filter filterElement={categoriesRowFilterTemplate}/> 
-                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
+                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
                 </DataTable>
 
-                <Dialog header="JobOffer" visible={jobofferDialog} style={{width: '600px'}} modal={true} onHide={() => setJobofferDialog(false)}>
+                <Dialog header={headerDialog} visible={jobofferDialog} style={{width: '600px'}} modal={true} onHide={() => setJobofferDialog(false)}>
                     <div className="field">
-                        <div className="field col"><label htmlFor="id">JobOffer ID</label></div>
+                        <div className="field col titleLabelByCategory"> <label  htmlFor="id">JobOffer ID</label></div>
                         <InputText value={job.id} readOnly style={{width : '25%'}} id="id" />                    
                     </div>
                     <div className="field">
-                        <div className="field col"> <label htmlFor="title">Title</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="title">Title</label> </div>
                         <InputText id="title" value={job.title} style={{width : '100%'}} readOnly /> 
                     </div>
                     <div className="field">
-                        <div className="field col"> <label htmlFor="description">Description</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="description">Description</label> </div>
                         <div className="field">
                             <InputTextarea id="description" value={job.description} style={{width : '100%'}} readOnly/>
                         </div>
                     </div>
                     <div className="field">
-                        <div className="field col"> <label htmlFor="body">Body</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="body">Body</label> </div>
                         <div className="field">
                             <InputTextarea id="body" value={job.body} style={{width : '100%'}} readOnly/>
                         </div>
                     </div>
                     <div className="formgrid grid">
-                        <div className="field col"> <label htmlFor="area">Area</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Area</label> </div>
                         <div className="field">
                             <InputText id="area" value={job.area} readOnly/>
                         </div>
-                        <div className="field col"> <label htmlFor="experience">Experience</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Experience</label> </div>
                         <div className="field">
                             <InputNumber id="experience" value={job.experience} readOnly/>
                         </div>
                     </div>
 
                     <div className="formgrid grid">
-                        <div className="field col"> <label htmlFor="area">Modality</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Modality</label> </div>
                         <div className="field">
                             <InputText id="area" value={job.modality} readOnly/>
                         </div>
-                        <div className="field col"> <label htmlFor="experience">Position</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Position</label> </div>
                         <div className="field">
                             <InputNumber id="experience" value={job.position} readOnly/>
                         </div>
                     </div>
 
                     <div className="formgrid grid">
-                        <div className="field col"> <label htmlFor="area">Category</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Category</label> </div>
                         <div className="field">
                             <InputText id="area" value={job.category} readOnly/>
                         </div>
-                        <div className="field col"> <label htmlFor="experience">Publicado</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Publicado</label> </div>
                         <div className="field">
                             <InputNumber id="experience" value={job.datePublished} readOnly/>
                         </div>
                     </div>
                     <div className="formgrid grid">
-                        <div className="field col"> <label htmlFor="area">Modificado</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Modificado</label> </div>
                         <div className="field">
                             <InputText id="area" value={job.modifiedDay} readOnly/>
                         </div>
-                        <div className="field col"> <label htmlFor="experience">Eliminado</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Eliminado</label> </div>
                         <div className="field">
                             <InputNumber id="experience" value={job.deletedDay} readOnly/>
                         </div>
                     </div>
 
                     <div className="formgrid grid">
-                        <div className="field col"> <label htmlFor="area">Estado</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Estado</label> </div>
                         <div className="field">
                             <InputText id="area" value={job.state} readOnly/>
                         </div>
-                        <div className="field col"> <label htmlFor="experience">Mensajes</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Mensajes</label> </div>
                         <div className="field">
                             <InputNumber id="experience" value={job.message} readOnly/>
                         </div>

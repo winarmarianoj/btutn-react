@@ -11,11 +11,6 @@ import Swal from 'sweetalert';
 import ProfileCss from '../../assets/css/ProfileCss.css';
 import {Menubar} from 'primereact/menubar';
 
-import "primereact/resources/themes/arya-orange/theme.css";          //theme
-import "primereact/resources/primereact.min.css";                  //core css
-import "primeicons/primeicons.css";                              //icons
-
-import 'react-notifications/lib/notifications.css';
 
 class PublisherProfile extends Component{
     constructor(){
@@ -91,7 +86,7 @@ class PublisherProfile extends Component{
         return(
             <div style={Styles.divPerson}>
                 <Menubar model={this.items}/>
-                <div className="container"> 
+                <div className="container card profile"> 
                     <div className="profile-usertitle row">
                         <div className="profile-usertitle-name row">                                
                             <p>Oficial Name :  {this.state.person.name}</p>

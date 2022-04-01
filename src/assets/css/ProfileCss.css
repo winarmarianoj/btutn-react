@@ -9,16 +9,19 @@ body {
   
   /* Profile container */
   .profile {
-    margin: 20px 0;        
-    width: 100vh;
-    height: 40vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 10px 0 10px 0;
-    background: #fff;
+    font-family: Roboto,sans-serif;
+    color: burlywood;
+    background-image: url(../img/dark-blue-fondo.webp);   
+    border-style: 1px solid rgb(16, 64, 221);
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0.8;
+    margin-top: 1px;
+    box-shadow: 2px 5px 5px 0px #eee;
+    max-width: 600px;
+    padding-top: 5px;
+    height: 400px;
+    margin-top: 1px;
   }
   
   .profile-usertitle {
