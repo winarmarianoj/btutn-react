@@ -12,56 +12,36 @@ import { Calendar } from 'primereact/calendar';
 import { MultiSelect } from 'primereact/multiselect';
 import { Slider } from 'primereact/slider';
 import { TriStateCheckbox } from 'primereact/tristatecheckbox';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { RadioButton } from 'primereact/radiobutton';
-
-
 import {Dialog} from 'primereact/dialog';
 import Swal from 'sweetalert';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { RadioButton } from 'primereact/radiobutton';
 import '../../assets/css/DataCategoryFilter.css';
 import ReportListsService from '../../services/ReportListsService';
-import '../../assets/css/prueba.css'
+import JobOfferService from '../../services/JobOfferService';
 
-const PublisherApplicantByJobOffer = () => {   
-    let jobid = JSON.parse(localStorage.getItem("jobid"));
+//import "primereact/resources/themes/arya-orange/theme.css";          //theme
+import "primereact/resources/primereact.min.css";                  //core css
+import "primeicons/primeicons.css";                              //icons
+import 'react-notifications/lib/notifications.css';
 
+const ApplicantMyJobofferDetail = () => {
     let emptyJobApplicant = { jobId: '', applied: '', deletedDay: '', jobAppdeleted: '', 
-        studentid: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
-        title: '', description: '', area: '', body: '', experience: '',
-        modality: '', position: '', datePublished: '', modifiedDay: '',
-        jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};    
-    
-    /*const [jobofferApplied, setJobofferApplied] = useState({
-        'jobid': { value: null, matchMode: FilterMatchMode.EQUALS },
-        'applied': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'deletedDay': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'jobAppdeleted': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'studentid': { value: null, matchMode: FilterMatchMode.EQUALS },
-        'name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'surname': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'dni': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'email': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'phoneNumber': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'typeStudent': { value: null, matchMode: FilterMatchMode.EQUALS },
-        'title': { value: null, matchMode: FilterMatchMode.STARTS_WITH },        
-        'description': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'area': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'body': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'experience': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'modality': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'position': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'category': { value: null, matchMode: FilterMatchMode.EQUALS }        
-    });*/
+          studentid: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
+          title: '', description: '', area: '', body: '', experience: '',
+          modality: '', position: '', categoryName: '', categoryDescription: '',
+          datePublished: '', modifiedDay: '',
+          jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};  
 
     const [jobofferApplied, setJobofferApplied] = useState({
-        'applied': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'jobAppdeleted': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'studentid': { value: null, matchMode: FilterMatchMode.EQUALS },
-        'name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        'surname': { value: null, matchMode: FilterMatchMode.CONTAINS },
-        'typeStudent': { value: null, matchMode: FilterMatchMode.EQUALS },
-        'title': { value: null, matchMode: FilterMatchMode.STARTS_WITH }, 
-        'area': { value: null, matchMode: FilterMatchMode.STARTS_WITH }    
+      'applied': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      'jobAppdeleted': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      'studentid': { value: null, matchMode: FilterMatchMode.EQUALS },
+      'name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      'surname': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'typeStudent': { value: null, matchMode: FilterMatchMode.EQUALS },
+      'title': { value: null, matchMode: FilterMatchMode.STARTS_WITH }, 
+      'area': { value: null, matchMode: FilterMatchMode.STARTS_WITH }    
     });
     const [applied, setApplied] = useState(''); 
     const [globalFilterValue2, setGlobalFilterValue2] = useState('');    
@@ -69,10 +49,9 @@ const PublisherApplicantByJobOffer = () => {
     const [jobofferDialog, setJobofferDialog] = useState(false);
     const [jobApplied, setJobApplied] = useState(emptyJobApplicant);
     const studentTypes = ['ACTIVE', 'REGULAR', 'RECEIVED'];
-   
+  
     useEffect(() => {        
         ReportListsService.getJobApplicantAllByJobOfferSimplePublisher(jobid).then(data => { setApplied(data); setLoading2(false) });
-        //ReportListsService.getJobApplicantAllByJobOfferSimplePublisher(data).then(data => { setApplied(data); setLoading2(false) });        
     }, []);
 
     const onGlobalFilterChange2 = (e) => {
@@ -266,4 +245,4 @@ const PublisherApplicantByJobOffer = () => {
     );
 }
 
-export default PublisherApplicantByJobOffer;
+export default ApplicantMyJobofferDetail;

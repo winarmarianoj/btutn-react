@@ -12,24 +12,20 @@ import { Calendar } from 'primereact/calendar';
 import { MultiSelect } from 'primereact/multiselect';
 import { Slider } from 'primereact/slider';
 import { TriStateCheckbox } from 'primereact/tristatecheckbox';
-
-
 import {Dialog} from 'primereact/dialog';
 import Swal from 'sweetalert';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { RadioButton } from 'primereact/radiobutton';
+import '../../assets/css/DataCategoryFilter.css';
+import ReportListsService from '../../services/ReportListsService';
+import JobOfferService from '../../services/JobOfferService';
+import PublisherApplicantByJobOffer from './PublisherApplicantByJobOffer';
 
 //import "primereact/resources/themes/arya-orange/theme.css";          //theme
 //import 'primereact/resources/themes/saga-orange/theme.css';
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";
 import 'react-notifications/lib/notifications.css';
-
-import { InputTextarea } from 'primereact/inputtextarea';
-import { RadioButton } from 'primereact/radiobutton';
-
-import '../../assets/css/DataCategoryFilter.css';
-import ReportListsService from '../../services/ReportListsService';
-import JobOfferService from '../../services/JobOfferService';
-import PublisherApplicantByJobOffer from './PublisherApplicantByJobOffer';
 
 const PublisherJobOfferByCategory = () => {
     let emptyJoboffer = { id: '', title: '', description: '', area: '', body: '', experience: '',
@@ -173,45 +169,45 @@ const PublisherJobOfferByCategory = () => {
                     </div>
 
                     <div className="formgrid grid">
-                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Modality</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="modality">Modality</label> </div>
                         <div className="field">
-                            <InputText id="area" value={job.modality} readOnly/>
+                            <InputText id="modality" value={job.modality} readOnly/>
                         </div>
-                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Position</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="position">Position</label> </div>
                         <div className="field">
-                            <InputNumber id="experience" value={job.position} readOnly/>
-                        </div>
-                    </div>
-
-                    <div className="formgrid grid">
-                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Category</label> </div>
-                        <div className="field">
-                            <InputText id="area" value={job.category} readOnly/>
-                        </div>
-                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Publicado</label> </div>
-                        <div className="field">
-                            <InputNumber id="experience" value={job.datePublished} readOnly/>
-                        </div>
-                    </div>
-                    <div className="formgrid grid">
-                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Modificado</label> </div>
-                        <div className="field">
-                            <InputText id="area" value={job.modifiedDay} readOnly/>
-                        </div>
-                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Eliminado</label> </div>
-                        <div className="field">
-                            <InputNumber id="experience" value={job.deletedDay} readOnly/>
+                            <InputNumber id="position" value={job.position} readOnly/>
                         </div>
                     </div>
 
                     <div className="formgrid grid">
-                        <div className="field col titleLabelByCategory"> <label htmlFor="area">Estado</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="category">Category</label> </div>
                         <div className="field">
-                            <InputText id="area" value={job.state} readOnly/>
+                            <InputText id="category" value={job.category} readOnly/>
                         </div>
-                        <div className="field col titleLabelByCategory"> <label htmlFor="experience">Mensajes</label> </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="datePublished">Publicado</label> </div>
                         <div className="field">
-                            <InputNumber id="experience" value={job.message} readOnly/>
+                            <InputNumber id="datePublished" value={job.datePublished} readOnly/>
+                        </div>
+                    </div>
+                    <div className="formgrid grid">
+                        <div className="field col titleLabelByCategory"> <label htmlFor="modifiedDay">Modificado</label> </div>
+                        <div className="field">
+                            <InputText id="modifiedDay" value={job.modifiedDay} readOnly/>
+                        </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="deletedDay">Eliminado</label> </div>
+                        <div className="field">
+                            <InputNumber id="deletedDay" value={job.deletedDay} readOnly/>
+                        </div>
+                    </div>
+
+                    <div className="formgrid grid">
+                        <div className="field col titleLabelByCategory"> <label htmlFor="state">Estado</label> </div>
+                        <div className="field">
+                            <InputText id="state" value={job.state} readOnly/>
+                        </div>
+                        <div className="field col titleLabelByCategory"> <label htmlFor="message">Mensajes</label> </div>
+                        <div className="field">
+                            <InputNumber id="message" value={job.message} readOnly/>
                         </div>
                     </div>
                 </Dialog>                                                 

@@ -1,206 +1,272 @@
-import React, {Component} from "react";
-import JobOfferService from "../../services/JobOfferService";
-import ReportListsService from '../../services/ReportListsService';
-import AuthService from "../../services/AuthService";
-import {Panel} from 'primereact/panel';
+import React, { useState, useEffect } from 'react';
+import { classNames } from 'primereact/utils';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
+import { InputNumber } from 'primereact/inputnumber';
+import { Button } from 'primereact/button';
+import { ProgressBar } from 'primereact/progressbar';
+import { Calendar } from 'primereact/calendar';
+import { MultiSelect } from 'primereact/multiselect';
+import { Slider } from 'primereact/slider';
+import { TriStateCheckbox } from 'primereact/tristatecheckbox';
 import {Dialog} from 'primereact/dialog';
-import {InputText} from 'primereact/inputtext';
-import {Button} from 'primereact/button';
-import Styles from '../../assets/css/StyleWeb.css';
 import Swal from 'sweetalert';
-import ProfileCss from '../../assets/css/ProfileCss.css';
-import {Menubar} from 'primereact/menubar';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { RadioButton } from 'primereact/radiobutton';
+import '../../assets/css/DataCategoryFilter.css';
+import ReportListsService from '../../services/ReportListsService';
+import JobOfferService from '../../services/JobOfferService';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-
-import "primereact/resources/themes/arya-orange/theme.css";          //theme
+//import "primereact/resources/themes/arya-orange/theme.css";          //theme
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";                              //icons
-
 import 'react-notifications/lib/notifications.css';
 
-class ApplicantYourApplicants extends Component{
-  constructor(props){
-    super(props);
+const ApplicantYourApplicants = () => {
+    let emptyJobApplicant = { jobOfferID: '', applied: '', deletedDay: '', jobAppdeleted: '', 
+      applicantID: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
+      title: '', description: '', area: '', body: '', experience: '',
+      modality: '', position: '', category: '', categoryDescription: '',
+      datePublished: '', modifiedDay: '',
+      jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};  
 
-    this.state={
-        data:[],
-        modalInsertar: false,
-        modalEliminar: false,
-        joboffer:{
-          id: '', title: '', description: '', area: '', body: '', experience: '', modality: '',
-          position: '', category: '', datePublished: '', modifiedDay: '', deletedDay: '',
-          deleted: '', state: '', message: ''},
-        tipoModal: '',
+    const [jobofferApplied, setJobofferApplied] = useState({      
+      'title': { value: null, matchMode: FilterMatchMode.STARTS_WITH }, 
+      'area': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      'experience': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'modality': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'position': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'category': { value: null, matchMode: FilterMatchMode.EQUALS } 
+    });
+    const [applied, setApplied] = useState([]); 
+    const [globalFilterValue2, setGlobalFilterValue2] = useState('');    
+    const [loading2, setLoading2] = useState(true);
+    const [jobofferDialog, setJobofferDialog] = useState(false);
+    const [jobApplied, setJobApplied] = useState(emptyJobApplicant);
+
+    const categories = [
+        'FULLSTACK', 'BACKEND', 'FRONTEND', 'DEVELOPER', 'UI-UX', 'QA', 'BILLING', 'THIRD-PARTIES', 'CONTRACT'
+    ];
+  
+    useEffect(() => {        
+        ReportListsService.getJobApplicantAllByApplicant().then(data => { setApplied(data); setLoading2(false) });
+        console.log(applied)
+    }, []);
+
+    const onGlobalFilterChange2 = (e) => {
+      const value = e.target.value;
+      let _filters2 = { ...jobofferApplied };
+      _filters2['category'].value = value;
+
+      setJobofferApplied(_filters2);
+      setGlobalFilterValue2(value);
     }
-  }   
-    
-    peticionGet=()=>{
-      setTimeout(() => {
-        ReportListsService.getJobApplicantAllByApplicant().then(response=>{
-          this.state.data = response;
-        }).catch(error=>{
-          console.log(error.message);
-        })        
-      }, 1000);
+
+    const categoriesBodyTemplate = (rowData) => {
+        return <span className={`customer-badge category-${rowData.category}`}>{rowData.category}</span>;
     }
-    
-    peticionPost=async()=>{
-      delete this.state.joboffer.id;
-      JobOfferService.create(this.state.joboffer).then(response=>{
-        this.modalInsertar();
-        this.peticionGet();
-      }).catch(error=>{
-        console.log(error.message);
-      })
+
+    const categoriesFilterTemplate = (options) => {
+        return <Dropdown value={options.value} options={categories} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={categoriesItemTemplate} placeholder="Select a Category" className="p-column-filter" showClear />;
     }
-    
-    peticionPut=()=>{
-      JobOfferService.update(this.state.joboffer.id, this.state.joboffer).then(response=>{
-        this.modalInsertar();
-        this.peticionGet();
-      })
+
+    const categoriesItemTemplate = (option) => {
+        return <span className={`customer-badge category-${option}`}>{option}</span>;
     }
-    
-    peticionDelete=()=>{
-      JobOfferService.delete(this.state.joboffer.id).then(response=>{
-        this.setState({modalEliminar: false});
-        this.peticionGet();
-      })
+
+    const categoriesRowFilterTemplate = (options) => {
+        return <Dropdown value={options.value} options={categories} onChange={(e) => options.filterApplyCallback(e.value)} itemTemplate={categoriesItemTemplate} placeholder="Select a Categories" className="p-column-filter" showClear />;
     }
-    
-    modalInsertar=()=>{
-      this.setState({modalInsertar: !this.state.modalInsertar});
-    }
-    
-    selectJobOffer=(offer)=>{
-      this.setState({
-        tipoModal: 'actualizar',
-        joboffer: {
-          id: offer.id, title: offer.title, description: offer.description, area: offer.area,
-          body: offer.body, experience: offer.experience, modality: offer.modality, position: offer.position,
-          category: offer.category, datePublished: offer.datePublished, modifiedDay: offer.modifiedDay,
-          deletedDay: offer.deletedDay, deleted: offer.deleted, state: offer.state, message: offer.message
-        }
-      })
-    }
-    
-    handleChange=async e=>{
-      e.persist();
-      this.setState({
-        joboffer:{
-          ...this.state.joboffer,
-          [e.target.name]: e.target.value
+
+    const editjoboffer = (rowData) => { 
+      console.log(applied)
+      console.log(rowData)
+        console.log(rowData.rowData.jobOfferID) 
+      let id = rowData.rowData.jobOfferID;
+      applied.forEach(element => {
+        if(element.jobOfferID===id){
+          setJobApplied(element)
         }
       });
-    }
-    
-    componentDidMount() {this.peticionGet(); }      
-    
-    render(){
-          const {joboffer}=this.state;
-        return (
-          <div className="App">
-          <br /><br /><br />
-        <button className="btn btn-success" onClick={()=>{this.setState({joboffer: null, tipoModal: 'insertar'}); this.modalInsertar()}}>Agregar job</button>
-        <br /><br />
-          <table className="table ">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Area</th>
-                <th>Experience</th>
-                <th>Modality</th>
-                <th>Position</th>
-                <th>Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.data.map(job=>{
-                return(
-                  <tr>
-                      <td>{job.id}</td>
-                      <td>{job.title}</td>
-                      <td>{job.description}</td>
-                      <td>{job.area}</td>
-                      <td>{job.experience}</td>
-                      <td>{job.modality}</td>
-                      <td>{job.position}</td>
-                      <td>{job.category}</td>
+      
+      //setJobApplied(rowData.rowData);
+        setTimeout(() => {
+          console.log(jobApplied);
+          setJobofferDialog(true);  
+        }, 2000);
+    }    
 
-                      <td>
-                          <button className="btn btn-primary" onClick={()=>{this.selectJobOffer(job); this.modalInsertar()}}><FontAwesomeIcon icon={faEdit}/></button>
-                          {"   "}
-                          <button className="btn btn-danger" onClick={()=>{this.selectJobOffer(job); this.setState({modalEliminar: true})}}><FontAwesomeIcon icon={faTrashAlt}/></button>
-                      </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>    
-      
-          <Modal isOpen={this.state.modalInsertar}>
-                      <ModalHeader style={{display: 'block'}}>
-                        <span style={{float: 'right'}} onClick={()=>this.modalInsertar()}>x</span>
-                      </ModalHeader>
-                      <ModalBody>
-                        <div className="form-group">
-                            <label htmlFor="id">ID</label>
-                            <input className="form-control" type="text" name="id" id="id" readOnly onChange={this.handleChange} value={joboffer?joboffer.id: ''}/>
-                            <br />
-                            <label htmlFor="title">Title</label>
-                            <input className="form-control" type="text" name="title" id="title" onChange={this.handleChange} value={joboffer?joboffer.title: ''}/>
-                            <br />
-                            <label htmlFor="description">Description</label>
-                            <input className="form-control" type="text" name="description" id="description" onChange={this.handleChange} value={joboffer?joboffer.description: ''}/>
-                            <br />
-                            <label htmlFor="area">Area</label>
-                            <input className="form-control" type="text" name="area" id="area" onChange={this.handleChange} value={joboffer?joboffer.area:''}/>
-                            <br />
-                            <label htmlFor="experience">Experience</label>
-                            <input className="form-control" type="text" name="experience" id="experience" onChange={this.handleChange} value={joboffer?joboffer.experience:''}/>
-                            <br />
-                            <label htmlFor="modality">Modality</label>
-                            <input className="form-control" type="text" name="modality" id="modality" onChange={this.handleChange} value={joboffer?joboffer.modality:''}/>
-                            <br />
-                            <label htmlFor="position">Position</label>
-                            <input className="form-control" type="text" name="position" id="position" onChange={this.handleChange} value={joboffer?joboffer.position:''}/>
-                            <br />
-                            <label htmlFor="category">Category</label>
-                            <input className="form-control" type="text" name="category" id="category" onChange={this.handleChange} value={joboffer?joboffer.category:''}/>                      
-                          </div>
-                      </ModalBody>
-      
-                      <ModalFooter>
-                        {this.state.tipoModal=='insertar'?
-                            <button className="btn btn-success" onClick={()=>this.peticionPost()}>
-                            Insertar
-                          </button>: <button className="btn btn-primary" onClick={()=>this.peticionPut()}>
-                            Actualizar
-                          </button>
-                        }
-                          <button className="btn btn-danger" onClick={()=>this.modalInsertar()}>Cancelar</button>
-                      </ModalFooter>
-                </Modal>
-      
-      
-                <Modal isOpen={this.state.modalEliminar}>
-                  <ModalBody>
-                    Estás seguro que deseas eliminar la oferta de trabajo {joboffer && joboffer.title}
-                  </ModalBody>
-                  <ModalFooter>
-                    <button className="btn btn-danger" onClick={()=>this.peticionDelete()}>Sí</button>
-                    <button className="btn btn-secundary" onClick={()=>this.setState({modalEliminar: false})}>No</button>
-                  </ModalFooter>
-                </Modal>
-        </div>
-      
+    const openMyJobofferDetail = (rowData) => {
+        console.log(rowData)
+        console.log(rowData.rowData.jobOfferID)
+        localStorage.setItem("jobAppliedID", JSON.stringify(rowData.rowData.jobOfferID));
+        window.location.href = './applicantMyJobofferDetail';
+        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
+    }
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>         
+                <Button icon="pi pi-list" label="More Info" className="p-button-rounded p-button-light " onClick={() => editjoboffer({rowData}) } /> 
+            </React.Fragment>
         );
     }
+
+    const headerTable = () => {
+        return (
+            <h5 className="p-datatable-customers">My Applied JobOffers</h5>
+        );
+    }
+    const headerDialog = () => {
+        return (
+            <h5 className="titleDialog">JobOffer Applied Detail</h5>
+        );
+    }
+
+    return (
+        <div className="datatable-filter">
+            <DataTable value={applied} paginator className="p-datatable-customers" rows={10} 
+                dataKey="id" filters={jobofferApplied} filterDisplay="row" loading={loading2} responsiveLayout="scroll"
+                globalFilterFields={['title','area','experience','modality','position','category']}  header={headerTable} emptyMessage="No customers found."
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} joboffers">                    
+                <Column field="title" header="Title" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />                    
+                <Column field="area" header="Area" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                <Column field="experience" header="Experience" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                <Column field="modality" header="Modality" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                <Column field="position" header="Position" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />                    
+                <Column field="category" header="Category" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={categoriesBodyTemplate} filter filterElement={categoriesRowFilterTemplate}/>
+                <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
+            </DataTable>
+
+            <Dialog className="p-fluid containerDialog" header={headerDialog} visible={jobofferDialog} style={{width: '1000px'}} modal={true} onHide={() => setJobofferDialog(false)}>
+    
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="jobId">JobApplicantId</label> </div>
+                    <div className="field">
+                        <InputText id="jobId" value={jobApplied.jobOfferID} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="applied">Applied</label> </div>
+                    <div className="field">
+                        <InputText id="applied" value={jobApplied.applied} style={{width : '100%'}} readOnly />
+                    </div>
+                </div>
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="deletedDay">DeletedDay</label> </div>
+                    <div className="field">
+                        <InputText id="deletedDay" value={jobApplied.deletedDay} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="jobAppdeleted">JobAppdeleted</label> </div>
+                    <div className="field">
+                        <InputText id="jobAppdeleted" value={jobApplied.jobAppdeleted} style={{width : '100%'}} readOnly />
+                    </div>
+                </div>
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="studentid">StudentID</label> </div>
+                    <div className="field">
+                        <InputText id="studentid" value={jobApplied.applicantID} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="name">Name</label> </div>
+                    <div className="field">
+                        <InputText id="name" value={jobApplied.name} style={{width : '100%'}} readOnly />
+                    </div>
+                </div>
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="surname">Surname</label> </div>
+                    <div className="field">
+                        <InputText id="surname" value={jobApplied.surname} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="dni">DNI</label> </div>
+                    <div className="field">
+                        <InputText id="dni" value={jobApplied.dni} style={{width : '100%'}} readOnly />
+                    </div>
+                </div>
+
+                    <div className="field col titleLabelByCategory"> <label htmlFor="email">Email</label> </div>
+                    <div className="field">
+                        <InputText id="email" value={jobApplied.email} readOnly style={{width : '70%'}} />
+                    </div>
+
+
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="phoneNumber">PhoneNumber</label> </div>
+                    <div className="field">
+                        <InputText id="phoneNumber" value={jobApplied.phoneNumber} style={{width : '100%'}} readOnly />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="typeStudent">TypeStudent</label> </div>
+                    <div className="field">
+                        <InputText id="typeStudent" value={jobApplied.typeStudent} readOnly style={{width : '100%'}} />
+                    </div>                   
+                </div> 
+                
+                    <div className="field col titleLabelByCategory"> <label htmlFor="title">Title</label> </div>
+                    <div className="field">
+                        <InputText id="title" value={jobApplied.title} style={{width : '70%'}} readOnly />
+                    </div>
+
+                    <div className="field col titleLabelByCategory"> <label htmlFor="description">Description</label> </div>
+                    <div className="field">
+                        <InputTextarea id="description" value={jobApplied.description} readOnly style={{width : '100%'}} rows={3} cols={80} />
+                    </div>
+
+                    <div className="field col titleLabelByCategory"> <label htmlFor="body">Body</label> </div>
+                    <div className="field">
+                        <InputTextarea id="body" value={jobApplied.body} readOnly style={{width : '100%'}} rows={3} cols={80} />
+                    </div>
+                
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="area">Area</label> </div>
+                    <div className="field">
+                        <InputText id="area" value={jobApplied.area} style={{width : '100%'}} readOnly />
+                    </div>                    
+                    <div className="field col titleLabelByCategory"> <label htmlFor="experience">Experience</label> </div>
+                    <div className="field">
+                        <InputText id="experience" value={jobApplied.experience} style={{width : '100%'}} readOnly />
+                    </div>
+                </div> 
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="modality">Modality</label> </div>
+                    <div className="field">
+                        <InputText id="modality" value={jobApplied.modality} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="position">Position</label> </div>
+                    <div className="field">
+                        <InputText id="position" value={jobApplied.position} style={{width : '100%'}} readOnly />
+                    </div>
+                </div> 
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="datePublished">DatePublished</label> </div>
+                    <div className="field">
+                        <InputText id="datePublished" value={jobApplied.datePublished} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="modifiedDay">ModifiedDay</label> </div>
+                    <div className="field">
+                        <InputText id="modifiedDay" value={jobApplied.modifiedDay} style={{width : '100%'}} readOnly />
+                    </div>
+                </div> 
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferDeletedDay">JobOfferDeletedDay</label> </div>
+                    <div className="field">
+                        <InputText id="jobOfferDeletedDay" value={jobApplied.jobOfferDeletedDay} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferDeleted">JobOfferDeleted</label> </div>
+                    <div className="field">
+                        <InputText id="jobOfferDeleted" value={jobApplied.jobOfferDeleted} style={{width : '100%'}} readOnly />
+                    </div>
+                </div> 
+                <div className="formgrid grid">
+                    <div className="field col titleLabelByCategory"> <label htmlFor="state">State</label> </div>
+                    <div className="field">
+                        <InputText id="state" value={jobApplied.state} readOnly style={{width : '100%'}} />
+                    </div>
+                    
+                </div> 
+          </Dialog>                                                 
+        </div>
+    );
 }
 
 export default ApplicantYourApplicants;
