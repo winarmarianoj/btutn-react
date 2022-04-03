@@ -19,7 +19,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import '../../assets/css/DataCategoryFilter.css';
 import ReportListsService from '../../services/ReportListsService';
 import JobOfferService from '../../services/JobOfferService';
-import PublisherApplicantByJobOffer from './PublisherApplicantByJobOffer';
+import PublisherApplicantByJobOffer from '../../components/publisher/PublisherApplicantByJobOffer';
 
 //import "primereact/resources/themes/arya-orange/theme.css";          //theme
 //import 'primereact/resources/themes/saga-orange/theme.css';

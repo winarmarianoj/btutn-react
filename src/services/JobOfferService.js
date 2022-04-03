@@ -27,7 +27,12 @@ class JobOfferService{
     }
 
     async applicantPostulate(idJobOffer){
-        return await axios.get(JOBOFFER_BASE_URL + "postulate/" + idJobOffer).then(res => res.data);
+        let user = AuthService.getCurrentUser();
+        let dto = {
+            applicantID: user.id,
+            jobofferID: idJobOffer
+        }
+        return await axios.post(JOBOFFER_BASE_URL + "postulate", dto).then(res => res.data);
     }
     
 }

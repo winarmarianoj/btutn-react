@@ -53,7 +53,6 @@ const ApplicantYourApplicants = () => {
   
     useEffect(() => {        
         ReportListsService.getJobApplicantAllByApplicant().then(data => { setApplied(data); setLoading2(false) });
-        console.log(applied)
     }, []);
 
     const onGlobalFilterChange2 = (e) => {
@@ -98,14 +97,6 @@ const ApplicantYourApplicants = () => {
           setJobofferDialog(true);  
         }, 2000);
     }    
-
-    const openMyJobofferDetail = (rowData) => {
-        console.log(rowData)
-        console.log(rowData.rowData.jobOfferID)
-        localStorage.setItem("jobAppliedID", JSON.stringify(rowData.rowData.jobOfferID));
-        window.location.href = './applicantMyJobofferDetail';
-        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
-    }
 
     const actionBodyTemplate = (rowData) => {
         return (

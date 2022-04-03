@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
 import JobOfferService from "../../services/JobOfferService";
+import AuthService from "../../services/AuthService";
 import DataViewCss from "../../assets/css/DataView.css";
 
 import 'primeicons/primeicons.css';
@@ -28,9 +29,11 @@ class HomeCards extends Component {
       layout: 'grid',
       loading: true,
       first: 0,
-      totalRecords: 0
+      totalRecords: 0,
+      setApplicantBoard: false,
+      currentUser: ''
     };
-    this.rows = 6;
+    this.rows = 12;
     
     this.itemTemplate = this.itemTemplate.bind(this);
     this.onPage = this.onPage.bind(this);
@@ -38,14 +41,21 @@ class HomeCards extends Component {
 
   componentDidMount(){
     setTimeout(() => {
-      JobOfferService.getAll().then(data => {
-          this.state.joboffers = data;
-          this.setState({
-              totalRecords: data.length,
-              loading: false
-          });
-      });
+        JobOfferService.getAll().then(data => {
+            this.datasource = data;
+            this.state.joboffers = data;
+            this.setState({
+                totalRecords: data.length,
+                joboffers: this.datasource.slice(0, this.rows),
+                loading: false
+            });
+        });       
     }, 1000);
+    const user = AuthService.getCurrentUser();    
+    if (user && user.role.role === "APPLICANT") { 
+        this.state.currentUser = user;
+        this.state.setApplicantBoard = true;
+    }
   }
 
   onPage(event) {
@@ -57,19 +67,32 @@ class HomeCards extends Component {
     setTimeout(() => {
         const startIndex = event.first;
         const endIndex = Math.min(event.first + this.rows, this.state.totalRecords - 1);
-        const newProducts = startIndex === endIndex ? this.datasource.slice(startIndex) : this.datasource.slice(startIndex, endIndex);
+        const newJoboffer = startIndex === endIndex ? this.datasource.slice(startIndex) : this.datasource.slice(startIndex, endIndex);
 
         this.setState({
-            first: startIndex,
-            products: newProducts,
-            loading: false
-        });
-    }, 1000); 
-  }
+                first: startIndex,
+                joboffers: newJoboffer,
+                loading: false
+            });
+        }, 1000); 
+    };
+
+    openMyJobofferDetail = () => {
+        
+        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
+    }
+
+    editjoboffer({data}){
+        console.log(data)
+        console.log(data.id)
+        localStorage.setItem("jobAppliedID", JSON.stringify(data.id));
+        window.location.href = './applicantJobofferToApply';
+    }
+
 
     renderListItem(data) {
         return (
-            <div className="col-12">
+            <div className="col-6">
                 <div className="product-list-item colorWordsRows">                    
                     <div className="product-list-detail">
                         <div className="product-name">Title: {data.title}</div>
@@ -77,9 +100,14 @@ class HomeCards extends Component {
                         <div className="product-description">Area: {data.area}</div>
                         <div className="product-description">Experience Required: {data.experience} años</div>
                     </div>
-                    <div className="product-list-action"> 
-                        <Button icon="pi pi-list" label="More Info" ></Button>                        
-                    </div>
+                    
+                    {this.state.currentUser ? (
+                        <div className="product-list-action"> 
+                            <Button icon="pi pi-list" label="More Info" onClick={() => this.editjoboffer({data})} ></Button> 
+                        </div>
+                    ) : (
+                        <></>    
+                    )}
                 </div>
             </div>
         );
@@ -87,7 +115,7 @@ class HomeCards extends Component {
 
     renderGridItem(data) {
         return (
-            <div className="col-12 md:col-4">
+            <div className="col-6 md:col-6">
                 <div className="product-grid-item card colorWordsCards">
                     <div className="product-grid-item-top">
                         <div className="product-description">{data.category}</div>
@@ -100,9 +128,13 @@ class HomeCards extends Component {
                         <div className="product-description">Area: {data.area}</div>
                         <div className="product-description">Experience Required: {data.experience} años</div>                        
                     </div>
-                    <div className="product-grid-item-bottom">
-                        <Button icon="pi pi-list" label="More Info" ></Button>
-                    </div>
+                    {this.state.currentUser ? (
+                        <div className="product-list-action"> 
+                            <Button icon="pi pi-list" label="More Info" onClick={() => this.editjoboffer({data})} ></Button> 
+                        </div>
+                    ) : (
+                        <></>    
+                    )}
                 </div>
             </div>
         );
@@ -112,8 +144,7 @@ class HomeCards extends Component {
         if (!product) {
             return;
         }
-
-        if (layout === 'list')
+        if (layout === 'list')            
             return this.renderListItem(product);
         else if (layout === 'grid')
             return this.renderGridItem(product);

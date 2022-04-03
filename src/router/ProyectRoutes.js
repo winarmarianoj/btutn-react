@@ -18,10 +18,11 @@ import Admin from "../screens/Admin/Admin";
 import AdminProfile from "../screens/Admin/AdminProfile";
 import ApplicantYourApplicants from "../screens/Applicant/ApplicantYourApplicants";
 import ApplicantProfile from "../screens/Applicant/ApplicantProfile";
+import ApplicantJobofferToApply from '../components/applicant/ApplicantJobofferToApply';
 import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
 import PublisherProfile from "../screens/Publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
-import PublisherApplicantByJobOffer from "../screens/Publisher/PublisherApplicantByJobOffer";
+import PublisherApplicantByJobOffer from "../components/publisher/PublisherApplicantByJobOffer";
 import Utn from "../screens/Utn/Utn";
 import UtnProfile from "../screens/Utn/UtnProfile";
 import StyleCentral from '../assets/css/stylesCentral.css';
@@ -41,7 +42,6 @@ export default function ProyectRoutes() {
     const user = AuthService.getCurrentUser();
 
     if (user) {
-        console.log(user)
       setCurrentUser(user);
       setUtnBoard(user.role.role === "UTN" ? true : false);
       setAdminBoard(user.role.role === "ADMIN" ? true : false);
@@ -186,6 +186,7 @@ export default function ProyectRoutes() {
                         <Route path="/adminProfile" component={AdminProfile} />
                         <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
                         <Route path="/applicantProfile" component={ApplicantProfile} />
+                        <Route path="/applicantJobofferToApply" component={ApplicantJobofferToApply} />
                         <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
                         <Route path="/publisherProfile" component={PublisherProfile} />
                         <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
