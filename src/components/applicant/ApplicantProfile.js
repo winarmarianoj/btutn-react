@@ -10,6 +10,7 @@ import Styles from '../../assets/css/StyleWeb.css';
 import Swal from 'sweetalert';
 import ProfileCss from '../../assets/css/ProfileCss.css';
 import {Menubar} from 'primereact/menubar';
+import Profile from '../../auxWillDelete/Profile-backup';
 
 import "primereact/resources/themes/arya-orange/theme.css";          //theme
 import "primereact/resources/primereact.min.css";                  //core css
@@ -22,22 +23,9 @@ class ApplicantProfile extends Component{
         super();
         this.state = {
             visible : false,
-            person : {
-                id: '',
-                uri: '',
-                name: '',
-                surname: '',
-                identification: '',
-                phoneNumber: '',
-                email: '',
-                password: '', 
-                role: '',           
-                genre: '',
-                birthDate: '',
-                typeStudent: '',
-                webPage: '',
-                message: ''
-              },            
+            person : {id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''},            
         };    
         this.items = [
             {
@@ -54,15 +42,17 @@ class ApplicantProfile extends Component{
         this.save = this.save.bind(this);
         this.delete = this.delete.bind(this);
         this.footer = (
-            <div><Button label="Save" icon="pi pi-check" onClick={this.save} /> </div>
+            <div><Button label="Save" icon="pi pi-send" onClick={this.save} /> </div>
         );
     }
 
     peticionGet=()=>{
         PersonService.getByUserId().then(response=>{
-          this.setState({person: response});
+            this.setState({person: response});
         }).catch(error=>{
-          console.log(error.message);
+            Swal({text: 'Failed get Applicant by user id.',
+                    icon: 'error', timer:'3500'});
+            console.log(error.message);
         })
     }
     
@@ -87,22 +77,9 @@ class ApplicantProfile extends Component{
         ApplicantService.update(this.state.person).then(data => {            
             this.setState({
                 visible : !this.state.visible,
-                person : {
-                    id: '',
-                    uri: '',
-                    name: '',
-                    surname: '',
-                    identification: '',
-                    phoneNumber: '',
-                    email: '',
-                    password: '', 
-                    role: '',           
-                    genre: '',
-                    birthDate: '',
-                    typeStudent: '',
-                    webPage: '',
-                    message: ''
-                  }
+                person : {id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''}
             });
             Swal({text: 'Edit and Update correct!', icon: 'success', timer:'3500'});
             this.peticionGet();
@@ -115,20 +92,22 @@ class ApplicantProfile extends Component{
         return(
             <div style={Styles.divPerson}>
                 <Menubar model={this.items}/>
-                <div className="container card profile"> 
-                    <div className="profile-usertitle row">
-                        <div className="profile-usertitle-name row">                                
-                            <p>Name :  {this.state.person.name}</p>
-                            <p>Last Name :  {this.state.person.surname}</p>
-                            <p>Id Applicant :  {this.state.person.id}</p>
-                            <p>URI :  {this.state.person.uri}</p>
-                            <p>DNI :  {this.state.person.identification}</p>
-                            <p>Phone Number :  {this.state.person.phoneNumber}</p>
-                            <p>Email :  {this.state.person.email}</p>
-                            <p>Genre :  {this.state.person.genre}</p>
-                            <p>BirthDate :  {this.state.person.birthDate}</p>
-                            <p>TypeStudent :  {this.state.person.typeStudent}</p>
-                        </div>
+                <div className="row col-12">
+                    <div className="container card profile"> 
+                        <div className="profile-usertitle ">
+                            <div className="profile-usertitle-name row">                                
+                                <p>Name :  {this.state.person.name}</p>
+                                <p>Last Name :  {this.state.person.surname}</p>
+                                <p>Id Applicant :  {this.state.person.id}</p>
+                                <p>URI :  {this.state.person.uri}</p>
+                                <p>DNI :  {this.state.person.identification}</p>
+                                <p>Phone Number :  {this.state.person.phoneNumber}</p>
+                                <p>Email :  {this.state.person.email}</p>
+                                <p>Genre :  {this.state.person.genre}</p>
+                                <p>BirthDate :  {this.state.person.birthDate}</p>
+                                <p>TypeStudent :  {this.state.person.typeStudent}</p>
+                            </div>                            
+                        </div> 
                     </div>
                 </div>
 
@@ -258,22 +237,9 @@ class ApplicantProfile extends Component{
 
     saveDialog(){
         this.setState({
-            person : {
-                id: '',
-                uri: '',
-                name: '',
-                surname: '',
-                identification: '',
-                phoneNumber: '',
-                email: '',
-                password: '', 
-                role: '',           
-                genre: '',
-                birthDate: '',
-                typeStudent: '',
-                webPage: '',
-                message: ''
-              }
+            person : {id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''}
         });
         document.getElementById('person-form').reset();
     }

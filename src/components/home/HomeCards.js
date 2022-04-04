@@ -77,18 +77,10 @@ class HomeCards extends Component {
         }, 1000); 
     };
 
-    openMyJobofferDetail = () => {
-        
-        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
-    }
-
     editjoboffer({data}){
-        console.log(data)
-        console.log(data.id)
         localStorage.setItem("jobAppliedID", JSON.stringify(data.id));
         window.location.href = './applicantJobofferToApply';
     }
-
 
     renderListItem(data) {
         return (

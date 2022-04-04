@@ -53,7 +53,13 @@ const PublisherJobOfferByCategory = () => {
     ];
 
     useEffect(() => {        
-        ReportListsService.getJobOfferAllByPublisher().then(data => { setJoboffers(data); setLoading2(false) });        
+        ReportListsService.getJobOfferAllByPublisher().then(data => { 
+            setJoboffers(data); setLoading2(false) 
+        }).catch(error=>{
+            Swal({text: 'Failed get all joboffer by publisher id.',
+                    icon: 'error', timer:'3500'});
+            console.log(error.message);            
+        })
     }, []);
 
     const onGlobalFilterChange2 = (e) => {
@@ -91,8 +97,6 @@ const PublisherJobOfferByCategory = () => {
     }    
 
     const openApplicantByJoboffer = (rowData) => {
-        console.log(rowData)
-        console.log(rowData.rowData.id)
         localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
         window.location.href = './publisherApplicantByJobOffer';
         //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";

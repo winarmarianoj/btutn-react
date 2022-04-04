@@ -37,7 +37,7 @@ class PublisherProfile extends Component{
         this.save = this.save.bind(this);
         this.delete = this.delete.bind(this);
         this.footer = (
-            <div><Button label="Save" icon="pi pi-check" onClick={this.save} /> </div>
+            <div><Button label="Save" icon="pi pi-send" onClick={this.save} /> </div>
         );
     }
 
@@ -45,7 +45,9 @@ class PublisherProfile extends Component{
         PersonService.getByUserId().then(response=>{
           this.setState({person: response});
         }).catch(error=>{
-          console.log(error.message);
+            Swal({text: 'Failed Get Person by userId.',
+                    icon: 'error', timer:'3500'});
+            console.log(error.message);
         })
     }
     

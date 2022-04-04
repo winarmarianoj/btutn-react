@@ -16,27 +16,15 @@ import "primeicons/primeicons.css";                              //icons
 
 import 'react-notifications/lib/notifications.css';
 
-class UtnProfile extends Component{
+class AdminProfile extends Component{
     constructor(){
         super();
         this.state = {
             visible : false,
             person : {
-                id: '',
-                uri: '',
-                name: '',
-                surname: '',
-                identification: '',
-                phoneNumber: '',
-                email: '',
-                password: '', 
-                role: '',           
-                genre: '',
-                birthDate: '',
-                typeStudent: '',
-                webPage: '',
-                message: ''
-              },            
+                id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''},
         };    
         this.items = [
             {
@@ -87,21 +75,9 @@ class UtnProfile extends Component{
             this.setState({
                 visible : !this.state.visible,
                 person : {
-                    id: '',
-                    uri: '',
-                    name: '',
-                    surname: '',
-                    identification: '',
-                    phoneNumber: '',
-                    email: '',
-                    password: '', 
-                    role: '',           
-                    genre: '',
-                    birthDate: '',
-                    typeStudent: '',
-                    webPage: '',
-                    message: ''
-                  }
+                    id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                    email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                    webPage: '', message: ''}
             });
             Swal({text: 'Edit and Update correct!', icon: 'success', timer:'3500'});
             this.peticionGet();
@@ -140,7 +116,7 @@ class UtnProfile extends Component{
                                 return { person };
                             })}
                         }  />
-                        <label htmlFor="name">Nombre</label>
+                        <label htmlFor="name">Razon Social</label>
                     </span>
                     <br/>
                     <span className="p-float-label">
@@ -153,7 +129,7 @@ class UtnProfile extends Component{
                                 return { person };
                             })}
                         } />
-                        <label htmlFor="surname">Apellido</label>
+                        <label htmlFor="surname">Nombre y Apellido</label>
                     </span>
                     <br/>
                     <span className="p-float-label">
@@ -166,7 +142,7 @@ class UtnProfile extends Component{
                                 return { person };
                             })}
                         } />
-                        <label htmlFor="identification">DNI</label>
+                        <label htmlFor="identification">CUIT</label>
                     </span>
                     <br/>
                     <span className="p-float-label">
@@ -217,21 +193,9 @@ class UtnProfile extends Component{
     saveDialog(){
         this.setState({
             person : {
-                id: '',
-                uri: '',
-                name: '',
-                surname: '',
-                identification: '',
-                phoneNumber: '',
-                email: '',
-                password: '', 
-                role: '',           
-                genre: '',
-                birthDate: '',
-                typeStudent: '',
-                webPage: '',
-                message: ''
-              }
+                id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''}
         });
         document.getElementById('person-form').reset();
     }
@@ -253,4 +217,4 @@ class UtnProfile extends Component{
 
 }
 
-export default UtnProfile;
+export default AdminProfile;

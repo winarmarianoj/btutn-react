@@ -15,16 +15,16 @@ import RegisterPerson from "../components/pages/RegisterPerson";
 import RegisterApplicant from "../components/pages/RegisterApplicant";
 import RegisterPublisher from "../components/pages/RegisterPublisher";
 import Admin from "../screens/Admin/Admin";
-import AdminProfile from "../screens/Admin/AdminProfile";
+import AdminProfile from "../components/admin/AdminProfile";
 import ApplicantYourApplicants from "../screens/Applicant/ApplicantYourApplicants";
-import ApplicantProfile from "../screens/Applicant/ApplicantProfile";
+import ApplicantProfile from "../components/applicant/ApplicantProfile";
 import ApplicantJobofferToApply from '../components/applicant/ApplicantJobofferToApply';
 import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
-import PublisherProfile from "../screens/Publisher/PublisherProfile";
+import PublisherProfile from "../components/publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
 import PublisherApplicantByJobOffer from "../components/publisher/PublisherApplicantByJobOffer";
 import Utn from "../screens/Utn/Utn";
-import UtnProfile from "../screens/Utn/UtnProfile";
+import UtnProfile from "../components/utn/UtnProfile";
 import StyleCentral from '../assets/css/stylesCentral.css';
 
 // import AuthVerify from "./common/AuthVerify";
@@ -110,29 +110,23 @@ export default function ProyectRoutes() {
                                     <Link to={"/publisherJobOfferByCategory"} className="nav-link">
                                         ByCategory
                                     </Link>
-                                    
-                                    <Link to={"/publisherProfile"} className="nav-link">
-                                        Profile
-                                    </Link>
                                 </>
                             )}
 
                             {applicantBoard && (
                                 <><Link to={"/applicantYourApplicants"} className="nav-link">
                                         Your Applications
-                                    </Link>
-                                    <Link to={"/applicantProfile"} className="nav-link">
-                                        Profile
-                                    </Link></>
+                                    </Link>                                
+                                </>
                             )}
 
                         </div>
 
-                        {currentUser ? (
+                        {currentUser ? (                            
                         <div className="navbar-nav ml-auto">
                             <li className="nav-item">
                                 <Link to={"/profile"} className="nav-link">
-                                    UserProfile
+                                    Profile
                                 </Link>
                             </li>
                             <li className="nav-item">

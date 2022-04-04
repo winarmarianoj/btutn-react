@@ -1,11 +1,11 @@
 /*-----Background-----*/
 
 body{
-    background-image:url(../img/mount-fuji.jpg); /*https://s3.envato.com/files/243754334/primag.jpg*/
+    background-image:url(../img/pinturaOleo.jpg); /*https://s3.envato.com/files/243754334/primag.jpg*/
     background-repeat:no-repeat;
     background-size:cover;
     width:100%;
-    height:100vh;
+    height:100%;
     overflow:auto;    
 }
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AuthService from './AuthService';
+import Swal from 'sweetalert';
 
 const JOBOFFER_BASE_URL = "http://localhost:8082/joboffer/";
 

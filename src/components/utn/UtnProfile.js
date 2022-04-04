@@ -16,27 +16,15 @@ import "primeicons/primeicons.css";                              //icons
 
 import 'react-notifications/lib/notifications.css';
 
-class AdminProfile extends Component{
+class UtnProfile extends Component{
     constructor(){
         super();
         this.state = {
             visible : false,
             person : {
-                id: '',
-                uri: '',
-                name: '',
-                surname: '',
-                identification: '',
-                phoneNumber: '',
-                email: '',
-                password: '', 
-                role: '',           
-                genre: '',
-                birthDate: '',
-                typeStudent: '',
-                webPage: '',
-                message: ''
-              },            
+                id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''},                 
         };    
         this.items = [
             {
@@ -87,21 +75,9 @@ class AdminProfile extends Component{
             this.setState({
                 visible : !this.state.visible,
                 person : {
-                    id: '',
-                    uri: '',
-                    name: '',
-                    surname: '',
-                    identification: '',
-                    phoneNumber: '',
-                    email: '',
-                    password: '', 
-                    role: '',           
-                    genre: '',
-                    birthDate: '',
-                    typeStudent: '',
-                    webPage: '',
-                    message: ''
-                  }
+                    id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                    email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                    webPage: '', message: ''}
             });
             Swal({text: 'Edit and Update correct!', icon: 'success', timer:'3500'});
             this.peticionGet();
@@ -140,7 +116,7 @@ class AdminProfile extends Component{
                                 return { person };
                             })}
                         }  />
-                        <label htmlFor="name">Razon Social</label>
+                        <label htmlFor="name">Nombre</label>
                     </span>
                     <br/>
                     <span className="p-float-label">
@@ -153,7 +129,7 @@ class AdminProfile extends Component{
                                 return { person };
                             })}
                         } />
-                        <label htmlFor="surname">Nombre y Apellido</label>
+                        <label htmlFor="surname">Apellido</label>
                     </span>
                     <br/>
                     <span className="p-float-label">
@@ -166,7 +142,7 @@ class AdminProfile extends Component{
                                 return { person };
                             })}
                         } />
-                        <label htmlFor="identification">CUIT</label>
+                        <label htmlFor="identification">DNI</label>
                     </span>
                     <br/>
                     <span className="p-float-label">
@@ -217,21 +193,9 @@ class AdminProfile extends Component{
     saveDialog(){
         this.setState({
             person : {
-                id: '',
-                uri: '',
-                name: '',
-                surname: '',
-                identification: '',
-                phoneNumber: '',
-                email: '',
-                password: '', 
-                role: '',           
-                genre: '',
-                birthDate: '',
-                typeStudent: '',
-                webPage: '',
-                message: ''
-              }
+                id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
+                email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '',
+                webPage: '', message: ''}
         });
         document.getElementById('person-form').reset();
     }
@@ -253,4 +217,4 @@ class AdminProfile extends Component{
 
 }
 
-export default AdminProfile;
+export default UtnProfile;

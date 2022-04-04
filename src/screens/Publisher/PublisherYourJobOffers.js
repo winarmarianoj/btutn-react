@@ -102,7 +102,9 @@ class PublisherYourJobOffers extends Component {
   peticionGet=()=>{
     ReportListsService.getJobOfferAllByPublisher().then(response=>{
       this.setState({joboffers: response});
-    }).catch(error=>{      
+    }).catch(error=>{ 
+      Swal({text: 'Failed Get All Publisher.',
+                    icon: 'error', timer:'3500'});     
       console.log(error.message);
     })
   } 

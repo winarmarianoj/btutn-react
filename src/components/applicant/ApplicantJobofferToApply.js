@@ -48,16 +48,15 @@ const ApplicantJobofferToApply = () => {
           }, 1000);        
     }   
 
-    const editjobofferapplied = () => {        
-        JobOfferService.applicantPostulate(jobApplied.id).then(data => {
-            if(data){
-                Swal({text: 'Congratulation!!! is postulate in this job',
-                        icon: 'success', timer:'3500'});
-            }            
+    const editjobofferapplied = () => {     
+        JobOfferService.applicantPostulate(jobApplied.id).then((data) => {
+            if(data) Swal({text: 'Congratulation!!! is postulate in this job',
+                    icon: 'success', timer:'3500'});    
+            
         }).catch(error=>{
-            console.log(error.message);
-            Swal({text: 'Failed, not postulated',
-                icon: 'danger', timer:'3500'});
+            Swal({text: 'Failed Apply. You are already applied.',
+                    icon: 'error', timer:'3500'});
+            console.log(error.message);            
         })
     }
 
@@ -80,6 +79,10 @@ const ApplicantJobofferToApply = () => {
                     <div className="field col titleLabelByCategory"> <label htmlFor="id">ID</label> </div>
                     <div className="field">
                         <InputText id="id" value={jobApplied.id} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor=""></label> </div>
+                    <div className="field">
+                        
                     </div>                   
                 </div>      
                 
@@ -154,7 +157,7 @@ const ApplicantJobofferToApply = () => {
                 <div className="field col titleLabelByCategory"> <label htmlFor="deleted"></label> </div>
                     <div className="field"></div>
                     <div className="field">
-                        <Button label="APPLY" icon="pi pi-pencil" className="p-button-rounded p-button-success mr-4" 
+                        <Button label="APPLY" icon="pi pi-send" className="p-button-rounded p-button-success mr-4" 
                             style={{bottom: -20, right: '10%'}}
                             onClick={() => editjobofferapplied() } />    
                     </div>                

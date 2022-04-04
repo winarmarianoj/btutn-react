@@ -6,9 +6,18 @@ body {
   .divMenuBar{
     width:'80%'; margin: '0 auto'; margin-top: '20px';
 }
+
+.profileUserCredential{
+  height: 400px;
+  box-shadow: 2px 5px 5px 0px #eee;
+}
+.profilePerson{
+  height: 550px;
+  box-shadow: 2px 5px 5px 0px #eee;
+}
   
   /* Profile container */
-  .profile {
+  .profile, .profileUserCredential, .profilePerson {
     font-family: Roboto,sans-serif;
     color: burlywood;
     background-image: url(../img/dark-blue-fondo.webp);   
@@ -16,12 +25,10 @@ body {
     margin: 0 auto;
     text-align: center;
     opacity: 0.8;
-    margin-top: 1px;
-    box-shadow: 2px 5px 5px 0px #eee;
+    margin-top: 10px;
     max-width: 600px;
     padding-top: 5px;
-    height: 400px;
-    margin-top: 1px;
+    margin-top: 10px;
   }
   
   .profile-usertitle {
@@ -55,5 +62,11 @@ body {
     font-weight: 600;
     padding: 6px 15px;
     margin-right: 5px;
+  }
+  .column1{
+    margin-left: 0%;
+  }
+  .column2{
+    margin-left: 55%;
   }
    

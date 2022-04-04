@@ -26,9 +26,9 @@ import "primeicons/primeicons.css";                              //icons
 import 'react-notifications/lib/notifications.css';
 
 const ApplicantYourApplicants = () => {
-    let emptyJobApplicant = { jobOfferID: '', applied: '', deletedDay: '', jobAppdeleted: '', 
+    let emptyJobApplicant = { jobOfferApplicantID: '', applied: '', deletedDay: '', jobAppdeleted: '', 
       applicantID: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
-      title: '', description: '', area: '', body: '', experience: '',
+      jobOfferID: '', title: '', description: '', area: '', body: '', experience: '',
       modality: '', position: '', category: '', categoryDescription: '',
       datePublished: '', modifiedDay: '',
       jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};  
@@ -52,7 +52,13 @@ const ApplicantYourApplicants = () => {
     ];
   
     useEffect(() => {        
-        ReportListsService.getJobApplicantAllByApplicant().then(data => { setApplied(data); setLoading2(false) });
+        ReportListsService.getJobApplicantAllByApplicant().then(data => { 
+            setApplied(data); setLoading2(false) 
+        }).catch(error=>{
+            Swal({text: 'Failed get joboffers to applied.',
+                    icon: 'error', timer:'3500'});
+            console.log(error.message);            
+        })
     }, []);
 
     const onGlobalFilterChange2 = (e) => {
@@ -81,19 +87,14 @@ const ApplicantYourApplicants = () => {
     }
 
     const editjoboffer = (rowData) => { 
-      console.log(applied)
-      console.log(rowData)
-        console.log(rowData.rowData.jobOfferID) 
       let id = rowData.rowData.jobOfferID;
       applied.forEach(element => {
         if(element.jobOfferID===id){
           setJobApplied(element)
         }
       });
-      
-      //setJobApplied(rowData.rowData);
+            
         setTimeout(() => {
-          console.log(jobApplied);
           setJobofferDialog(true);  
         }, 2000);
     }    
@@ -136,9 +137,9 @@ const ApplicantYourApplicants = () => {
             <Dialog className="p-fluid containerDialog" header={headerDialog} visible={jobofferDialog} style={{width: '1000px'}} modal={true} onHide={() => setJobofferDialog(false)}>
     
                 <div className="formgrid grid">
-                    <div className="field col titleLabelByCategory"> <label htmlFor="jobId">JobApplicantId</label> </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferApplicantID">JobOfferApplicantID</label> </div>
                     <div className="field">
-                        <InputText id="jobId" value={jobApplied.jobOfferID} readOnly style={{width : '100%'}} />
+                        <InputText id="jobOfferApplicantID" value={jobApplied.jobOfferApplicantID} readOnly style={{width : '100%'}} />
                     </div>
                     <div className="field col titleLabelByCategory"> <label htmlFor="applied">Applied</label> </div>
                     <div className="field">
@@ -156,9 +157,9 @@ const ApplicantYourApplicants = () => {
                     </div>
                 </div>
                 <div className="formgrid grid">
-                    <div className="field col titleLabelByCategory"> <label htmlFor="studentid">StudentID</label> </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="applicantID">ApplicantID</label> </div>
                     <div className="field">
-                        <InputText id="studentid" value={jobApplied.applicantID} readOnly style={{width : '100%'}} />
+                        <InputText id="applicantID" value={jobApplied.applicantID} readOnly style={{width : '100%'}} />
                     </div>
                     <div className="field col titleLabelByCategory"> <label htmlFor="name">Name</label> </div>
                     <div className="field">
@@ -191,7 +192,17 @@ const ApplicantYourApplicants = () => {
                     <div className="field">
                         <InputText id="typeStudent" value={jobApplied.typeStudent} readOnly style={{width : '100%'}} />
                     </div>                   
-                </div> 
+                </div>
+                <div className="formgrid grid">
+                <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferID">JobOfferID</label> </div>
+                    <div className="field">
+                        <InputText id="jobOfferID" value={jobApplied.jobOfferID} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="state">State</label> </div>
+                    <div className="field">
+                        <InputText id="state" value={jobApplied.state} readOnly style={{width : '100%'}} />
+                    </div>                    
+                </div>  
                 
                     <div className="field col titleLabelByCategory"> <label htmlFor="title">Title</label> </div>
                     <div className="field">
@@ -248,13 +259,7 @@ const ApplicantYourApplicants = () => {
                         <InputText id="jobOfferDeleted" value={jobApplied.jobOfferDeleted} style={{width : '100%'}} readOnly />
                     </div>
                 </div> 
-                <div className="formgrid grid">
-                    <div className="field col titleLabelByCategory"> <label htmlFor="state">State</label> </div>
-                    <div className="field">
-                        <InputText id="state" value={jobApplied.state} readOnly style={{width : '100%'}} />
-                    </div>
-                    
-                </div> 
+                
           </Dialog>                                                 
         </div>
     );
