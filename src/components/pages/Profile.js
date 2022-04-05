@@ -28,9 +28,9 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className=" ">
+    <div className="profilebackground">
         <section className="column1 col-7 fixed-top offset-fixed f-left  my-5 pt-5">
-            <div className="container card profilePerson">
+            <div className="container card profile">
               {utnBoard && (<UtnProfile/>)}
               {adminBoard && (<AdminProfile />)}
               {publisherBoard && (<PublisherProfile />)}
@@ -38,7 +38,7 @@ const Profile = () => {
             </div>              
         </section>
         <section className="column2 col-5 fixed-top offset-fixed f-right my-5 pt-5">
-            <div className="container card profileUserCredential">
+            <div className="container card profile">
                 <header className="jumbotron">
                   <h1> User Profile Credentials</h1>
                   <h3> <strong>Username : </strong>

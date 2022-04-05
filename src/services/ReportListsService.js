@@ -19,6 +19,7 @@ class ReportListsService{
      * @returns lista de postulaciones
      */
      async getJobOfferAllWithFilter(state){
+         console.log(state)
         let user = AuthService.getCurrentUser();
         return await axios.get(REPORT_LISTS_BASE_URL + "filter/" + state).then(res => res.data);
     }

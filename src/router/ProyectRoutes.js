@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/App.css";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+import { DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 import AuthService from "../services/AuthService";
 
@@ -23,20 +23,33 @@ import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers"
 import PublisherProfile from "../components/publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
 import PublisherApplicantByJobOffer from "../components/publisher/PublisherApplicantByJobOffer";
-import Utn from "../screens/Utn/Utn";
+import UtnSelectState from "../screens/Utn/UtnSelectState";
 import UtnProfile from "../components/utn/UtnProfile";
+import UtnJobOfferStateSelected from '../components/utn/UtnJobOfferStateSelected';
 import StyleCentral from '../assets/css/stylesCentral.css';
+import { Dropdown } from 'primereact/dropdown';
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
 
 export default function ProyectRoutes() {
-  const [utnBoard, setUtnBoard] = useState(false);
-  const [adminBoard, setAdminBoard] = useState(false);
-  const [publisherBoard, setPublisherBoard] = useState(false);
-  const [applicantBoard, setApplicantBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
-  const [dropdown, setDropdown] = useState(false);
+    const [utnBoard, setUtnBoard] = useState(false);
+    const [adminBoard, setAdminBoard] = useState(false);
+    const [publisherBoard, setPublisherBoard] = useState(false);
+    const [applicantBoard, setApplicantBoard] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [dropdown, setDropdown] = useState(false);
+    const [state, setState] = useState();
+
+    const states = [
+        {label: 'ACTIVE', value: 'ACTIVE'},
+        {label: 'APPROVED', value: 'APPROVED'},
+        {label: 'DELETED', value: 'DELETED'},
+        {label: 'PENDING', value: 'PENDING'},
+        {label: 'PUBLISHED', value: 'PUBLISHED'},
+        {label: 'REJECTED', value: 'REJECTED'},
+        {label: 'REVIEW', value: 'REVIEW'}
+    ];
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -71,6 +84,12 @@ export default function ProyectRoutes() {
     setDropdown(!dropdown);
   }
 
+  const sendState = (e) => {
+    let newState = e.value;
+    localStorage.setItem("jobstate", JSON.stringify(newState));
+    window.location.href = './utnJobOfferStateSelected';
+  }
+
     return(        
         <div >
                 <BrowserRouter>
@@ -86,21 +105,17 @@ export default function ProyectRoutes() {
                             </li>
 
                             {utnBoard && (
-                                <><Link to={"/utn"} className="nav-link">
-                                        UTN Board
+                                <><Link to={"/utnSelectState"} className="nav-link">
+                                        <Dropdown value={state} options={states} onChange={(e) => sendState(e)} placeholder="Select a State Joboffer"/>                                    
                                     </Link>
-                                    <Link to={"/utnProfile"} className="nav-link">
-                                        Profile
-                                    </Link></>
+                                </>
                             )}
 
                             {adminBoard && (
                                 <><Link to={"/admin"} className="nav-link">
                                         Admin Board
                                     </Link>
-                                    <Link to={"/adminProfile"} className="nav-link">
-                                        Profile
-                                    </Link></>
+                                </>
                             )}
 
                             {publisherBoard && (
@@ -185,8 +200,9 @@ export default function ProyectRoutes() {
                         <Route path="/publisherProfile" component={PublisherProfile} />
                         <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
                         <Route path="/publisherApplicantByJobOffer" component={PublisherApplicantByJobOffer} />
-                        <Route path="/utn" component={Utn} />
+                        <Route path="/utnSelectState" component={UtnSelectState} />
                         <Route path="/utnProfile" component={UtnProfile} />
+                        <Route path="/utnJobOfferStateSelected" component={UtnJobOfferStateSelected} />
                         </Switch>
                     </div>
 
