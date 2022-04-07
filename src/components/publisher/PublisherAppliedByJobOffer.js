@@ -22,14 +22,16 @@ import '../../assets/css/DataCategoryFilter.css';
 import ReportListsService from '../../services/ReportListsService';
 import '../../assets/css/prueba.css'
 
-const PublisherApplicantByJobOffer = () => {   
+const PublisherAppliedByJobOffer = () => {   
     let jobid = JSON.parse(localStorage.getItem("jobid"));
+    localStorage.removeItem("jobid");
 
-    let emptyJobApplicant = { jobId: '', applied: '', deletedDay: '', jobAppdeleted: '', 
-        studentid: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
-        title: '', description: '', area: '', body: '', experience: '',
-        modality: '', position: '', datePublished: '', modifiedDay: '',
-        jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};    
+    let emptyJobApplicant = { jobOfferApplicantID: '', applied: '', deletedDay: '', jobAppdeleted: '', 
+    applicantID: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
+    jobOfferID: '', title: '', description: '', area: '', body: '', experience: '',
+    modality: '', position: '', category: '', categoryDescription: '',
+    datePublished: '', modifiedDay: '',
+    jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};    
     
     /*const [jobofferApplied, setJobofferApplied] = useState({
         'jobid': { value: null, matchMode: FilterMatchMode.EQUALS },
@@ -115,7 +117,7 @@ const PublisherApplicantByJobOffer = () => {
 
     const headerTable = () => {
         return (
-            <h5 className="p-datatable-customers">List Student Applied</h5>
+            <h5 className="p-datatable-customers">List Applied Student</h5>
         );
     }
     const headerDialog = () => {
@@ -141,9 +143,9 @@ const PublisherApplicantByJobOffer = () => {
             <Dialog className="p-fluid containerDialog" header={headerDialog} visible={jobofferDialog} style={{width: '1000px'}} modal={true} onHide={() => setJobofferDialog(false)}>
         
                 <div className="formgrid grid">
-                    <div className="field col titleLabelByCategory"> <label htmlFor="jobId">JobId</label> </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferApplicantID">JobOfferApplicantID</label> </div>
                     <div className="field">
-                        <InputText id="jobId" value={jobApplied.jobId} readOnly style={{width : '100%'}} />
+                        <InputText id="jobOfferApplicantID" value={jobApplied.jobOfferApplicantID} readOnly style={{width : '100%'}} />
                     </div>
                     <div className="field col titleLabelByCategory"> <label htmlFor="applied">Applied</label> </div>
                     <div className="field">
@@ -161,9 +163,9 @@ const PublisherApplicantByJobOffer = () => {
                     </div>
                 </div>
                 <div className="formgrid grid">
-                    <div className="field col titleLabelByCategory"> <label htmlFor="studentid">StudentID</label> </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="applicantID">ApplicantID</label> </div>
                     <div className="field">
-                        <InputText id="studentid" value={jobApplied.studentid} readOnly style={{width : '100%'}} />
+                        <InputText id="applicantID" value={jobApplied.applicantID} readOnly style={{width : '100%'}} />
                     </div>
                     <div className="field col titleLabelByCategory"> <label htmlFor="name">Name</label> </div>
                     <div className="field">
@@ -196,7 +198,17 @@ const PublisherApplicantByJobOffer = () => {
                     <div className="field">
                         <InputText id="typeStudent" value={jobApplied.typeStudent} readOnly style={{width : '100%'}} />
                     </div>                   
-                </div> 
+                </div>
+                <div className="formgrid grid">
+                <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferID">JobOfferID</label> </div>
+                    <div className="field">
+                        <InputText id="jobOfferID" value={jobApplied.jobOfferID} readOnly style={{width : '100%'}} />
+                    </div>
+                    <div className="field col titleLabelByCategory"> <label htmlFor="state">State</label> </div>
+                    <div className="field">
+                        <InputText id="state" value={jobApplied.state} readOnly style={{width : '100%'}} />
+                    </div>                    
+                </div>  
                 
                     <div className="field col titleLabelByCategory"> <label htmlFor="title">Title</label> </div>
                     <div className="field">
@@ -253,17 +265,11 @@ const PublisherApplicantByJobOffer = () => {
                         <InputText id="jobOfferDeleted" value={jobApplied.jobOfferDeleted} style={{width : '100%'}} readOnly />
                     </div>
                 </div> 
-                <div className="formgrid grid">
-                    <div className="field col titleLabelByCategory"> <label htmlFor="state">State</label> </div>
-                    <div className="field">
-                        <InputText id="state" value={jobApplied.state} readOnly style={{width : '100%'}} />
-                    </div>
-                    
-                </div> 
+                
             </Dialog>
                                                           
         </div>
     );
 }
 
-export default PublisherApplicantByJobOffer;
+export default PublisherAppliedByJobOffer;

@@ -93,10 +93,7 @@ const ApplicantYourApplicants = () => {
           setJobApplied(element)
         }
       });
-            
-        setTimeout(() => {
-          setJobofferDialog(true);  
-        }, 2000);
+      setJobofferDialog(true);
     }    
 
     const actionBodyTemplate = (rowData) => {

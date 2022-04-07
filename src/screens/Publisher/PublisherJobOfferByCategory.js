@@ -19,7 +19,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import '../../assets/css/DataCategoryFilter.css';
 import ReportListsService from '../../services/ReportListsService';
 import JobOfferService from '../../services/JobOfferService';
-import PublisherApplicantByJobOffer from '../../components/publisher/PublisherApplicantByJobOffer';
+import PublisherApplicantByJobOffer from '../../components/publisher/PublisherAppliedByJobOffer';
 
 //import "primereact/resources/themes/arya-orange/theme.css";          //theme
 //import 'primereact/resources/themes/saga-orange/theme.css';
@@ -98,7 +98,7 @@ const PublisherJobOfferByCategory = () => {
 
     const openApplicantByJoboffer = (rowData) => {
         localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
-        window.location.href = './publisherApplicantByJobOffer';
+        window.location.href = './publisherAppliedByJobOffer';
         //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
     }
 

@@ -10,8 +10,8 @@ import 'primeicons/primeicons.css';
 import "primereact/resources/primereact.min.css";                  //core css
 
 //import 'primereact/resources/themes/saga-orange/theme.css'
-import 'primereact/resources/themes/nova-accent/theme.css'
-import 'primereact/resources/themes/nova-alt/theme.css'
+//import 'primereact/resources/themes/nova-accent/theme.css'
+//import 'primereact/resources/themes/nova-alt/theme.css'
 //import 'primereact/resources/themes/nova/theme.css'
 //import 'primereact/resources/themes/rhea/theme.css'
 

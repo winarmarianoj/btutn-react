@@ -22,10 +22,10 @@ import ApplicantJobofferToApply from '../components/applicant/ApplicantJobofferT
 import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
 import PublisherProfile from "../components/publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
-import PublisherApplicantByJobOffer from "../components/publisher/PublisherApplicantByJobOffer";
-import UtnSelectState from "../screens/Utn/UtnSelectState";
+import PublisherAppliedByJobOffer from "../components/publisher/PublisherAppliedByJobOffer";
 import UtnProfile from "../components/utn/UtnProfile";
-import UtnJobOfferStateSelected from '../components/utn/UtnJobOfferStateSelected';
+import UtnJobOfferStateSelected from '../screens/Utn/UtnJobOfferStateSelected';
+import DialogJobOffer from "../components/dialog/DialogJobOffer";
 import StyleCentral from '../assets/css/stylesCentral.css';
 import { Dropdown } from 'primereact/dropdown';
 
@@ -105,7 +105,7 @@ export default function ProyectRoutes() {
                             </li>
 
                             {utnBoard && (
-                                <><Link to={"/utnSelectState"} className="nav-link">
+                                <><Link to={"/utnJobOfferStateSelected"} className="nav-link">
                                         <Dropdown value={state} options={states} onChange={(e) => sendState(e)} placeholder="Select a State Joboffer"/>                                    
                                     </Link>
                                 </>
@@ -199,10 +199,10 @@ export default function ProyectRoutes() {
                         <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
                         <Route path="/publisherProfile" component={PublisherProfile} />
                         <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
-                        <Route path="/publisherApplicantByJobOffer" component={PublisherApplicantByJobOffer} />
-                        <Route path="/utnSelectState" component={UtnSelectState} />
+                        <Route path="/publisherAppliedByJobOffer" component={PublisherAppliedByJobOffer} />
                         <Route path="/utnProfile" component={UtnProfile} />
-                        <Route path="/utnJobOfferStateSelected" component={UtnJobOfferStateSelected} />
+                        <Route path="/utnJobOfferStateSelected" component={UtnJobOfferStateSelected} />                        
+                        <Route path="/dialogJobOffer" component={DialogJobOffer} />
                         </Switch>
                     </div>
 

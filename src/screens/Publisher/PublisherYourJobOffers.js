@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import JobOfferService from "../../services/JobOfferService";
 import ReportListsService from '../../services/ReportListsService';
+import CategoryService from '../../services/CategoryService';
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -40,7 +41,7 @@ class PublisherYourJobOffers extends Component {
               deletedDay: '', deleted: '', state: '', message: ''},
       selectedJoboffer: { id: '', title: '', description: '', area: '', body: '', experience: '',
               modality: '', position: '', category: '', datePublished: '', modifiedDay: '',
-              deletedDay: '', deleted: '', state: '', message: ''},      
+              deletedDay: '', deleted: '', state: '', message: ''}
     };
     this.items = [
       {
@@ -76,6 +77,7 @@ class PublisherYourJobOffers extends Component {
     this.exportPdf = this.exportPdf.bind(this);
     this.exportExcel = this.exportExcel.bind(this);
     this.rightToolbarTemplate = this.rightToolbarTemplate.bind(this);
+    this.printCategories = this.printCategories.bind(this);
 
     this.cols = [
       { field: 'id', header: 'id' },
@@ -106,8 +108,8 @@ class PublisherYourJobOffers extends Component {
       Swal({text: 'Failed Get All Publisher.',
                     icon: 'error', timer:'3500'});     
       console.log(error.message);
-    })
-  } 
+    });
+  }
 
   delete(){    
       Swal({

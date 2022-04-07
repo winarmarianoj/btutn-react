@@ -37,6 +37,7 @@ const ApplicantJobofferToApply = () => {
   
     useEffect(() => {
         let jobidApp = JSON.parse(localStorage.getItem("jobAppliedID")); 
+        localStorage.removeItem("jobAppliedID");
         JobOfferService.get(jobidApp).then(data => { getJob(data); setLoading2(false) });
     }, []);
 
