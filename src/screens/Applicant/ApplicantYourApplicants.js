@@ -89,9 +89,7 @@ const ApplicantYourApplicants = () => {
 
     const headerTable = () => {return (<h5 className="p-datatable-customers">My Applied JobOffers</h5>);}    
 
-    return redirection ? (
-        <Redirect to="/dialogJobApplicant"/>
-    ) : (
+    return redirection ? (<Redirect to="/dialogJobApplicant"/> ) : (
         <div className="datatable-filter">
             <DataTable value={applied} paginator className="p-datatable-customers" rows={10} 
                 dataKey="id" filters={jobofferApplied} filterDisplay="row" loading={loading2} responsiveLayout="scroll"

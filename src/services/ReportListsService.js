@@ -12,16 +12,7 @@ class ReportListsService{
      async getAllWithPage(){
         let user = AuthService.getCurrentUser();
         return await axios.get(REPORT_LISTS_BASE_URL + "with-page").then(res => res.data);
-    }
-
-    /**
-     * UTN: envia el estado de la publicaciones como filtro
-     * @returns lista de postulaciones
-     */
-     async getJobOfferAllWithFilter(state){
-        let user = AuthService.getCurrentUser();
-        return await axios.get(REPORT_LISTS_BASE_URL + "filter/" + state).then(res => res.data);
-    }
+    }    
     
     /**
      * APPLICANT: Lo usa el applicante para ver su lista de postulaciones.
@@ -40,16 +31,7 @@ class ReportListsService{
      */
     async getJobApplicantAllByJobOfferSimplePublisher(jobofferID){
         return await axios.get(REPORT_LISTS_BASE_URL + "jobapplicants-by-my-offers/" + jobofferID).then(res => res.data);
-    }
-
-    /**
-     * UTN: Evaluacion de cada aviso antes de ser publicado.
-     * Objeto a enviar: JobOfferEvaluationDTO
-     * @returns resultado
-     */
-     async getJobOfferAllEvaluation(jobOfferEvaluationDTO){
-        return await axios.post(REPORT_LISTS_BASE_URL + "evaluation", jobOfferEvaluationDTO).then(res => res.data);
-    }
+    }    
 
     /**
      * PUBLISHER: Ver todos sus avisos. El ID del publicador
@@ -68,6 +50,16 @@ class ReportListsService{
         let user = AuthService.getCurrentUser();
         return await axios.get(REPORT_LISTS_BASE_URL + "publisher/filter/" + category + "/" + user.id).then(res => res.data);
     }
+
+    /**
+     * UTN: envia el estado de la publicaciones como filtro
+     * @returns lista de postulaciones
+     */
+     async getJobOfferAllWithFilter(state){
+        let user = AuthService.getCurrentUser();
+        return await axios.get(REPORT_LISTS_BASE_URL + "filter/" + state).then(res => res.data);
+    }
+    
 
 }
 

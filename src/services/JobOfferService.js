@@ -35,6 +35,15 @@ class JobOfferService{
         }
         return await axios.post(JOBOFFER_BASE_URL + "postulate", dto).then(res => res.data);
     }
+
+    /**
+     * UTN: Evaluacion de cada aviso antes de ser publicado.
+     * Objeto a enviar: JobOfferEvaluationDTO
+     * @returns resultado
+     */
+     async getJobOfferAllEvaluation(jobOfferEvaluationDTO){
+        return await axios.post(JOBOFFER_BASE_URL + "evaluation", jobOfferEvaluationDTO).then(res => res.data);
+    }
     
 }
 

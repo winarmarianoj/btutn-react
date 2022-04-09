@@ -52,8 +52,6 @@ const PublisherJobOfferByCategory = () => {
     }
 
     const editjoboffer = (rowData) => {
-        //localStorage.setItem("editjobofferID", JSON.stringify(rowData.rowData.id));
-        //window.location.href = './dialogJobOffer';
         context.setId(rowData.rowData.id); context.setTitle(rowData.rowData.title);
         context.setDescription(rowData.rowData.description); context.setArea(rowData.rowData.area); 
         context.setBody(rowData.rowData.body); context.setExperience(rowData.rowData.experience); 
@@ -81,9 +79,7 @@ const PublisherJobOfferByCategory = () => {
 
     const headerTable = () => {return (<h5 className="p-datatable-customers">Filter JobOffers by Categories</h5>);}
 
-    return redirection ? (
-        <Redirect to="/dialogJobOffer"/>
-    ) : (
+    return redirection ? ( <Redirect to="/dialogJobOffer"/> ) : (
         <div className="datatable-filter">
             <DataTable value={joboffers} paginator className="p-datatable-customers" rows={10} 
                 dataKey="id" filters={joboffer} filterDisplay="row" loading={loading2} responsiveLayout="scroll"

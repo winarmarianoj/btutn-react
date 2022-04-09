@@ -28,7 +28,6 @@ import DialogJobOffer from "../components/dialog/DialogJobOffer";
 import DialogJobApplicant from '../components/dialog/DialogJobApplicant';
 import StyleCentral from '../assets/css/stylesCentral.css';
 import { Dropdown } from 'primereact/dropdown';
-
 import JobApplicantContainerContext from '../context/jobApplicant/JobApplicantContainerContext';
 import JobOfferContainerContext from "../context/joboffer/JobOfferContainerContext";
 
@@ -45,14 +44,9 @@ export default function ProyectRoutes() {
     const [dropdown, setDropdown] = useState(false);
     const [state, setState] = useState();
 
-    const states = [
-        {label: 'ACTIVE', value: 'ACTIVE'},
-        {label: 'APPROVED', value: 'APPROVED'},
-        {label: 'DELETED', value: 'DELETED'},
-        {label: 'PENDING', value: 'PENDING'},
-        {label: 'PUBLISHED', value: 'PUBLISHED'},
-        {label: 'REJECTED', value: 'REJECTED'},
-        {label: 'REVIEW', value: 'REVIEW'}
+    const states = [        
+        {label: 'PENDING', value: 'PENDING'}, {label: 'PUBLISHED', value: 'PUBLISHED'}, 
+        {label: 'REJECTED', value: 'REJECTED'}, {label: 'REVIEW', value: 'REVIEW'}, {label: 'DELETED', value: 'DELETED'}
     ];
 
   useEffect(() => {
@@ -99,70 +93,32 @@ export default function ProyectRoutes() {
             <JobOfferContainerContext>
             <JobApplicantContainerContext>
                 <BrowserRouter>
-                    <nav className="navbar navbar-expand navbar-dark bg-dark">                                                
-                        <Link to={"/"} className="navbar-brand marginLeft">
-                        CUVL - UTN
-                        </Link>
+                    <nav className="navbar navbar-expand navbar-dark bg-dark">
+                        <Link to={"/"} className="navbar-brand marginLeft"> CUVL - UTN </Link>
                         <div className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <Link to={"/home"} className="nav-link">
-                                    Home
-                                </Link>
-                            </li>
+                            <li className="nav-item"> <Link to={"/home"} className="nav-link"> Home </Link> </li>
 
-                            {utnBoard && (
-                                <><Link to={"/utnJobOfferStateSelected"} className="nav-link">
-                                        <Dropdown value={state} options={states} onChange={(e) => sendState(e)} placeholder="Select a State Joboffer"/>                                    
-                                    </Link>
-                                </>
-                            )}
+                            {utnBoard && (<><Link to={"/utnJobOfferStateSelected"} className="nav-link">
+                                        <Dropdown value={state} options={states} onChange={(e) => sendState(e)} placeholder="Select a State Joboffer"/> 
+                                    </Link> </> )}
 
-                            {adminBoard && (
-                                <><Link to={"/admin"} className="nav-link">
-                                        Admin Board
-                                    </Link>
-                                </>
-                            )}
+                            {adminBoard && ( <><Link to={"/admin"} className="nav-link">Admin Board</Link></> )}
 
-                            {publisherBoard && (
-                                <><Link to={"/publisherYourJobOffers"} className="nav-link">
-                                        YourJobOffers
-                                    </Link>
-                                    <Link to={"/publisherJobOfferByCategory"} className="nav-link">
-                                        ByCategory
-                                    </Link>
-                                </>
-                            )}
+                            {publisherBoard && ( <> <Link to={"/publisherYourJobOffers"} className="nav-link">YourJobOffers</Link>
+                                    <Link to={"/publisherJobOfferByCategory"} className="nav-link">ByCategory</Link> </> )}
 
-                            {applicantBoard && (
-                                <><Link to={"/applicantYourApplicants"} className="nav-link">
-                                        Your Applications
-                                    </Link>                                
-                                </>
-                            )}
+                            {applicantBoard && (<><Link to={"/applicantYourApplicants"} className="nav-link">Your Applications</Link></>)}
 
                         </div>
 
                         {currentUser ? (                            
                         <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/profile"} className="nav-link">
-                                    Profile
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <a href="/login" className="nav-link" onClick={logOut}>
-                                    LogOut
-                                </a>
-                            </li>
+                            <li className="nav-item"><Link to={"/profile"} className="nav-link">Profile</Link> </li>
+                            <li className="nav-item"> <a href="/login" className="nav-link" onClick={logOut}>LogOut</a> </li>
                         </div>
                         ) : (
                         <div className="navbar-nav ml-auto marginRight">
-                            <li className="nav-item">
-                            <Link to={"/login"} className="nav-link">
-                                Login
-                            </Link>
-                            </li>
+                            <li className="nav-item"> <Link to={"/login"} className="nav-link">Login</Link> </li>
 
                             <Dropdown isOpen={dropdown} toggle={openCloseDropdown}>
                             <DropdownToggle caret>Sign Up</DropdownToggle>
@@ -191,24 +147,24 @@ export default function ProyectRoutes() {
 
                     <div className="">
                         <Switch>
-                        <Route exact path={["/", "/home"]} component={Home} />
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/profile" component={Profile} />
-                        <Route exact path="/registerApplicant" component={RegisterApplicant} />
-                        <Route exact path="/registerPublisher" component={RegisterPublisher} />
-                        <Route exact path="/registerPerson" component={RegisterPerson} />
-                        <Route path="/admin" component={Admin} />
-                        <Route path="/adminProfile" component={AdminProfile} />
-                        <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
-                        <Route path="/applicantProfile" component={ApplicantProfile} />
-                        <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
-                        <Route path="/publisherProfile" component={PublisherProfile} />
-                        <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
-                        <Route path="/publisherAppliedByJobOffer" component={PublisherAppliedByJobOffer} />
-                        <Route path="/utnProfile" component={UtnProfile} />
-                        <Route path="/utnJobOfferStateSelected" component={UtnJobOfferStateSelected} />                        
-                        <Route path="/dialogJobOffer" component={DialogJobOffer} />
-                        <Route path="/dialogJobApplicant" component={DialogJobApplicant} />
+                            <Route exact path={["/", "/home"]} component={Home} />
+                            <Route exact path="/login" component={Login} />
+                            <Route exact path="/profile" component={Profile} />
+                            <Route exact path="/registerApplicant" component={RegisterApplicant} />
+                            <Route exact path="/registerPublisher" component={RegisterPublisher} />
+                            <Route exact path="/registerPerson" component={RegisterPerson} />
+                            <Route path="/admin" component={Admin} />
+                            <Route path="/adminProfile" component={AdminProfile} />
+                            <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
+                            <Route path="/applicantProfile" component={ApplicantProfile} />
+                            <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
+                            <Route path="/publisherProfile" component={PublisherProfile} />
+                            <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
+                            <Route path="/publisherAppliedByJobOffer" component={PublisherAppliedByJobOffer} />
+                            <Route path="/utnProfile" component={UtnProfile} />
+                            <Route path="/utnJobOfferStateSelected" component={UtnJobOfferStateSelected} />                        
+                            <Route path="/dialogJobOffer" component={DialogJobOffer} />
+                            <Route path="/dialogJobApplicant" component={DialogJobApplicant} />
                         </Switch>
                     </div>
 

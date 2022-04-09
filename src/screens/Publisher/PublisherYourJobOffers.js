@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import JobOfferService from "../../services/JobOfferService";
 import ReportListsService from '../../services/ReportListsService';
-import CategoryService from '../../services/CategoryService';
-
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import {Panel} from 'primereact/panel';
@@ -62,12 +60,7 @@ class PublisherYourJobOffers extends Component {
     ]; 
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
-    this.footer = (
-      <div>
-        <Button label="Send" icon="pi pi-send" onClick={this.save} />
-      </div>
-    );
-
+    this.footer = (<div> <Button label="Send" icon="pi pi-send" onClick={this.save} /> </div> );    
     this.onCategoryChange = this.onCategoryChange.bind(this);
     this.onModalityChange = this.onModalityChange.bind(this);
     this.onPositionChange = this.onPositionChange.bind(this);
@@ -77,27 +70,17 @@ class PublisherYourJobOffers extends Component {
     this.exportPdf = this.exportPdf.bind(this);
     this.exportExcel = this.exportExcel.bind(this);
     this.rightToolbarTemplate = this.rightToolbarTemplate.bind(this);
-
     this.cols = [
-      { field: 'id', header: 'id' },
-      { field: 'title', header: 'title' },
-      { field: 'description', header: 'description' },
-      { field: 'area', header: 'area' },
-      { field: 'body', header: 'body' },
-      { field: 'experience', header: 'experience' },
-      { field: 'modality', header: 'modality' },
-      { field: 'position', header: 'position' },
-      { field: 'category', header: 'category' },
-      { field: 'datePublished', header: 'adatePublishedrea' },
-      { field: 'modifiedDay', header: 'modifiedDay' },
-      { field: 'deletedDay', header: 'deletedDay' },
-      { field: 'deleted', header: 'deleted' },
-      { field: 'state', header: 'state' },
-      { field: 'message', header: 'message' }
+      { field: 'id', header: 'id' }, { field: 'title', header: 'title' },
+        { field: 'description', header: 'description' }, { field: 'area', header: 'area' },
+        { field: 'body', header: 'body' }, { field: 'experience', header: 'experience' },
+        { field: 'modality', header: 'modality' }, { field: 'position', header: 'position' },
+        { field: 'category', header: 'category' }, { field: 'datePublished', header: 'adatePublishedrea' },
+        { field: 'modifiedDay', header: 'modifiedDay' }, { field: 'deletedDay', header: 'deletedDay' },
+        { field: 'deleted', header: 'deleted' }, { field: 'state', header: 'state' },
+        { field: 'message', header: 'message' }
     ];
-
     this.exportColumns = this.cols.map(col => ({ title: col.header, dataKey: col.field }));
-
   }
 
   peticionGet=()=>{
@@ -195,63 +178,36 @@ class PublisherYourJobOffers extends Component {
             doc.save('joboffers.pdf');
         })
     })
-}
+  }
 
-exportExcel() {
-    import('xlsx').then(xlsx => {
-        const worksheet = xlsx.utils.json_to_sheet(this.state.joboffers);
-        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-        this.saveAsExcelFile(excelBuffer, 'joboffers');
-    });
-}
-
-saveAsExcelFile(buffer, fileName) {
-  import('file-saver').then(FileSaver => {
-      let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-      let EXCEL_EXTENSION = '.xlsx';
-      const data = new Blob([buffer], {
-          type: EXCEL_TYPE
+  exportExcel() {
+      import('xlsx').then(xlsx => {
+          const worksheet = xlsx.utils.json_to_sheet(this.state.joboffers);
+          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+          const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+          this.saveAsExcelFile(excelBuffer, 'joboffers');
       });
-      FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
-  });
-}
+  }
 
-toCapitalize(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-clear() {
-  this.setState({
-      importedData: [],
-      selectedImportedData: [],
-      importedCols: [{ field: '', header: 'Header' }]
-  });
-}
-
-onImportSelectionChange(e) {
-  this.setState({ selectedImportedData: e.value }, () => {
-      const detail = this.state.selectedImportedData.map(d => Object.values(d)[0]).join(', ');
-      this.toast.show({ severity: 'info', summary: 'Data Selected', detail, life: 3000 });
-  });
-}
-
-onSelectionChange(e) {
-  this.setState({ selectedProducts: e.value });
-}
+  saveAsExcelFile(buffer, fileName) {
+    import('file-saver').then(FileSaver => {
+        let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        let EXCEL_EXTENSION = '.xlsx';
+        const data = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+    });
+  }
 
   componentDidMount(){this.peticionGet();}
 
   render(){
     return (
         <div className="datatable-filter joboffersPublisher">            
-            <div className="formgrid grid">
-                <div className="field col">
-                  <Menubar model={this.items}/>
-                </div>
-                <div className="field col">
-                  <Toolbar className="mb-1" right={this.rightToolbarTemplate}></Toolbar>
-                </div>
+            <div className="formgrid grid field col">
+              <Menubar model={this.items}/>
+              <div className="field col"> <Toolbar className="mb-1" right={this.rightToolbarTemplate}></Toolbar> </div>
             </div>
             <Panel>                
                 <DataTable ref={(el) => this.dt = el} value={this.state.joboffers} paginator={true} rows="2" selectionMode="single" selection={this.state.selectedJoboffer} onSelectionChange={e => this.setState({selectedJoboffer: e.value})}

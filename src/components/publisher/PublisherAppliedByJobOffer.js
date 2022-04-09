@@ -50,7 +50,7 @@ const PublisherAppliedByJobOffer = () => {
         return <Dropdown value={options.value} options={studentTypes} onChange={(e) => options.filterApplyCallback(e.value)} itemTemplate={typeStudentItemTemplate} placeholder="Select a Student Types" className="p-column-filter" showClear />;
     }
 
-    const editjobofferapplied = (rowData) => {  
+    const editjobofferapplied = (rowData) => {
         context.setJobOfferApplicantID(rowData.rowData.jobOfferApplicantID);
         context.setApplied(rowData.rowData.applied);
         context.setDeletedDay(rowData.rowData.deletedDay);
@@ -90,9 +90,7 @@ const PublisherAppliedByJobOffer = () => {
 
     const headerTable = () => {return (<h5 className="p-datatable-customers">List Applied Student</h5>);}
 
-    return redirection ? (
-        <Redirect to="/dialogJobApplicant"/>
-    ) : (
+    return redirection ? (<Redirect to="/dialogJobApplicant"/> ) : (
         <div className="datatable-filter">            
             <DataTable value={applied} paginator className="p-datatable-customers" rows={10} 
                 dataKey="id" filters={jobofferApplied} filterDisplay="row" loading={loading2} responsiveLayout="scroll"
