@@ -17,8 +17,8 @@ import Swal from 'sweetalert';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
 import '../../assets/css/DataCategoryFilter.css';
-import ReportListsService from '../../services/ReportListsService';
-import JobOfferService from '../../services/JobOfferService';
+import ReportListsService from '../services/ReportListsService';
+import JobOfferService from '../services/JobOfferService';
 
 //import "primereact/resources/themes/arya-orange/theme.css";          //theme
 import "primereact/resources/primereact.min.css";                  //core css

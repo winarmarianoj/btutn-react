@@ -78,8 +78,11 @@ class HomeCards extends Component {
     };
 
     editjoboffer({data}){
-        localStorage.setItem("jobAppliedID", JSON.stringify(data.id));
-        window.location.href = './applicantJobofferToApply';
+        //localStorage.setItem("jobAppliedID", JSON.stringify(data.id));
+        //window.location.href = './applicantJobofferToApply';
+
+        localStorage.setItem("editjobofferID", JSON.stringify(data.id));
+        window.location.href = './dialogJobOffer';
     }
 
     renderListItem(data) {

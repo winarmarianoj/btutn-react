@@ -1,59 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import React, { useState, useEffect, useContext} from 'react';
 import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
 import {Dialog} from 'primereact/dialog';
 import Swal from 'sweetalert';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { RadioButton } from 'primereact/radiobutton';
 import '../../assets/css/DataCategoryFilter.css';
-import ReportListsService from '../../services/ReportListsService';
+import AuthService from "../../services/AuthService";
 import JobOfferService from '../../services/JobOfferService';
-import PublisherApplicantByJobOffer from '../../components/publisher/PublisherAppliedByJobOffer';
+import JobOfferContext from '../../context/joboffer/JobOfferContext';
 
 const DialogJobOffer = () => {
-    
-    let emptyJoboffer = { id: '', title: '', description: '', area: '', body: '', experience: '',
-              modality: '', position: '', category: '', datePublished: '', modifiedDay: '',
-              deletedDay: '', deleted: '', state: '', message: ''};
-
+    const job = useContext(JobOfferContext);
+    const [editjobofferID, setEditJobofferID] = useState('');
     const [jobofferDialog, setJobofferDialog] = useState(false);
-    const [job, setJob] = useState(emptyJoboffer);
+    const [utnBoard, setUtnBoard] = useState(false);
+    const [adminBoard, setAdminBoard] = useState(false);
+    const [publisherBoard, setPublisherBoard] = useState(false);
+    const [applicantBoard, setApplicantBoard] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
 
     useEffect(() => {
-        let editjobofferID = JSON.parse(localStorage.getItem("editjobofferID")); 
-        localStorage.removeItem("editjobofferID");
-        JobOfferService.get(editjobofferID).then(response => {
-            setJob(response);
-            setJobofferDialog(true) ; 
-        }).catch(error=>{      
-            console.log(error.message);
-        })
-          
-        
-        console.log(job)
-        console.log(jobofferDialog)
+        setJobofferDialog(true);  
+        const user = AuthService.getCurrentUser();
+        if (user) {
+            setCurrentUser(user);
+            setUtnBoard(user.role.role === "UTN" ? true : false);
+            setAdminBoard(user.role.role === "ADMIN" ? true : false);
+            setPublisherBoard(user.role.role === "PUBLISHER" ? true : false);
+            setApplicantBoard(user.role.role === "APPLICANT" ? true : false);
+        }
     }, []);
 
-    const headerDialog = () => {
-        return (
-            <h5 className="titleDialog">JobOffer Detail</h5>
-        );
+    const headerDialog = () => {return (<h5 className="titleDialog">JobOffer Detail</h5>);}
+    const closeAndSendHome = () => {setJobofferDialog(false); 
+        (publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './home'));
+        (applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './home'));
+        (utnBoard ? ( window.location.href = './utnJobOfferStateSelected' ) : (window.location.href = './home'));
     }
 
-    const closeAndSendHome = () => {
-        setJobofferDialog(false);
-        window.location.href = './home';
+    const editjobofferapplied = () => {     
+        JobOfferService.applicantPostulate(job.id).then((data) => {
+            if(data) Swal({text: 'Congratulation!!! is postulate in this job', icon: 'success', timer:'3500'});
+        }).catch(error=>{
+            Swal({text: 'Failed Apply. You are already applied.', icon: 'error', timer:'3500'}); console.log(error.message); 
+        })
+    }
+
+    /*    const checkJoboffer = (rowData) => {
+        localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
+        window.location.href = './publisherApplicantByJobOffer';
+        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
+    } */
+
+    const checkJoboffer = () => {
+
     }
 
     return (
@@ -131,6 +132,32 @@ const DialogJobOffer = () => {
                             <InputNumber id="message" value={job.message} readOnly/>
                         </div>
                     </div>
+
+                    {applicantBoard ? (
+                        <div className="formgrid grid">
+                            <div className="field col titleLabelByCategory"> <label htmlFor="deleted"></label> </div>                            
+                            <div className="field">
+                                <Button label="APPLY" icon="pi pi-send" className="p-button-rounded p-button-success mr-4" 
+                                    style={{bottom: -20, right: '10%'}}
+                                    onClick={() => editjobofferapplied() } />    
+                            </div>                
+                        </div>                       
+                    ) : (
+                        <></>    
+                    )}
+
+                    {utnBoard ? (
+                        <div className="formgrid grid">
+                            <div className="field col titleLabelByCategory"> <label htmlFor="deleted"></label> </div>                            
+                            <div className="field">
+                                <Button label="Check" className="p-button-rounded p-button-secondary " 
+                                    onClick={() => checkJoboffer()} />    
+                            </div>
+                        </div> 
+                    ) : (
+                        <></>    
+                    )}
+
                 </Dialog> 
     );
 }

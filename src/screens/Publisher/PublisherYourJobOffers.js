@@ -77,7 +77,6 @@ class PublisherYourJobOffers extends Component {
     this.exportPdf = this.exportPdf.bind(this);
     this.exportExcel = this.exportExcel.bind(this);
     this.rightToolbarTemplate = this.rightToolbarTemplate.bind(this);
-    this.printCategories = this.printCategories.bind(this);
 
     this.cols = [
       { field: 'id', header: 'id' },

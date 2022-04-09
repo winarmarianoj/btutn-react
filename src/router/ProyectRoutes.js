@@ -18,7 +18,6 @@ import Admin from "../screens/Admin/Admin";
 import AdminProfile from "../components/admin/AdminProfile";
 import ApplicantYourApplicants from "../screens/Applicant/ApplicantYourApplicants";
 import ApplicantProfile from "../components/applicant/ApplicantProfile";
-import ApplicantJobofferToApply from '../components/applicant/ApplicantJobofferToApply';
 import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
 import PublisherProfile from "../components/publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
@@ -26,11 +25,16 @@ import PublisherAppliedByJobOffer from "../components/publisher/PublisherApplied
 import UtnProfile from "../components/utn/UtnProfile";
 import UtnJobOfferStateSelected from '../screens/Utn/UtnJobOfferStateSelected';
 import DialogJobOffer from "../components/dialog/DialogJobOffer";
+import DialogJobApplicant from '../components/dialog/DialogJobApplicant';
 import StyleCentral from '../assets/css/stylesCentral.css';
 import { Dropdown } from 'primereact/dropdown';
 
+import JobApplicantContainerContext from '../context/jobApplicant/JobApplicantContainerContext';
+import JobOfferContainerContext from "../context/joboffer/JobOfferContainerContext";
+
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
+
 
 export default function ProyectRoutes() {
     const [utnBoard, setUtnBoard] = useState(false);
@@ -92,6 +96,8 @@ export default function ProyectRoutes() {
 
     return(        
         <div >
+            <JobOfferContainerContext>
+            <JobApplicantContainerContext>
                 <BrowserRouter>
                     <nav className="navbar navbar-expand navbar-dark bg-dark">                                                
                         <Link to={"/"} className="navbar-brand marginLeft">
@@ -195,7 +201,6 @@ export default function ProyectRoutes() {
                         <Route path="/adminProfile" component={AdminProfile} />
                         <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
                         <Route path="/applicantProfile" component={ApplicantProfile} />
-                        <Route path="/applicantJobofferToApply" component={ApplicantJobofferToApply} />
                         <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
                         <Route path="/publisherProfile" component={PublisherProfile} />
                         <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />
@@ -203,10 +208,13 @@ export default function ProyectRoutes() {
                         <Route path="/utnProfile" component={UtnProfile} />
                         <Route path="/utnJobOfferStateSelected" component={UtnJobOfferStateSelected} />                        
                         <Route path="/dialogJobOffer" component={DialogJobOffer} />
+                        <Route path="/dialogJobApplicant" component={DialogJobApplicant} />
                         </Switch>
                     </div>
 
-                </BrowserRouter>            
+                </BrowserRouter>
+                </JobApplicantContainerContext>
+                </JobOfferContainerContext>
              <Footer/>
         </div>
         

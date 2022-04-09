@@ -1,39 +1,130 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect } from 'react';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
+import { Dropdown } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
 import {Dialog} from 'primereact/dialog';
+import Swal from 'sweetalert';
 import { InputTextarea } from 'primereact/inputtextarea';
 import '../../assets/css/DataCategoryFilter.css';
-import AuthService from "../../services/AuthService";
-import JobApplicantContext from '../../context/jobApplicant/JobApplicantContext';
+import ReportListsService from '../services/ReportListsService';
+import JobOfferService from '../services/JobOfferService';
 
-const DialogJobApplicant = () => {
-    const jobApplied = useContext(JobApplicantContext);
+//import "primereact/resources/themes/arya-orange/theme.css";          //theme
+import "primereact/resources/primereact.min.css";                  //core css
+import "primeicons/primeicons.css";                              //icons
+import 'react-notifications/lib/notifications.css';
+
+const ApplicantYourApplicants = () => {
+    let emptyJobApplicant = { jobOfferApplicantID: '', applied: '', deletedDay: '', jobAppdeleted: '', 
+      applicantID: '', name: '', surname: '', dni: '', email: '', phoneNumber: '', typeStudent: '',
+      jobOfferID: '', title: '', description: '', area: '', body: '', experience: '',
+      modality: '', position: '', category: '', categoryDescription: '',
+      datePublished: '', modifiedDay: '',
+      jobOfferDeletedDay: '', jobOfferDeleted: '', state: ''};  
+
+    const [jobofferApplied, setJobofferApplied] = useState({      
+      'title': { value: null, matchMode: FilterMatchMode.STARTS_WITH }, 
+      'area': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      'experience': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'modality': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'position': { value: null, matchMode: FilterMatchMode.CONTAINS },
+      'category': { value: null, matchMode: FilterMatchMode.EQUALS } 
+    });
+    const [applied, setApplied] = useState([]); 
+    const [globalFilterValue2, setGlobalFilterValue2] = useState('');    
+    const [loading2, setLoading2] = useState(true);
     const [jobofferDialog, setJobofferDialog] = useState(false);
-    const [utnBoard, setUtnBoard] = useState(false);
-    const [adminBoard, setAdminBoard] = useState(false);
-    const [publisherBoard, setPublisherBoard] = useState(false);
-    const [applicantBoard, setApplicantBoard] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
+    const [jobApplied, setJobApplied] = useState(emptyJobApplicant);
 
-    useEffect(() => {
-        setJobofferDialog(true);
-        const user = AuthService.getCurrentUser();
-        if (user) {
-            setCurrentUser(user);
-            setUtnBoard(user.role.role === "UTN" ? true : false);
-            setAdminBoard(user.role.role === "ADMIN" ? true : false);
-            setPublisherBoard(user.role.role === "PUBLISHER" ? true : false);
-            setApplicantBoard(user.role.role === "APPLICANT" ? true : false);
-        }
+    const categories = [
+        'FULLSTACK', 'BACKEND', 'FRONTEND', 'DEVELOPER', 'UI-UX', 'QA', 'BILLING', 'THIRD-PARTIES', 'CONTRACT'
+    ];
+  
+    useEffect(() => {        
+        ReportListsService.getJobApplicantAllByApplicant().then(data => { 
+            setApplied(data); setLoading2(false) 
+        }).catch(error=>{
+            Swal({text: 'Failed get joboffers to applied.',
+                    icon: 'error', timer:'3500'});
+            console.log(error.message);            
+        })
     }, []);
-    const headerDialog = () => {return (<h5 className="titleDialog">Complete Data by Applicant and Job Offer</h5>);}
-    const closeAndSendHome = () => {setJobofferDialog(false); 
-        (publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './home'));
-        (applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './home'));
+
+    const onGlobalFilterChange2 = (e) => {
+      const value = e.target.value;
+      let _filters2 = { ...jobofferApplied };
+      _filters2['category'].value = value;
+
+      setJobofferApplied(_filters2);
+      setGlobalFilterValue2(value);
     }
 
-    return(
-        <Dialog className="p-fluid containerDialog" header={headerDialog} visible={jobofferDialog} style={{width: '1000px'}} modal={true} onHide={() => closeAndSendHome()}>    
+    const categoriesBodyTemplate = (rowData) => {
+        return <span className={`customer-badge category-${rowData.category}`}>{rowData.category}</span>;
+    }
+
+    const categoriesFilterTemplate = (options) => {
+        return <Dropdown value={options.value} options={categories} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={categoriesItemTemplate} placeholder="Select a Category" className="p-column-filter" showClear />;
+    }
+
+    const categoriesItemTemplate = (option) => {
+        return <span className={`customer-badge category-${option}`}>{option}</span>;
+    }
+
+    const categoriesRowFilterTemplate = (options) => {
+        return <Dropdown value={options.value} options={categories} onChange={(e) => options.filterApplyCallback(e.value)} itemTemplate={categoriesItemTemplate} placeholder="Select a Categories" className="p-column-filter" showClear />;
+    }
+
+    const editjoboffer = (rowData) => { 
+      let id = rowData.rowData.jobOfferID;
+      applied.forEach(element => {
+        if(element.jobOfferID===id){
+          setJobApplied(element)
+        }
+      });
+      setJobofferDialog(true);
+    }    
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>         
+                <Button icon="pi pi-list" label="More Info" className="p-button-rounded p-button-light " onClick={() => editjoboffer({rowData}) } /> 
+            </React.Fragment>
+        );
+    }
+
+    const headerTable = () => {
+        return (
+            <h5 className="p-datatable-customers">My Applied JobOffers</h5>
+        );
+    }
+    const headerDialog = () => {
+        return (
+            <h5 className="titleDialog">JobOffer Applied Detail</h5>
+        );
+    }
+
+    return (
+        <div className="datatable-filter">
+            <DataTable value={applied} paginator className="p-datatable-customers" rows={10} 
+                dataKey="id" filters={jobofferApplied} filterDisplay="row" loading={loading2} responsiveLayout="scroll"
+                globalFilterFields={['title','area','experience','modality','position','category']}  header={headerTable} emptyMessage="No customers found."
+                paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} joboffers">                    
+                <Column field="title" header="Title" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />                    
+                <Column field="area" header="Area" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                <Column field="experience" header="Experience" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                <Column field="modality" header="Modality" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />
+                <Column field="position" header="Position" filter filterPlaceholder="Search" style={{ minWidth: '12rem' }} />                    
+                <Column field="category" header="Category" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={categoriesBodyTemplate} filter filterElement={categoriesRowFilterTemplate}/>
+                <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '12rem' }}></Column>
+            </DataTable>
+
+            <Dialog className="p-fluid containerDialog" header={headerDialog} visible={jobofferDialog} style={{width: '1000px'}} modal={true} onHide={() => setJobofferDialog(false)}>
+    
                 <div className="formgrid grid">
                     <div className="field col titleLabelByCategory"> <label htmlFor="jobOfferApplicantID">JobOfferApplicantID</label> </div>
                     <div className="field">
@@ -156,8 +247,11 @@ const DialogJobApplicant = () => {
                     <div className="field">
                         <InputText id="jobOfferDeleted" value={jobApplied.jobOfferDeleted} style={{width : '100%'}} readOnly />
                     </div>
-                </div>
-          </Dialog> 
+                </div> 
+                
+          </Dialog>                                                 
+        </div>
     );
 }
-export default DialogJobApplicant;
+
+export default ApplicantYourApplicants;
