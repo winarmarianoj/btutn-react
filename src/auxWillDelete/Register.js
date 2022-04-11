@@ -1,115 +1,48 @@
-import React, { useState, useRef, Component } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {InputText} from 'primereact/inputtext';
 import StyleRegister from "../../assets/css/styleRegister.css";
-import StyleWeb from "../../assets/css/StyleWeb.css";
-import { CropPortrait } from "@material-ui/icons";
 
+import { DatePicker } from "@material-ui/pickers";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
+import TextField from '@material-ui/core/TextField';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePickers from "../components/util/DatePickers";
+import { Dropdown } from 'primereact/dropdown';
 
-const Register = () => {
+import AuthService from "../services/AuthService";
+import AdminService from '../services/AdminService';
+import ApplicantServic from '../services/ApplicantService';
+import PublisherService from '../services/PublisherService';
+import UtnService from '../services/UserService.js';
+import PersonService from "../services/PersonService";
+import ApplicantService from "../services/ApplicantService";
 
-  let person = {
-    id: null,
-    name: null,
-    surname: null,
-    identification: null,                
-    phone: null,
-    username: null,
-    password: null
-  };
+const Register = () => {    
+    const [typePerson, setTypePerson] = useState();
+    const [redirection, setRedirection] = useState(false);
 
-  const form = useRef();
-  const checkBtn = useRef();
-  const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
+    const persons = [        
+        {label: 'ADMIN', value: 'ADMIN'}, {label: 'APPLICANT', value: 'APPLICANT'}, 
+        {label: 'PUBLISHER', value: 'PUBLISHER'}, {label: 'UTN', value: 'UTN'}
+    ];
 
+    const sendSelectedTypePerson = (e) => {
+      localStorage.setItem("typePerson", JSON.stringify(e.value));
+      setRedirection(true);      
+    }
 
-  const handleRegister = (e) => {
-      e.preventDefault();
-  
-      setMessage("");
-      setSuccessful(false);
-  
-      form.current.validateAll();
-
-      try {
-        if (checkBtn.current.context._errors.length === 0) {
-          localStorage.setItem("newperson", JSON.stringify(this.person));        
-        }
-      } catch (error) {
-        const resMessage =
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString();
-  
-            setMessage(resMessage);
-            setSuccessful(false);
-      }
-    };  
-
-    return (
-      <div className="registration-form">
+    return redirection ? (<Redirect to="./formRegisterNewUser"/> ) : (
+      <div className="registration-form ">
+        <div className="title"><p>Select Type User Register</p></div>
         <div className="">
-          <Form onSubmit={handleRegister} ref={form}>
-            {!successful && (
-              <div>
-                <div className="form-control item">
-                  <InputText class="form-control item" value={person.name} style={{width : '100%'}} id="name" onChange={(e) => {
-                      person.name = e.target.value;}} placeholder="Name"/>
-                </div>
-
-                <div className="form-group">
-                  <InputText class="form-control item" value={person.surname} style={{width : '100%'}} id="surname" onChange={(e) => {
-                      person.surname = e.target.value;}} placeholder="Last Name"/>
-                </div>
-
-                <div className="form-group">
-                  <InputText class="form-control item" value={person.identification} style={{width : '100%'}} id="identification" onChange={(e) => {
-                      person.identification = e.target.value;}} placeholder="Identification Number"/>
-                </div>
-
-                <div className="form-group">
-                  <InputText class="form-control item" value={person.username} style={{width : '100%'}} id="username" onChange={(e) => {
-                          person.username = e.target.value;}} placeholder="Email"/>
-                </div>
-
-                <div className="form-group">
-                  <InputText class="form-control item" value={person.password} style={{width : '100%'}} id="password" onChange={(e) => {
-                          person.password = e.target.value;}} placeholder="Password"/>
-                </div>
-
-                <div className="form-group">
-                  <InputText class="form-control item" value={person.phone} style={{width : '100%'}} id="phone" onChange={(e) => {
-                          person.phone = e.target.value;}} placeholder="Phone Number"/>
-                </div>
-                
-              </div>
-            )}
-
-            {message && (
-              <div className="form-group">
-                <div
-                  className={
-                    successful ? "alert alert-success" : "alert alert-danger"
-                  }
-                  role="alert"
-                >
-                  {message}
-                </div>
-              </div>
-            )}
-            <CheckButton style={{ display: "none" }} ref={checkBtn} />
-          </Form>
-        </div>
-    </div>    
-    );    
-
+            <Dropdown value={typePerson} options={persons} onChange={(e) => sendSelectedTypePerson(e)} placeholder="Select a Type Person Register"/> 
+        </div>        
+      </div>    
+    );
   };
-
   export default Register;

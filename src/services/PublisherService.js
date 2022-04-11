@@ -2,7 +2,6 @@ import axios from 'axios';
 import AuthService from "./AuthService";
 
 const PUBLISHER_BASE_URL = "http://localhost:8082/person/";
-const JOBOFFER_BASE_URL = "http://localhost:8082/joboffer/";
 
 class PublisherService{
     async getAll(){

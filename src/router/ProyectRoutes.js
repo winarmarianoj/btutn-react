@@ -11,9 +11,6 @@ import Footer from "../components/fixed/Footer";
 import Login from "../components/pages/Login";
 import Home from "../screens/Home/Home";
 import Profile from "../components/pages/Profile";
-import RegisterPerson from "../components/pages/RegisterPerson";
-import RegisterApplicant from "../components/pages/RegisterApplicant";
-import RegisterPublisher from "../components/pages/RegisterPublisher";
 import Admin from "../screens/Admin/Admin";
 import AdminProfile from "../components/admin/AdminProfile";
 import ApplicantYourApplicants from "../screens/Applicant/ApplicantYourApplicants";
@@ -31,6 +28,9 @@ import { Dropdown } from 'primereact/dropdown';
 import JobApplicantContainerContext from '../context/jobApplicant/JobApplicantContainerContext';
 import JobOfferContainerContext from "../context/joboffer/JobOfferContainerContext";
 
+import FormRegister from '../components/pages/FormRegister';
+import FormRegisterNewUser from "../components/pages/FormRegisterNewUser";
+
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
 
@@ -43,10 +43,15 @@ export default function ProyectRoutes() {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [dropdown, setDropdown] = useState(false);
     const [state, setState] = useState();
+    const [typePerson, setTypePerson] = useState();
 
     const states = [        
         {label: 'PENDING', value: 'PENDING'}, {label: 'PUBLISHED', value: 'PUBLISHED'}, 
         {label: 'REJECTED', value: 'REJECTED'}, {label: 'REVIEW', value: 'REVIEW'}, {label: 'DELETED', value: 'DELETED'}
+    ];
+    const persons = [        
+        {label: 'ADMIN', value: 'ADMIN'}, {label: 'APPLICANT', value: 'APPLICANT'}, 
+        {label: 'PUBLISHER', value: 'PUBLISHER'}, {label: 'UTN', value: 'UTN'}
     ];
 
   useEffect(() => {
@@ -83,9 +88,13 @@ export default function ProyectRoutes() {
   }
 
   const sendState = (e) => {
-    let newState = e.value;
-    localStorage.setItem("jobstate", JSON.stringify(newState));
-    window.location.href = './utnJobOfferStateSelected';
+    localStorage.setItem("jobstate", JSON.stringify(e.value));
+    window.location.href = './utnJobOfferStateSelected';    
+  }
+
+  const sendSelectedTypePerson = (e) => {
+    localStorage.setItem("typePerson", JSON.stringify(e.value));
+    window.location.href = './formRegisterNewUser';
   }
 
     return(        
@@ -119,28 +128,7 @@ export default function ProyectRoutes() {
                         ) : (
                         <div className="navbar-nav ml-auto marginRight">
                             <li className="nav-item"> <Link to={"/login"} className="nav-link">Login</Link> </li>
-
-                            <Dropdown isOpen={dropdown} toggle={openCloseDropdown}>
-                            <DropdownToggle caret>Sign Up</DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem >
-                                    <Link to={"/registerApplicant"} className="">
-                                        Applicant
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link to={"/registerPublisher"} className="">
-                                        Publisher
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link to={"/registerPerson"} className="">
-                                        Person
-                                    </Link>
-                                </DropdownItem>
-                            </DropdownMenu>
-                            </Dropdown>         
-
+                            <li> <Dropdown value={typePerson} options={persons} onChange={(e) => sendSelectedTypePerson(e)} placeholder="Select a Type Person Register"/> </li>
                         </div>
                         )}
                     </nav>
@@ -150,9 +138,8 @@ export default function ProyectRoutes() {
                             <Route exact path={["/", "/home"]} component={Home} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/profile" component={Profile} />
-                            <Route exact path="/registerApplicant" component={RegisterApplicant} />
-                            <Route exact path="/registerPublisher" component={RegisterPublisher} />
-                            <Route exact path="/registerPerson" component={RegisterPerson} />
+                            <Route exact path="/formRegister" component={FormRegister} />
+                            <Route exact path="/formRegisterNewUser" component={FormRegisterNewUser} />
                             <Route path="/admin" component={Admin} />
                             <Route path="/adminProfile" component={AdminProfile} />
                             <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />

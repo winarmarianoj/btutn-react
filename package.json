@@ -27,6 +27,7 @@
     "react": "^16.13.1",
     "react-datepicker": "^4.7.0",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^7.29.0",
     "react-json-pretty": "^2.2.0",
     "react-notifications": "^1.7.3",
     "react-router-dom": "^5.2.0",

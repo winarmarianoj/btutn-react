@@ -10,14 +10,12 @@ import { Checkbox } from 'primereact/checkbox';
 import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
-import { CountryService } from '../service/CountryService';
-import './FormDemo.css';
+import '../../assets/css/FormRegister.css';
 
-export const ReactHookFormDemo = () => {
+const FormRegister = () => {
     const [countries, setCountries] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
-    const countryservice = new CountryService();
     const defaultValues = {
         name: '',
         email: '',
@@ -28,7 +26,7 @@ export const ReactHookFormDemo = () => {
     }
 
     useEffect(() => {
-        countryservice.getCountries().then(data => setCountries(data));
+        //countryservice.getCountries().then(data => setCountries(data));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const { control, formState: { errors }, handleSubmit, reset } = useForm({ defaultValues });
@@ -135,4 +133,6 @@ export const ReactHookFormDemo = () => {
         </div>
     );
 }
+
+export default FormRegister;
                  

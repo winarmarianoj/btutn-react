@@ -56,7 +56,6 @@ const Login = (props) => {
     <div className="loguer mt-5">
       <div className="loguerin-dark p-3 shadow-lg rounded justify-content-center card card-container">
         <div className="form-icon row" style={{fontSize:"3em", color:"blueviolet"}}>
-            <p></p>
             <FontAwesomeIcon icon={faUser} />
         </div> 
 

@@ -2,7 +2,6 @@ import axios from 'axios';
 import AuthService from "./AuthService";
 
 const APPLICANT_BASE_URL = "http://localhost:8082/applicant/";
-const JOBOFFER_BASE_URL = "http://localhost:8082/joboffer/";
 
 class ApplicantService{
     async getAll(){
@@ -28,8 +27,7 @@ class ApplicantService{
     async getByUserId(){
         let user = AuthService.getCurrentUser();
         return await axios.get(APPLICANT_BASE_URL + "userId/" + user.id).then(res => res.data);
-    }
-    
+    }   
 
 }
 
