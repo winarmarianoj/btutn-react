@@ -206,7 +206,7 @@ class PublisherYourJobOffers extends Component {
     return (
         <div className="datatable-filter joboffersPublisher">            
             <div className="formgrid grid field col">
-              <Menubar model={this.items}/>
+              <div className="field col"><Menubar model={this.items}/></div>
               <div className="field col"> <Toolbar className="mb-1" right={this.rightToolbarTemplate}></Toolbar> </div>
             </div>
             <Panel>                

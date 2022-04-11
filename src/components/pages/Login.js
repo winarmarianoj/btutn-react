@@ -4,7 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import AuthService from "../../services/AuthService";
-import LoginCss from '../../assets/css/StyleLogin.css';
+import StyleLoginCarrousel from '../../assets/css/StyleLoginCarrousel.css';
 import Swal from 'sweetalert';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -16,17 +16,12 @@ const Login = (props) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  let user = {
-    username: null,
-    password: null
-  };
+  let user = { username: null, password: null};
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     setMessage("");
     setLoading(true);
-
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
@@ -53,43 +48,50 @@ const Login = (props) => {
   };
 
   return (
-    <div className="loguer mt-5">
-      <div className="loguerin-dark p-3 shadow-lg rounded justify-content-center card card-container">
-        <div className="form-icon row" style={{fontSize:"3em", color:"blueviolet"}}>
-            <FontAwesomeIcon icon={faUser} />
-        </div> 
+    <main className="login-block">
+      <div className="container">
+        <div className="row">
+            <section id="formLogin" className="col-md-4 login-sec">
+                <div className="form-icon row" style={{fontSize:"3em", color:"blueviolet"}}>
+                  <FontAwesomeIcon icon={faUser} />
+                  <h2 className="text-center">Login Now</h2>
+                </div> 
+                <Form onSubmit={handleLogin} ref={form}>
+                  <div className="form-group mt-4">            
+                    <Input type="text" className="form-control item " value={user.username} style={{width : '100%'}} id="name" onChange={(e) => {
+                              user.username = e.target.value;}} placeholder="Email" required/>
+                  </div>
 
-        <Form onSubmit={handleLogin} ref={form}>
-          <div className="form-group mt-4">            
-            <Input type="text" className="form-control item " value={user.username} style={{width : '100%'}} id="name" onChange={(e) => {
-                      user.username = e.target.value;}} placeholder="Email" required/>
-          </div>
+                  <div className="form-group mt-4">
+                  <Input type="password" className="form-control item" value={user.password} style={{width : '100%'}} id="password" onChange={(e) => {
+                                  user.password = e.target.value;}} placeholder="Password" required/>
+                  </div>
 
-          <div className="form-group mt-4">
-          <Input type="password" className="form-control item" value={user.password} style={{width : '100%'}} id="password" onChange={(e) => {
-                          user.password = e.target.value;}} placeholder="Password" required/>
-          </div>
+                  <div className="form-group mt-5 ">
+                    <button className="btn btn-primary btn-block" disabled={loading}>
+                      {loading && (
+                        <span className="spinner-border spinner-border-sm"></span>
+                      )}
+                      <span>Login</span>
+                    </button>
+                  </div>
+                  {message && (
+                    <div className="form-group">
+                      <div className="alert alert-danger" role="alert">
+                        {message}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <CheckButton className="btn btn-sm btn-light col" style={{ display: "none" }} ref={checkBtn} />
+                </Form>
+                <div className="copy-text mt-5">Created with <i className="fa fa-thumbs-o-up"></i> by <a href="https://github.com/winarmarianoj">CUVL-UTN</a></div>
+            </section>
 
-          <div className="form-group mt-5 ">
-            <button className="btn btn-primary btn-block" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>Login</span>
-            </button>
-          </div>
-          {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
-              </div>
-            </div>
-          )}
-          
-          <CheckButton className="btn btn-sm btn-light col" style={{ display: "none" }} ref={checkBtn} />
-        </Form>
+            <section id="carrouselLogin" className="col-md-8 banner-sec" ></section>
+        </div>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -27,13 +27,10 @@ import StyleCentral from '../assets/css/stylesCentral.css';
 import { Dropdown } from 'primereact/dropdown';
 import JobApplicantContainerContext from '../context/jobApplicant/JobApplicantContainerContext';
 import JobOfferContainerContext from "../context/joboffer/JobOfferContainerContext";
-
-import FormRegister from '../components/pages/FormRegister';
-import FormRegisterNewUser from "../components/pages/FormRegisterNewUser";
+import Register from "../components/pages/Register";
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
-
 
 export default function ProyectRoutes() {
     const [utnBoard, setUtnBoard] = useState(false);
@@ -56,7 +53,6 @@ export default function ProyectRoutes() {
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-
     if (user) {
       setCurrentUser(user);
       setUtnBoard(user.role.role === "UTN" ? true : false);
@@ -64,14 +60,8 @@ export default function ProyectRoutes() {
       setPublisherBoard(user.role.role === "PUBLISHER" ? true : false);
       setApplicantBoard(user.role.role === "APPLICANT" ? true : false);
     }
-
-    EventBus.on("logout", () => {
-      logOut();
-    });
-
-    return () => {
-      EventBus.remove("logout");
-    };
+    EventBus.on("logout", () => { logOut();});
+    return () => {EventBus.remove("logout");};
   }, []);
 
   const logOut = () => {
@@ -83,10 +73,6 @@ export default function ProyectRoutes() {
     setCurrentUser(undefined);
   };
 
-  const openCloseDropdown= () => {
-    setDropdown(!dropdown);
-  }
-
   const sendState = (e) => {
     localStorage.setItem("jobstate", JSON.stringify(e.value));
     window.location.href = './utnJobOfferStateSelected';    
@@ -94,7 +80,7 @@ export default function ProyectRoutes() {
 
   const sendSelectedTypePerson = (e) => {
     localStorage.setItem("typePerson", JSON.stringify(e.value));
-    window.location.href = './formRegisterNewUser';
+    window.location.href = './register';
   }
 
     return(        
@@ -138,8 +124,7 @@ export default function ProyectRoutes() {
                             <Route exact path={["/", "/home"]} component={Home} />
                             <Route exact path="/login" component={Login} />
                             <Route exact path="/profile" component={Profile} />
-                            <Route exact path="/formRegister" component={FormRegister} />
-                            <Route exact path="/formRegisterNewUser" component={FormRegisterNewUser} />
+                            <Route exact path="/register" component={Register} />
                             <Route path="/admin" component={Admin} />
                             <Route path="/adminProfile" component={AdminProfile} />
                             <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
@@ -159,7 +144,6 @@ export default function ProyectRoutes() {
                 </JobApplicantContainerContext>
                 </JobOfferContainerContext>
              <Footer/>
-        </div>
-        
+        </div>        
     );
 }

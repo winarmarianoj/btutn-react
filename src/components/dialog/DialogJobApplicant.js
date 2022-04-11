@@ -28,8 +28,8 @@ const DialogJobApplicant = () => {
     }, []);
     const headerDialog = () => {return (<h5 className="titleDialog">Complete Data by Applicant and Job Offer</h5>);}
     const closeAndSendHome = () => {setJobofferDialog(false); 
-        (publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './home'));
-        (applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './home'));
+        (publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './publisherJobOfferByCategory'));
+        (applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './applicantYourApplicants'));
     }
 
     return(

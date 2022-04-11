@@ -39,9 +39,9 @@ const DialogJobOffer = () => {
 
     const headerDialog = () => {return (<h5 className="titleDialog">JobOffer Detail</h5>);}
     const closeAndSendHome = () => {setJobofferDialog(false); 
-        (publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './home'));
-        (applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './home'));
-        (utnBoard ? ( window.location.href = './utnJobOfferStateSelected' ) : (window.location.href = './home'));
+        {(publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './publisherJobOfferByCategory'))};
+        {(applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './applicantYourApplicants'))};
+        {(utnBoard ? ( window.location.href = './utnJobOfferStateSelected' ) : (window.location.href = './utnJobOfferStateSelected'))};
     }
 
     const editjobofferapplied = () => {     
@@ -63,7 +63,7 @@ const DialogJobOffer = () => {
     }
 
     return (
-        <Dialog header={headerDialog} visible={jobofferDialog} style={{width: '600px'}} modal={true} onHide={() => closeAndSendHome()}>
+        <Dialog header={headerDialog} visible={jobofferDialog} style={{width: '800px'}} modal={true} onHide={() => closeAndSendHome()}>
             <div className="field">
                 <div className="field col titleLabelByCategory"> <label  htmlFor="id">JobOffer ID</label></div>
                 <InputText value={job.id} readOnly style={{width : '25%'}} id="id" />                    
@@ -74,11 +74,11 @@ const DialogJobOffer = () => {
             </div>
             <div className="field">
                 <div className="field col titleLabelByCategory"> <label htmlFor="description">Description</label> </div>
-                <div className="field"> <InputTextarea id="description" value={job.description} style={{width : '100%'}} readOnly/> </div>
+                <div className="field"> <InputTextarea id="description" value={job.description} style={{width : '100%'}} readOnly rows={3} cols={80}/> </div>
             </div>
             <div className="field">
                 <div className="field col titleLabelByCategory"> <label htmlFor="body">Body</label> </div>
-                <div className="field"> <InputTextarea id="body" value={job.body} style={{width : '100%'}} readOnly/> </div>
+                <div className="field"> <InputTextarea id="body" value={job.body} style={{width : '100%'}} readOnly rows={3} cols={80}/> </div>
             </div>
             <div className="formgrid grid">
                 <div className="field col titleLabelByCategory"> <label htmlFor="area">Area</label> </div>
