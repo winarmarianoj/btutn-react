@@ -4,6 +4,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {InputText} from 'primereact/inputtext';
+import Swal from 'sweetalert';
 //import StyleRegister from "../../assets/css/styleRegister.css";
 //import '../../assets/css/FormRegister.css';
 import '../../assets/css/styleRegister2.css';
@@ -20,18 +21,21 @@ import ApplicantService from '../../services/ApplicantService';
 import PublisherService from '../../services/PublisherService';
 import PersonService from "../../services/PersonService";
 
-const Register = (props) => {
-    const typePersonSelected = JSON.parse(localStorage.getItem("typePerson"));
-    console.log(typePersonSelected);
-    localStorage.removeItem("typePerson");
+const Register = (props) => {    
     const form = useRef();
     const checkBtn = useRef();
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
+    const [typePerson, setTypePerson] = useState('');
+    const [takeGenre, setTakeGenre] = useState('');
+    const [takeTypeStudent, setTakeTypeStudent] = useState('');
+    const [birthDate, setBirthDate] = useState("2022-02-27");
     const [utnBoard, setUtnBoard] = useState(false);
     const [adminBoard, setAdminBoard] = useState(false);
     const [publisherBoard, setPublisherBoard] = useState(false);
     const [applicantBoard, setApplicantBoard] = useState(false);
+
+    let result = {response: useState(false), message: ''}
 
     let person = {id: '', uri: '', name: '', surname: '', identification: '', phoneNumber: '',
       email: '', password: '', role: '', genre: '', birthDate: '', typeStudent: '', webPage: '', message: ''}; 
@@ -40,18 +44,25 @@ const Register = (props) => {
     const typeStudents = [ {label: 'ACTIVE', value: 'ACTIVE'}, {label: 'REGULAR', value: 'REGULAR'}, {label: 'RECEIVED', value: 'RECEIVED'}];
 
     useEffect(() => {    
+      const typePersonSelected = JSON.parse(localStorage.getItem("typePerson"));
+      setTypePerson(typePersonSelected);
+      localStorage.removeItem("typePerson");
       setUtnBoard(typePersonSelected === "UTN" ? true : false);
       setAdminBoard(typePersonSelected === "ADMIN" ? true : false);
       setPublisherBoard(typePersonSelected === "PUBLISHER" ? true : false);
       setApplicantBoard(typePersonSelected === "APPLICANT" ? true : false);
     }, []);
 
-    const sendSelectedTypeGenre = (e) => {person.genre = e.target.value; console.log(person.genre) }
-    const sendSelectedTypeStudent = (e) => {person.typeStudent = e.target.value; console.log(person.typeStudent)}  
-    const onChangeBirthDate = (e) => {person.birthDate = e.target.value;};
+    const sendSelectedTypeGenre = (e) => { e.preventDefault();setTakeGenre(e.target.value);}
+    const sendSelectedTypeStudent = (e) => { e.preventDefault();setTakeTypeStudent(e.target.value);}  
+    const onChangeBirthDate = (e) => { e.preventDefault();setBirthDate(e.target.value);}
 
     const handleRegister = (e) => {
       e.preventDefault();
+      person.genre = takeGenre;
+      person.typeStudent = takeTypeStudent;
+      person.birthDate = birthDate;
+      console.log(person)
   
       setMessage("");
       setSuccessful(false);
@@ -59,32 +70,30 @@ const Register = (props) => {
       form.current.validateAll();
   
       if (checkBtn.current.context._errors.length === 0) {
-        var response = [];
-        if(typePersonSelected === "UTN" || typePersonSelected === "ADMIN"){
-          response = PersonService.create(person);
-        }else if(typePersonSelected === "PUBLISHER"){
-          response = PublisherService.create(person);
-        }else{
-          response = ApplicantService.create(person);
+        if(typePerson === "UTN" || typePerson === "ADMIN"){                  
+          PersonService.create(person);
+        }else if(typePerson === "PUBLISHER"){
+          PublisherService.create(person);
+        }else if(typePerson === "APPLICANT"){
+          ApplicantService.create(person);
         }
 
-        try{
-          if(response){
-            setMessage(response.data.message);
+        /*if(result.response === 'true'){
+          Swal({text: 'Congratulation!! Is already registered a new user.',
+                        icon: 'success', timer:'3500'});
+            setMessage(result.message);
             setSuccessful(true);
-          }
-        }catch(error){
-          const resMessage =
-              (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-              error.message ||
-              error.toString();
-  
-            setMessage(resMessage);
+            window.location.href = './login';
+        }else{
+          Swal({text: 'Failed register new user.',
+                        icon: 'error', timer:'3500'});
+            setMessage(result.message);
             setSuccessful(false);
+            window.location.href = './register';
         }
-      }
+        */
+       
+      }      
     };
 
     return(
@@ -97,6 +106,16 @@ const Register = (props) => {
                     <FontAwesomeIcon icon={faUser} />
                   </div>
                   <div className="title"><p>New User</p></div>
+
+                  {applicantBoard ? (<>
+                      <div className="Name"> <Dropdown value={takeGenre} options={genres} onChange={(e) => sendSelectedTypeGenre(e)} placeholder="Select Genre"/> </div>
+                      <div className="Name"> <Dropdown value={takeTypeStudent} options={typeStudents} onChange={(e) => sendSelectedTypeStudent(e)} placeholder="Select a Type Student"/> </div> 
+
+                      <div className="form-group grupo">
+                        <label className="Name"> Choose your birthdate: </label>                  
+                        <TextField id="date" label="" type="date" defaultValue={'2022-04-11'} InputLabelProps={{shrink: true,}} onChange={onChangeBirthDate} />
+                      </div>
+                    </> ):(<></>)}
 
                   <div className="">
                     <Input type="text" className="Name" value={person.email} style={{width : '100%'}} id="username" onChange={(e) => {
@@ -149,22 +168,6 @@ const Register = (props) => {
                       <Input type="text" className="Name" value={person.surname} style={{width : '100%'}} id="surname" onChange={(e) => {
                           person.surname = e.target.value;}} placeholder="Last Name" required/>
                     </div>
-                    <div className="">
-                      <Dropdown value={person.genre} options={genres} onChange={(e) => sendSelectedTypeGenre(e)} placeholder="Select Genre"/>                       
-                    </div>
-                    <div className="field"> <InputText id="personGenre" value={person.genre} readOnly/> </div>
-                    
-                    <div className="">
-                      <Dropdown value={person.typeStudent} options={typeStudents} onChange={(e) => sendSelectedTypeStudent(e)} placeholder="Select a Type Student"/> 
-                    </div>
-                    <span className="">
-                      <Input type="text" className="p-float-label my-3" value={person.typeStudent} style={{width : '100%'}} id="getTypeStudent"/>
-                    </span>
-                    <div className="form-group grupo">
-                      <label className="labels"> Choose your birthdate: </label>                  
-                      <TextField id="date" label="" type="date" defaultValue={'2022-04-11'} InputLabelProps={{shrink: true,}}
-                          onChange={onChangeBirthDate} />
-                    </div>
                   </>
                   ):(<></>)}
 
@@ -188,7 +191,7 @@ const Register = (props) => {
                     <button className="btn btn-primary btn-block">Sign Up</button>
                   </div>
                 </div>
-              )}
+              )}       
 
               {message && (
                 <div className="form-group">

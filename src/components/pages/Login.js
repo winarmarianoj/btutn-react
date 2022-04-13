@@ -26,7 +26,7 @@ const Login = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(user).then(
-        () => {
+        (response) => {
           props.history.push("/profile");
           window.location.reload();
         },
@@ -37,6 +37,8 @@ const Login = (props) => {
               error.response.data.message) ||
             error.message ||
             error.toString();
+            console.log(resMessage)
+            console.log( error.response.data.message)
 
           setLoading(false);
           setMessage(resMessage);
@@ -48,7 +50,7 @@ const Login = (props) => {
   };
 
   return (
-    <main className="login-block">
+    <main className="login-block ">
       <div className="container">
         <div className="row">
             <section id="formLogin" className="col-md-4 login-sec">
@@ -58,12 +60,12 @@ const Login = (props) => {
                 </div> 
                 <Form onSubmit={handleLogin} ref={form}>
                   <div className="form-group mt-4">            
-                    <Input type="text" className="form-control item " value={user.username} style={{width : '100%'}} id="name" onChange={(e) => {
+                    <Input type="text" className="form-control item datauser" value={user.username} style={{width : '100%'}} id="name" onChange={(e) => {
                               user.username = e.target.value;}} placeholder="Email" required/>
                   </div>
 
                   <div className="form-group mt-4">
-                  <Input type="password" className="form-control item" value={user.password} style={{width : '100%'}} id="password" onChange={(e) => {
+                  <Input type="password" className="form-control item datauser" value={user.password} style={{width : '100%'}} id="password" onChange={(e) => {
                                   user.password = e.target.value;}} placeholder="Password" required/>
                   </div>
 
@@ -85,7 +87,7 @@ const Login = (props) => {
                   
                   <CheckButton className="btn btn-sm btn-light col" style={{ display: "none" }} ref={checkBtn} />
                 </Form>
-                <div className="copy-text mt-5">Created with <i className="fa fa-thumbs-o-up"></i> by <a href="https://github.com/winarmarianoj">CUVL-UTN</a></div>
+                <div className="copy-text mt-5">Created <i className="fa fa-thumbs-o-up"></i> by <a href="https://github.com/winarmarianoj">CUVL-UTN</a></div>
             </section>
 
             <section id="carrouselLogin" className="col-md-8 banner-sec" ></section>

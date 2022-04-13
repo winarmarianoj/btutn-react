@@ -67,9 +67,12 @@ class ApplicantProfile extends Component{
                 PersonService.delete(this.state.person).then(data => {
                     Swal({text: 'Thank you for using our services',
                         icon: 'success', timer:'3500'});});
-            }else{
                 AuthService.logout();
-                window.location.assign('/login');}
+                window.location.assign('/login');
+            }else{
+                Swal({text: 'Failed delete your profile.',
+                        icon: 'error', timer:'3500'});
+                window.location.assign('/profile');}
             })
     }
 
@@ -92,8 +95,8 @@ class ApplicantProfile extends Component{
         return(
             <div style={Styles.divPerson}>
                 <Menubar model={this.items}/>
-                <div className="row col-12">
-                    <div className="container card profile"> 
+                <div className="container profile"> 
+                    <div className="container  profile"> 
                         <div className="profile-usertitle ">
                             <div className="profile-usertitle-name row">                                
                                 <p>Name :  {this.state.person.name}</p>

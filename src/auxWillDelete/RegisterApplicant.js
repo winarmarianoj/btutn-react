@@ -130,6 +130,10 @@ const RegisterApplicant = () => {
                 </div>
 
                 <div className="">
+                      <Dropdown value={takeGenre} options={genres} onChange={(e) => sendSelectedTypeGenre(e)} placeholder="Select Genre"/>                       
+                    </div>
+
+                <div className="">
                   <label className="labels">
                     Pick your genre:
                     <select className="options" value={genre} onChange={onChangeGenre}>
@@ -141,6 +145,10 @@ const RegisterApplicant = () => {
                 </div>
 
                 <div className="">
+                      <Dropdown value={takeTypeStudent} options={typeStudents} onChange={(e) => sendSelectedTypeStudent(e)} placeholder="Select a Type Student"/> 
+                    </div> 
+
+                <div className="">
                   <label className="labels">
                     Pick your type student:
                     <select className="options" value={typeStudent} onChange={onChangeTypeStudent}>
@@ -150,6 +158,28 @@ const RegisterApplicant = () => {
                     </select>
                   </label>
                 </div>
+
+                <div className="">
+                      <label className="Name">
+                        Pick your genre:
+                        <select id="optionsGenre" className="options" value={takeGenre} onChange={sendSelectedTypeGenre}>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                            <option value="OTHER">OTHER</option>                          
+                        </select>
+                      </label>
+                    </div>
+
+                    <div className="">
+                      <label className="Name">
+                        Pick your type student:
+                        <select className="options" value={takeTypeStudent} onChange={sendSelectedTypeStudent}>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="REGULAR">REGULAR</option>
+                          <option value="RECEIVED">RECEIVED</option>
+                        </select>
+                      </label>
+                    </div>
 
                 <div className="form-group grupo">
                   <label className="labels"> Choose your birthdate: </label>                  
