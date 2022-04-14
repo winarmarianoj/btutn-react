@@ -96,7 +96,7 @@ class ApplicantProfile extends Component{
             <div style={Styles.divPerson}>
                 <Menubar model={this.items}/>
                 <div className="container profile"> 
-                    <div className="container  profile"> 
+                    <div className="container profile"> 
                         <div className="profile-usertitle ">
                             <div className="profile-usertitle-name row">                                
                                 <p>Name :  {this.state.person.name}</p>

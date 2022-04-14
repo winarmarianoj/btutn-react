@@ -2,13 +2,12 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
 import AuthService from "../../services/AuthService";
-import StyleLoginCarrousel from '../../assets/css/StyleLoginCarrousel.css';
+import '../../assets/css/StyleLoginCarrousel.css';
 import Swal from 'sweetalert';
-
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
+import LoginCarousel from "../slides/LoginCarousel";
 
 const Login = (props) => {
   const form = useRef();
@@ -90,7 +89,7 @@ const Login = (props) => {
                 <div className="copy-text mt-5">Created <i className="fa fa-thumbs-o-up"></i> by <a href="https://github.com/winarmarianoj">CUVL-UTN</a></div>
             </section>
 
-            <section id="carrouselLogin" className="col-md-8 banner-sec" ></section>
+            <section id="carrouselLogin" className="col-md-8 banner-sec" > <LoginCarousel /> </section>
         </div>
       </div>
     </main>

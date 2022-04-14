@@ -4,10 +4,10 @@ import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
 import JobOfferService from "../../services/JobOfferService";
 import AuthService from "../../services/AuthService";
-import DataViewCss from "../../assets/css/DataView.css";
+import "../../assets/css/DataView.css";
 
-import 'primeicons/primeicons.css';
-import "primereact/resources/primereact.min.css";                  //core css
+//import 'primeicons/primeicons.css';
+//import "primereact/resources/primereact.min.css";                  //core css
 
 //import 'primereact/resources/themes/saga-orange/theme.css'
 //import 'primereact/resources/themes/nova-accent/theme.css'
@@ -17,7 +17,7 @@ import "primereact/resources/primereact.min.css";                  //core css
 
 
 import 'primeflex/primeflex.css';
-import 'react-notifications/lib/notifications.css';
+//import 'react-notifications/lib/notifications.css';
 
 class HomeCards extends Component {
   constructor(props){
@@ -169,7 +169,7 @@ class HomeCards extends Component {
 
         return (
             <div className="dataview-demo tableCardsJobOffers">                
-                <div className="card cardByCards">                
+                <div className="cardByCards">                
                     <DataView value={this.state.joboffers} layout={this.state.layout} header={header}
                             itemTemplate={this.itemTemplate} lazy paginator paginatorPosition={'both'} rows={this.rows}
                             totalRecords={this.state.totalRecords} first={this.state.first} onPage={this.onPage} loading={this.state.loading} 

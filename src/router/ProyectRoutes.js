@@ -143,7 +143,7 @@ export default function ProyectRoutes() {
                 </BrowserRouter>
                 </JobApplicantContainerContext>
                 </JobOfferContainerContext>
-             <Footer/>
+                <Footer/>
         </div>        
     );
 }
