@@ -29,6 +29,7 @@
     "react-bootstrap-validation": "^0.1.11",
     "react-datepicker": "^4.7.0",
     "react-dom": "^16.14.0",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.29.0",
     "react-json-pretty": "^2.2.0",
     "react-notifications": "^1.7.3",

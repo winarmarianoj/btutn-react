@@ -52,11 +52,39 @@ ul, ol {
     transition: .22s ease;
 }
 .imgUtn{
-    background-image: url('../img/logo-utn.png');    
+    background-image: url('../img/logUtn.png');    
 }
 .imgCuvl{
-    background-image: url('../img/cuvl.png');    
+    background-image: url('../img/logCuvl.png');    
 }
 .imgCuvl, .imgUtn{
-    width:250px; height: 100px;
+    justify-content: center;
+    margin-left: 20%;
+    width: 250px; height: 80px;
+    padding: 30px 0px;
 }
+
+/*
+#footer ul.social li{
+	padding: 3px 0;
+}
+#footer ul.social li a i {
+    margin-right: 5px;
+	font-size:25px;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.social li:hover a i {
+	font-size:30px;
+	margin-top:-10px;
+}
+#footer ul.social li a,
+#footer ul.quick-links li a{
+	color:#ffffff;
+}
+#footer ul.social li a:hover{
+	color:#eeeeee;
+}
+*/
+

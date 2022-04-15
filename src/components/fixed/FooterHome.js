@@ -9,27 +9,37 @@ const FooterHome = () => {
                 <div className="row row-30 ">
                     <div className="col-md-4 col-xl-5 ">
                         <div className="pr-xl-4">
-                        <div className="row">
-                            <dl className="imgUtn col-6"></dl>
-                            <dl className="imgCuvl col-6"></dl>
-                        </div>
-                            <p>Bienvenido a la Bolsa de Trabajo hecha y suministrada por Centro Universitario Vicente Lopez en conjunto con 
-                                la Universidad Técnica Nacional de Buenos Aires.</p>                        
-                            <p className="rights"><span>©  </span><span className="copyright-year">2022</span><span> </span><span>Buenos Aires</span><span>. </span><span>All Rights Reserved.</span></p>
-                        </div>
+                            <dd className="imgCuvl" ></dd>
+                            <div className="mt-4 text-center">
+                                <p>Bienvenido a la Bolsa de Trabajo hecha y suministrada por Centro Universitario Vicente Lopez en conjunto con 
+                                    la Universidad Técnica Nacional de Buenos Aires.</p>                        
+                            </div>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                                    <ul className="list-unstyled list-inline social text-center">
+                                        <li className="list-inline-item"><a href="https://www.facebook.com/CentroUniversitarioVL"><i className="fa fa-facebook"></i></a></li>
+                                        <li className="list-inline-item"><a href="https://www.instagram.com/centrouniversitariovl/"><i className="fa fa-twitter"></i></a></li>
+                                        <li className="list-inline-item"><a href="https://www.instagram.com/centrouniversitariovl/"><i className="fa fa-instagram"></i></a></li>
+                                        <li className="list-inline-item"><a href="https://www.linkedin.com/in/prensa-utn-buenos-aires-9671a32b/"><i className="fa fa-linkedin"></i></a></li>
+                                        <li className="list-inline-item"><a href="https://www.youtube.com/user/utnbuenosaires1"><i className="fa fa-youtube"></i></a></li>
+                                        <li className="list-inline-item"><a href="mailto:centro.universitario@mvl.edu.ar" target="_blank"><i className="fa fa-envelope"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>                        
                     </div>
                     <div className="col-md-4">
                         <h5>Contacts</h5>                        
                         <dl className="contact-list">
                             <dt>Address:</dt>   
-                            <dd><a class="footer-adr" target="_blank" href="https://goo.gl/maps/X6s9YGWqpc42">Carlos Villate 4480, Munro, Buenos Aires</a></dd>
+                            <dd><a className="footer-adr" target="_blank" href="https://goo.gl/maps/X6s9YGWqpc42">Carlos Villate 4480, Munro, Buenos Aires</a></dd>
                         </dl>                        
                         <dl className="contact-list">
-                            <dt>email:</dt>
+                            <dt>Email:</dt>
                             <dd><a href="mailto:#">bolsa.de.trabajo.utn.test@gmail.com</a></dd>
                         </dl>
                         <dl className="contact-list">
-                            <dt>phones:</dt>
+                            <dt>Phones:</dt>
                             <dd><a href="tel:#">5197-1515</a> <span>or</span> <a href="tel:#">5197-1154</a></dd>
                         </dl>
                     </div>
@@ -43,14 +53,8 @@ const FooterHome = () => {
                             <li><a href="#">Soporte</a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            <div className="row no-gutters social-container">          
-            <div className="col"><a className="social-inner" href="https://www.facebook.com/CentroUniversitarioVL" target="_blank"><span className="icon mdi mdi-facebook"></span><span>Facebook CUVL</span></a></div>
-            <div className="col"><a className="social-inner" href="https://www.instagram.com/centrouniversitariovl/" target="_blank"><span className="icon mdi mdi-instagram"></span><span>Instagram CUVL</span></a></div>
-            <div className="col"><a className="social-inner" href="https://twitter.com/frbautn" target="_blank"><span className="icon mdi mdi-twitter"></span><span>Twitter UTN</span></a></div>
-            <div className="col"><a className="social-inner" href="https://www.linkedin.com/in/prensa-utn-buenos-aires-9671a32b/" target="_blank"><span className="icon mdi mdi-youtube-play"></span><span>Linkedin UTN</span></a></div>
-            </div>
+                </div>                             
+            </div>            
         </section>
     );
 };
