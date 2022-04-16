@@ -6,6 +6,7 @@ import FooterHome from "../../components/fixed/FooterHome";
 import GameSpot from "../../components/apis/GameSpot";
 import RapiApiMovies from '../../components/apis/RapiApiMovies';
 import TuTiempo from "../../components/apis/Tutiempo";
+import SearchByCategory from "../../components/home/SearchByCategory";
 import '../../assets/css/home.css';
 
 /*fixed-top offset-fixed*/
@@ -15,13 +16,13 @@ const Home = () => {
         <div className="home">
             <div className="container-fluid">
                 <div className="row">
-                    <section className="col-4 f-left my-5 pt-5 carouselItems">  
-                        <div className="carouselItems"><CuvlCarousel /> <UtnCarousel /> 
-                        <TuTiempo /></div>
+                    <section className="col-4 f-left my-5 pt-5 carouselItemsLeft">  
+                        <div className=""><CuvlCarousel /> <UtnCarousel /> 
+                        <TuTiempo /> </div>
                     </section>
                     <section className="col-1 "></section>
-                    <section className="col-7 f-right pt-5">                        
-                        <HomeCards />
+                    <section className="col-7 f-right my-5 pt-5 carouselItemsRight">
+                        <div className=""><SearchByCategory /> <HomeCards /></div>
                     </section>                    
                 </div>
                 <FooterHome />

@@ -4,8 +4,13 @@ import AuthService from "./AuthService";
 const CATEGORY_BASE_URL = "http://localhost:8082/category/";
 
 class CategoryService {
+    
     async getAll(){
         return await axios.get(CATEGORY_BASE_URL).then(res => res.data);
+    }
+
+    async getFiltersAllCategories(){
+        return await axios.get(CATEGORY_BASE_URL + "by-names").then(res => res.data);
     }
 
     async create(category){
