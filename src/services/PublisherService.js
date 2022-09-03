@@ -3,7 +3,8 @@ import axios from 'axios';
 import AuthService from "./AuthService";
 import Swal from 'sweetalert';
 
-const PUBLISHER_BASE_URL = "http://localhost:8082/person/";
+const PUBLISHER_BASE_URL = "http://localhost:8082/publisher/";
+const PERSON_BASE_URL = "http://localhost:8082/person/";
 
 class PublisherService{
     async getAll(){

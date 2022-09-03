@@ -95,23 +95,21 @@ class ApplicantProfile extends Component{
         return(
             <div style={Styles.divPerson}>
                 <Menubar model={this.items}/>
-                <div className="container profile"> 
-                    <div className="container profile"> 
-                        <div className="profile-usertitle ">
-                            <div className="profile-usertitle-name row">                                
-                                <p>Name :  {this.state.person.name}</p>
-                                <p>Last Name :  {this.state.person.surname}</p>
-                                <p>Id Applicant :  {this.state.person.id}</p>
-                                <p>URI :  {this.state.person.uri}</p>
-                                <p>DNI :  {this.state.person.identification}</p>
-                                <p>Phone Number :  {this.state.person.phoneNumber}</p>
-                                <p>Email :  {this.state.person.email}</p>
-                                <p>Genre :  {this.state.person.genre}</p>
-                                <p>BirthDate :  {this.state.person.birthDate}</p>
-                                <p>TypeStudent :  {this.state.person.typeStudent}</p>
-                            </div>                            
-                        </div> 
-                    </div>
+                <div className="container profileApplicant"> 
+                    <div className="profile-usertitle ">
+                        <div className="profile-usertitle-name row">                                
+                            <p>Name :  {this.state.person.name}</p>
+                            <p>Last Name :  {this.state.person.surname}</p>
+                            <p>Id Applicant :  {this.state.person.id}</p>
+                            <p>URI :  {this.state.person.uri}</p>
+                            <p>DNI :  {this.state.person.identification}</p>
+                            <p>Phone Number :  {this.state.person.phoneNumber}</p>
+                            <p>Email :  {this.state.person.email}</p>
+                            <p>Genre :  {this.state.person.genre}</p>
+                            <p>BirthDate :  {this.state.person.birthDate}</p>
+                            <p>TypeStudent :  {this.state.person.typeStudent}</p>
+                        </div>                            
+                    </div> 
                 </div>
 
                 <Dialog header="Update Person" visible={this.state.visible} style={{width: '400px'}} footer={this.footer} modal={true} onHide={() => this.setState({visible: false})}>

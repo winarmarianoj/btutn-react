@@ -4,6 +4,7 @@ import AuthService from "./AuthService";
 import Swal from 'sweetalert';
 
 const APPLICANT_BASE_URL = "http://localhost:8082/applicant/";
+const PERSON_BASE_URL = "http://localhost:8082/person/";
 
 class ApplicantService{
     async getAll(){
@@ -14,12 +15,12 @@ class ApplicantService{
         await axios.post(APPLICANT_BASE_URL, person).then(
             response => {                
                 Swal({text: 'Congratulation!! Is already registered a new user.' + response.data.message,
-                    icon: 'success', timer:'3500'});
-                //window.location.href = './login';
+                    icon: 'success', timer:'5000'});
+                window.location.href = './login';
             }).catch(error=>{ 
                 console.log(error.message);
                 Swal({text: 'Failed register new user.' + error.message,
-                    icon: 'error', timer:'3500'});
+                    icon: 'error', timer:'6000'});
                 window.location.href = './register';
             });            
     }

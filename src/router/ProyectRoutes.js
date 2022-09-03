@@ -32,6 +32,8 @@ import Register from "../components/pages/Register";
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
 
+import './ProyectRoutes.css';
+
 export default function ProyectRoutes() {
     const [utnBoard, setUtnBoard] = useState(false);
     const [adminBoard, setAdminBoard] = useState(false);

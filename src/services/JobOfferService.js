@@ -11,7 +11,8 @@ class JobOfferService{
     }
 
     async create(joboffer) {
-        return await axios.post(JOBOFFER_BASE_URL, joboffer).then(res => res.data);
+        let user = AuthService.getCurrentUser();
+        return await axios.post(JOBOFFER_BASE_URL + user.id, joboffer).then(res => res.data);
     }
 
     async get(id){

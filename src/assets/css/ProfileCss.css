@@ -4,7 +4,7 @@
     background-repeat:no-repeat;
     background-size:cover;
     width:100%;
-    height:100vh;
+    height:78vh;
     overflow:auto;
   }
 
@@ -28,7 +28,16 @@
     height: 90%;
     box-shadow: 2px 5px 5px 0px #eee;
   }
-  
+  .profileApplicant{
+    font-family: Roboto,sans-serif;
+    color: burlywood;
+    background-image: url(../img/dark-blue-fondo.webp);   
+    border-style: 1px solid rgb(16, 64, 221);
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0.8;
+    box-shadow: 2px 5px 5px 0px #eee;
+  }
   .profile-usertitle {
     text-align: center;
     margin-top: 20px;

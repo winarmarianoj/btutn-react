@@ -68,17 +68,24 @@ const Register = (props) => {
       setSuccessful(false);
   
       form.current.validateAll();
+      if(typePerson === "UTN" || typePerson === "ADMIN"){                  
+        PersonService.create(person);
+      }else if(typePerson === "PUBLISHER"){
+        PublisherService.create(person);
+      }else if(typePerson === "APPLICANT"){
+        ApplicantService.create(person);
+      }else{
+        Swal({text: 'Failed register new user.',
+                      icon: 'error', timer:'5000'});
+          setMessage(result.message);
+          setSuccessful(false);
+          window.location.href = './register';
+      }
   
-      if (checkBtn.current.context._errors.length === 0) {
-        if(typePerson === "UTN" || typePerson === "ADMIN"){                  
-          PersonService.create(person);
-        }else if(typePerson === "PUBLISHER"){
-          PublisherService.create(person);
-        }else if(typePerson === "APPLICANT"){
-          ApplicantService.create(person);
-        }
+      /*if (checkBtn.current.context._errors.length === 0) {
+        
 
-        /*if(result.response === 'true'){
+        if(result.response === 'true'){
           Swal({text: 'Congratulation!! Is already registered a new user.',
                         icon: 'success', timer:'3500'});
             setMessage(result.message);
@@ -91,9 +98,9 @@ const Register = (props) => {
             setSuccessful(false);
             window.location.href = './register';
         }
-        */
+        
        
-      }      
+      } */     
     };
 
     return(
@@ -193,7 +200,18 @@ const Register = (props) => {
                 </div>
               )}       
 
-              {message && (
+              
+            </Form>
+        </div>
+      </div>
+
+    );
+};
+
+export default Register;
+
+/*
+{message && (
                 <div className="form-group">
                   <div
                     className={
@@ -206,11 +224,4 @@ const Register = (props) => {
                 </div>
               )}
               <CheckButton style={{ display: "none" }} ref={checkBtn} />
-            </Form>
-        </div>
-      </div>
-
-    );
-};
-
-export default Register;
+*/

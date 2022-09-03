@@ -21,4 +21,12 @@
         min-width: 0;
     }
 }
+
+
+<li className="list-inline-item"><a href="https://www.facebook.com/CentroUniversitarioVL"><i className="fa fa-facebook"></i></a></li>
+<li className="list-inline-item"><a href="https://www.instagram.com/centrouniversitariovl/"><i className="fa fa-twitter"></i></a></li>
+<li className="list-inline-item"><a href="https://www.instagram.com/centrouniversitariovl/"><i className="fa fa-instagram"></i></a></li>
+<li className="list-inline-item"><a href="https://www.linkedin.com/in/prensa-utn-buenos-aires-9671a32b/"><i className="fa fa-linkedin"></i></a></li>
+<li className="list-inline-item"><a href="https://www.youtube.com/user/utnbuenosaires1"><i className="fa fa-youtube"></i></a></li>
+<li className="list-inline-item"><a href="mailto:centro.universitario@mvl.edu.ar" target="_blank"><i className="fa fa-envelope"></i></a></li>
              

@@ -1,3 +1,5 @@
+import { faFacebook, faInstagram, faLinkedin, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import '../../assets/css/FooterHome.css';
 
@@ -17,16 +19,15 @@ const FooterHome = () => {
                             <div className="row">
                                 <div className="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
                                     <ul className="list-unstyled list-inline social text-center">
-                                        <li className="list-inline-item"><a href="https://www.facebook.com/CentroUniversitarioVL"><i className="fa fa-facebook"></i></a></li>
-                                        <li className="list-inline-item"><a href="https://www.instagram.com/centrouniversitariovl/"><i className="fa fa-twitter"></i></a></li>
-                                        <li className="list-inline-item"><a href="https://www.instagram.com/centrouniversitariovl/"><i className="fa fa-instagram"></i></a></li>
-                                        <li className="list-inline-item"><a href="https://www.linkedin.com/in/prensa-utn-buenos-aires-9671a32b/"><i className="fa fa-linkedin"></i></a></li>
-                                        <li className="list-inline-item"><a href="https://www.youtube.com/user/utnbuenosaires1"><i className="fa fa-youtube"></i></a></li>
-                                        <li className="list-inline-item"><a href="mailto:centro.universitario@mvl.edu.ar" target="_blank"><i className="fa fa-envelope"></i></a></li>
+                                        <li className="list-inline-item"><a className="logos" href="https://www.facebook.com/CentroUniversitarioVL" target="-blanck" rel="noreferrer"><FontAwesomeIcon icon={faFacebook} color="#4d4d4e" /></a></li>
+                                        <li className="list-inline-item"><a className="logos" href="https://www.instagram.com/centrouniversitariovl/" target="-blanck" rel="noreferrer"><FontAwesomeIcon icon={faInstagram} color="#4d4d4e" /></a></li>
+                                        <li className="list-inline-item"><a className="logos" href="https://twitter.com/frbautn" target="-blanck" rel="noreferrer"><FontAwesomeIcon icon={faTwitter} color="#4d4d4e" /></a></li>
+                                        <li className="list-inline-item"><a className="logos" href="https://www.linkedin.com/in/prensa-utn-buenos-aires-9671a32b/" target="-blanck" rel="noreferrer"><FontAwesomeIcon icon={faLinkedin} color="#4d4d4e" /></a></li>
+                                        <li className="list-inline-item"><a className="logos" href="https://www.youtube.com/user/utnbuenosaires1" target="-blanck" rel="noreferrer"><FontAwesomeIcon icon={faYoutube} color="#4d4d4e" /></a></li>
                                     </ul>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>                  
                     </div>
                     <div className="col-md-4">
                         <h5>Contacts</h5>                        
