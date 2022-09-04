@@ -3,13 +3,9 @@ import HomeCards from "../../components/home/HomeCards";
 import CuvlCarousel from "../../components/slides/CuvlCarousel";
 import UtnCarousel from "../../components/slides/UtnCarousel";
 import FooterHome from "../../components/fixed/FooterHome";
-import GameSpot from "../../components/apis/GameSpot";
-import RapiApiMovies from '../../components/apis/RapiApiMovies';
 import TuTiempo from "../../components/apis/Tutiempo";
 import SearchByCategory from "../../components/home/SearchByCategory";
 import '../../assets/css/home.css';
-
-/*fixed-top offset-fixed*/
 
 const Home = () => {
     return(
@@ -18,7 +14,7 @@ const Home = () => {
                 <div className="row">
                     <section className="col-4 f-left my-5 pt-5 carouselItemsLeft">  
                         <div className=""><CuvlCarousel /> <UtnCarousel /> 
-                        <TuTiempo /> </div>
+                        <TuTiempo /></div>
                     </section>
                     <section className="col-1 "></section>
                     <section className="col-7 f-right my-5 pt-5 carouselItemsRight">

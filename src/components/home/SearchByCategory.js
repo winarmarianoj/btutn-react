@@ -21,9 +21,6 @@ const SearchByCategory = () => {
     const getJobByCategories = (e) => {
         e.preventDefault();
         setCategory(e.target.value);
-        //localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
-        //window.location.href = './publisherAppliedByJobOffer';
-        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
     }
 
     return(
@@ -39,5 +36,3 @@ const SearchByCategory = () => {
     );
 }
 export default SearchByCategory;
-
-//<a icon="pi pi-search" href="#" class="search_icon" ></a>

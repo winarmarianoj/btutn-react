@@ -1,13 +1,12 @@
 import React, {Component} from "react";
 import PersonService from '../../services/PersonService';
 import AuthService from "../../services/AuthService";
-import {Panel} from 'primereact/panel';
 import {Dialog} from 'primereact/dialog';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import Styles from '../../assets/css/StyleWeb.css';
 import Swal from 'sweetalert';
-import ProfileCss from '../../assets/css/ProfileCss.css';
+import '../../assets/css/ProfileCss.css';
 import {Menubar} from 'primereact/menubar';
 
 import "primereact/resources/themes/arya-orange/theme.css";          //theme

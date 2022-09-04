@@ -2,19 +2,18 @@ import React, {useState, useEffect} from "react";
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/css/App.css";
-import { DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
-
 import AuthService from "../services/AuthService";
-
 import Header from "../components/fixed/Header";
 import Footer from "../components/fixed/Footer";
 import Login from "../components/pages/Login";
+import Forgot from "../components/pages/Forgot";
 import Home from "../screens/Home/Home";
 import Profile from "../components/pages/Profile";
 import Admin from "../screens/Admin/Admin";
 import AdminProfile from "../components/admin/AdminProfile";
 import ApplicantYourApplicants from "../screens/Applicant/ApplicantYourApplicants";
 import ApplicantProfile from "../components/applicant/ApplicantProfile";
+import ApplicantJobofferToApply from "../screens/Applicant/ApplicantJobofferToApply";
 import PublisherYourJobOffers from "../screens/Publisher/PublisherYourJobOffers";
 import PublisherProfile from "../components/publisher/PublisherProfile";
 import PublisherJobOfferByCategory from "../screens/Publisher/PublisherJobOfferByCategory";
@@ -23,16 +22,13 @@ import UtnProfile from "../components/utn/UtnProfile";
 import UtnJobOfferStateSelected from '../screens/Utn/UtnJobOfferStateSelected';
 import DialogJobOffer from "../components/dialog/DialogJobOffer";
 import DialogJobApplicant from '../components/dialog/DialogJobApplicant';
-import StyleCentral from '../assets/css/stylesCentral.css';
 import { Dropdown } from 'primereact/dropdown';
 import JobApplicantContainerContext from '../context/jobApplicant/JobApplicantContainerContext';
 import JobOfferContainerContext from "../context/joboffer/JobOfferContainerContext";
 import Register from "../components/pages/Register";
-
-// import AuthVerify from "./common/AuthVerify";
 import EventBus from "../common/EventBus";
-
 import './ProyectRoutes.css';
+import '../assets/css/stylesCentral.css';
 
 export default function ProyectRoutes() {
     const [utnBoard, setUtnBoard] = useState(false);
@@ -117,6 +113,7 @@ export default function ProyectRoutes() {
                         <div className="navbar-nav ml-auto marginRight">
                             <li className="nav-item"> <Link to={"/login"} className="nav-link">Login</Link> </li>
                             <li> <Dropdown value={typePerson} options={persons} onChange={(e) => sendSelectedTypePerson(e)} placeholder="Select a Type Person Register"/> </li>
+                            <li className="nav-item"> <Link to={"/forgot"} className="nav-link">Forgot</Link> </li>
                         </div>
                         )}
                     </nav>
@@ -125,12 +122,14 @@ export default function ProyectRoutes() {
                         <Switch>
                             <Route exact path={["/", "/home"]} component={Home} />
                             <Route exact path="/login" component={Login} />
+                            <Route exact path="/forgot" component={Forgot} />
                             <Route exact path="/profile" component={Profile} />
                             <Route exact path="/register" component={Register} />
                             <Route path="/admin" component={Admin} />
                             <Route path="/adminProfile" component={AdminProfile} />
                             <Route path="/applicantYourApplicants" component={ApplicantYourApplicants} />
                             <Route path="/applicantProfile" component={ApplicantProfile} />
+                            <Route path="/applicantJobofferToApply" component={ApplicantJobofferToApply} />
                             <Route path="/publisherYourJobOffers" component={PublisherYourJobOffers} />
                             <Route path="/publisherProfile" component={PublisherProfile} />
                             <Route path="/publisherJobOfferByCategory" component={PublisherJobOfferByCategory} />

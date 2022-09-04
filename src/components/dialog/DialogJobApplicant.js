@@ -27,10 +27,7 @@ const DialogJobApplicant = () => {
         }
     }, []);
     const headerDialog = () => {return (<h5 className="titleDialog">Complete Data by Applicant and Job Offer</h5>);}
-    const closeAndSendHome = () => {setJobofferDialog(false); 
-        (publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './publisherJobOfferByCategory'));
-        (applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './applicantYourApplicants'));
-    }
+    const closeAndSendHome = () => {setJobofferDialog(false); window.location.href = './home'; }
 
     return(
         <Dialog className="p-fluid containerDialog" header={headerDialog} visible={jobofferDialog} style={{width: '1000px'}} modal={true} onHide={() => closeAndSendHome()}>    

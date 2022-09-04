@@ -41,6 +41,8 @@ const Login = (props) => {
 
           setLoading(false);
           setMessage(resMessage);
+          Swal({text: 'Failed loged or not active user.' + error.message,
+                    icon: 'error', timer:'6000'});
         }
       );
     } else {
@@ -59,12 +61,12 @@ const Login = (props) => {
                 </div> 
                 <Form onSubmit={handleLogin} ref={form}>
                   <div className="form-group mt-4">            
-                    <Input type="text" className="form-control item datauser" value={user.username} style={{width : '100%'}} id="name" onChange={(e) => {
+                    <Input type="text" className="form-control item datauser" value={user.username} style={{width : '80%'}} id="name" onChange={(e) => {
                               user.username = e.target.value;}} placeholder="Email" required/>
                   </div>
 
                   <div className="form-group mt-4">
-                  <Input type="password" className="form-control item datauser" value={user.password} style={{width : '100%'}} id="password" onChange={(e) => {
+                  <Input type="password" className="form-control item datauser" value={user.password} style={{width : '80%'}} id="password" onChange={(e) => {
                                   user.password = e.target.value;}} placeholder="Password" required/>
                   </div>
 

@@ -11,6 +11,12 @@ const login = async (user) => {
   return response.data;
 };
 
+const forgot = async (userForgot) => {
+  console.log(userForgot)  
+  const response = await axios.post(API_URL + "/auth/forgot", userForgot);
+  return response.data;
+};
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -21,6 +27,7 @@ const getCurrentUser = () => {
 
 export default {
   login,
+  forgot,
   logout,
   getCurrentUser,
 };

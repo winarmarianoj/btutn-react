@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AuthService from "./AuthService";
 
 const CATEGORY_BASE_URL = "http://localhost:8082/category/";
 

@@ -9,7 +9,6 @@ import {Dialog} from 'primereact/dialog';
 import {InputText} from 'primereact/inputtext';
 import {Button} from 'primereact/button';
 import Swal from 'sweetalert';
-
 import { Toolbar } from 'primereact/toolbar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
@@ -243,14 +242,22 @@ class PublisherYourJobOffers extends Component {
                         <InputTextarea id="description" value={this.state.joboffer.description} onChange={(e) => this.onInputChange(e, 'description')} required rows={3} cols={80} />
                     </div>
                 </div>
+                <div className="field">
+                    <div className="field col"> <label htmlFor="body">Cuerpo</label> </div>
+                    <div className="field">
+                        <InputTextarea id="body" value={this.state.joboffer.body} onChange={(e) => this.onInputChange(e, 'body')} required rows={3} cols={80} />
+                    </div>
+                </div>
                 <div className="formgrid grid">
                     <div className="field col"> <label htmlFor="area">Area</label> </div>
                     <div className="field">
-                        <InputText id="area" value={this.state.joboffer.area} onValueChange={(e) => this.onInputChange(e, 'area')} required autoFocus className={classNames({ 'p-invalid': this.state.submitted && !this.state.joboffer.area })}/>
-                    </div>
+                        <InputText id="area" value={this.state.joboffer.area} onChange={(e) => this.onInputChange(e, 'area')} required autoFocus className={classNames({ 'p-invalid': this.state.submitted && !this.state.joboffer.area })}/>
+                    </div>                    
+                </div>
+                <div className="formgrid grid">                    
                     <div className="field col"> <label htmlFor="experience">Experience</label> </div>
                     <div className="field">
-                        <InputNumber id="experience" value={this.state.joboffer.experience} onValueChange={(e) => this.onInputNumberChange(e, 'quantity')} integeronly />
+                        <InputNumber id="experience" value={this.state.joboffer.experience} onChange={(e) => this.onInputNumberChange(e, 'experience')} integeronly />
                     </div>
                 </div>
 

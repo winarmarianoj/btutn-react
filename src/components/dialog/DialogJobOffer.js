@@ -13,7 +13,6 @@ import JobOfferContext from '../../context/joboffer/JobOfferContext';
 
 const DialogJobOffer = () => {
     const job = useContext(JobOfferContext);
-    const [editjobofferID, setEditJobofferID] = useState('');
     const [jobofferDialog, setJobofferDialog] = useState(false);
     const [utnBoard, setUtnBoard] = useState(false);
     const [adminBoard, setAdminBoard] = useState(false);
@@ -38,11 +37,7 @@ const DialogJobOffer = () => {
     }, []);
 
     const headerDialog = () => {return (<h5 className="titleDialog">JobOffer Detail</h5>);}
-    const closeAndSendHome = () => {setJobofferDialog(false); 
-        {(publisherBoard ? ( window.location.href = './publisherJobOfferByCategory') : (window.location.href = './publisherJobOfferByCategory'))};
-        {(applicantBoard ? ( window.location.href = './applicantYourApplicants' ) : (window.location.href = './applicantYourApplicants'))};
-        {(utnBoard ? ( window.location.href = './utnJobOfferStateSelected' ) : (window.location.href = './utnJobOfferStateSelected'))};
-    }
+    const closeAndSendHome = () => {setJobofferDialog(false); window.location.href = './home';}
 
     const editjobofferapplied = () => {     
         JobOfferService.applicantPostulate(job.id).then((data) => {

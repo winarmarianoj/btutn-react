@@ -1,23 +1,10 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useContext } from 'react'; 
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
 import { Button } from 'primereact/button';
 import JobOfferService from "../../services/JobOfferService";
 import AuthService from "../../services/AuthService";
 import "../../assets/css/DataView.css";
-
-//import 'primeicons/primeicons.css';
-//import "primereact/resources/primereact.min.css";                  //core css
-
-//import 'primereact/resources/themes/saga-orange/theme.css'
-//import 'primereact/resources/themes/nova-accent/theme.css'
-//import 'primereact/resources/themes/nova-alt/theme.css'
-//import 'primereact/resources/themes/nova/theme.css'
-//import 'primereact/resources/themes/rhea/theme.css'
-
-
 import 'primeflex/primeflex.css';
-//import 'react-notifications/lib/notifications.css';
 
 class HomeCards extends Component {
   constructor(props){
@@ -31,7 +18,8 @@ class HomeCards extends Component {
       first: 0,
       totalRecords: 0,
       setApplicantBoard: false,
-      currentUser: ''
+      currentUser: '',
+      context: ''
     };
     this.rows = 12;
     
@@ -78,11 +66,8 @@ class HomeCards extends Component {
     };
 
     editjoboffer({data}){
-        //localStorage.setItem("jobAppliedID", JSON.stringify(data.id));
-        //window.location.href = './applicantJobofferToApply';
-
-        localStorage.setItem("editjobofferID", JSON.stringify(data.id));
-        window.location.href = './dialogJobOffer';
+        localStorage.setItem("jobOfferData", JSON.stringify(data));
+        window.location.href = './applicantJobofferToApply';
     }
 
     renderListItem(data) {

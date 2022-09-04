@@ -41,10 +41,6 @@ const PublisherJobOfferByCategory = () => {
 
     const categoriesBodyTemplate = (rowData) => {return <span className={`customer-badge category-${rowData.category}`}>{rowData.category}</span>;}
 
-    const categoriesFilterTemplate = (options) => {
-        return <Dropdown value={options.value} options={categories} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={categoriesItemTemplate} placeholder="Select a Category" className="p-column-filter" showClear />;
-    }
-
     const categoriesItemTemplate = (option) => {return <span className={`customer-badge category-${option}`}>{option}</span>;}
 
     const categoriesRowFilterTemplate = (options) => {
@@ -65,7 +61,6 @@ const PublisherJobOfferByCategory = () => {
     const openApplicantByJoboffer = (rowData) => {
         localStorage.setItem("jobid", JSON.stringify(rowData.rowData.id));
         window.location.href = './publisherAppliedByJobOffer';
-        //window.location.assign(link) icon="pi pi-pencil"  icon="pi pi-list";
     }
 
     const actionBodyTemplate = (rowData) => {

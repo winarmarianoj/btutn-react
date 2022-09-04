@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from "react";
 import AuthService from "../../services/AuthService";
-import ProfileStyle from '../../assets/css/ProfileCss.css';
+import '../../assets/css/ProfileCss.css';
 import ApplicantProfile from "../applicant/ApplicantProfile";
 import PublisherProfile from "../publisher/PublisherProfile";
 import AdminProfile from "../admin/AdminProfile";
 import UtnProfile from "../utn/UtnProfile";
 import Admin from "../../screens/Admin/Admin";
-import ProfileCss from '../../assets/css/ProfileCss.css';
 
 const Profile = () => {
   let emptyUser = { jwt: '', id: '', role: '', username: ''};  

@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import {InputText} from 'primereact/inputtext';
 import Swal from 'sweetalert';
-//import StyleRegister from "../../assets/css/styleRegister.css";
-//import '../../assets/css/FormRegister.css';
 import '../../assets/css/styleRegister2.css';
 
 import { DatePicker } from "@material-ui/pickers";
@@ -14,7 +9,6 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 import TextField from '@material-ui/core/TextField';
 import 'react-datepicker/dist/react-datepicker.css';
-import DatePickers from "../util/DatePickers";
 import { Dropdown } from 'primereact/dropdown';
 
 import ApplicantService from '../../services/ApplicantService';
@@ -81,26 +75,6 @@ const Register = (props) => {
           setSuccessful(false);
           window.location.href = './register';
       }
-  
-      /*if (checkBtn.current.context._errors.length === 0) {
-        
-
-        if(result.response === 'true'){
-          Swal({text: 'Congratulation!! Is already registered a new user.',
-                        icon: 'success', timer:'3500'});
-            setMessage(result.message);
-            setSuccessful(true);
-            window.location.href = './login';
-        }else{
-          Swal({text: 'Failed register new user.',
-                        icon: 'error', timer:'3500'});
-            setMessage(result.message);
-            setSuccessful(false);
-            window.location.href = './register';
-        }
-        
-       
-      } */     
     };
 
     return(
@@ -198,8 +172,7 @@ const Register = (props) => {
                     <button className="btn btn-primary btn-block">Sign Up</button>
                   </div>
                 </div>
-              )}       
-
+              )}   
               
             </Form>
         </div>
@@ -209,19 +182,3 @@ const Register = (props) => {
 };
 
 export default Register;
-
-/*
-{message && (
-                <div className="form-group">
-                  <div
-                    className={
-                      successful ? "alert alert-success" : "alert alert-danger"
-                    }
-                    role="alert"
-                  >
-                    {message}
-                  </div>
-                </div>
-              )}
-              <CheckButton style={{ display: "none" }} ref={checkBtn} />
-*/
