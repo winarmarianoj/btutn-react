@@ -27,7 +27,7 @@ const ApplicantJobofferToApply = () => {
     }, []);
 
     return redirection ? (<Redirect to="/dialogJobOffer"/>) : (
-        <div><h5>ACA NO HAY NADA LOCOOOOOOOO</h5></div>       
+        <div><h5>ALGO NO FUNCIONO. LLAME A SOPORTE</h5></div>       
     );
 }
 

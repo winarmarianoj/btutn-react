@@ -18,7 +18,7 @@ const Home = () => {
                     </section>
                     <section className="col-1 "></section>
                     <section className="col-7 f-right my-5 pt-5 carouselItemsRight">
-                        <div className=""><SearchByCategory /> <HomeCards /></div>
+                        <div className=""><HomeCards /></div>
                     </section>                    
                 </div>
                 <FooterHome />

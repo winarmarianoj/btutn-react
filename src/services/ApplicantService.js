@@ -14,14 +14,18 @@ class ApplicantService{
     async create(person){
         await axios.post(APPLICANT_BASE_URL, person).then(
             response => {                
-                Swal({text: 'Congratulation!! Is already registered a new user.' + response.data.message,
+                Swal({text: 'Congratulation!! Is already registered a new user. You will receive an email in which you must activate your account by clicking on the link. ' + response.data.message,
                     icon: 'success', timer:'5000'});
-                window.location.href = './login';
+                setTimeout(() => {
+                    window.location.href = './login';
+                }, 2500);     
             }).catch(error=>{ 
                 console.log(error.message);
                 Swal({text: 'Failed register new user.' + error.message,
-                    icon: 'error', timer:'6000'});
-                window.location.href = './register';
+                    icon: 'error', timer:'4000'});
+                setTimeout(() => {
+                    window.location.href = './register';
+                }, 2500);
             });            
     }
     

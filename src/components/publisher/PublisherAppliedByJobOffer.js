@@ -39,11 +39,7 @@ const PublisherAppliedByJobOffer = () => {
     })}, []);
 
     const typeStudentBodyTemplate = (rowData) => {return <span className={`customer-badge typeStudent-${rowData.typeStudent}`}>{rowData.typeStudent}</span>;}
-
-    const typeStudentFilterTemplate = (options) => {
-        return <Dropdown value={options.value} options={studentTypes} onChange={(e) => options.filterCallback(e.value, options.index)} itemTemplate={typeStudentItemTemplate} placeholder="Select a Type Student" className="p-column-filter" showClear />;
-    }
-
+    
     const typeStudentItemTemplate = (option) => {return <span className={`customer-badge typeStudent-${option}`}>{option}</span>;}
 
     const typeStudentRowFilterTemplate = (options) => {

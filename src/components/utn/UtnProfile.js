@@ -64,11 +64,15 @@ class UtnProfile extends Component{
                     Swal({text: 'Thank you for using our services',
                         icon: 'success', timer:'3500'});});
                 AuthService.logout();
-                window.location.assign('/login');
+                setTimeout(() => {
+                    window.location.assign('/login');
+                }, 2500);
             }else{
                 Swal({text: 'Failed delete your profile.',
-                        icon: 'error', timer:'3500'});
-                window.location.assign('/profile');}
+                        icon: 'error', timer:'3500'});                
+                setTimeout(() => {
+                    window.location.assign('/profile');
+                }, 2500);}
             })
     }
 

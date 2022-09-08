@@ -24,10 +24,12 @@ const Forgot = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.forgot(userForgot).then(
-        (response) => {          
-            window.location.href = './login';
+        (response) => {      
             Swal({text: 'Is already changed your password.' + response.data.message,
                     icon: 'success', timer:'3500'});
+            setTimeout(() => {
+              window.location.href = './login';
+            }, 2500); 
         },
         (error) => {
           const resMessage =

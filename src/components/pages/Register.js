@@ -70,10 +70,12 @@ const Register = (props) => {
         ApplicantService.create(person);
       }else{
         Swal({text: 'Failed register new user.',
-                      icon: 'error', timer:'5000'});
-          setMessage(result.message);
-          setSuccessful(false);
+                      icon: 'error', timer:'3500'});
+        setMessage(result.message);
+        setSuccessful(false);
+        setTimeout(() => {
           window.location.href = './register';
+        }, 2500);          
       }
     };
 
